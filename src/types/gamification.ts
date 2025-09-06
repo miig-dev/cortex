@@ -1,4 +1,4 @@
-export type BadgeType = 
+export type BadgeType =
   | 'deep-worker'
   | 'idea-master'
   | 'procrastination-slayer'
@@ -8,11 +8,11 @@ export type BadgeType =
   | 'speed-demon'
   | 'zen-master';
 
-export type BadgeRequirementType = 
-  | 'sessions' 
-  | 'time' 
-  | 'streak' 
-  | 'speed' 
+export type BadgeRequirementType =
+  | 'sessions'
+  | 'time'
+  | 'streak'
+  | 'speed'
   | 'ideas'
   | 'tasks';
 

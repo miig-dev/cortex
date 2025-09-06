@@ -1,9 +1,9 @@
 'use client';
 
 import { CortexLogo } from '@/components/ui/cortex-logo';
+import { useGamificationStore } from '@/stores/gamification-store';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { useGamificationStore } from '@/stores/gamification-store';
 
 interface InboxItem {
   id: string;
@@ -20,18 +20,12 @@ interface InboxCaptureProps {
 export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  
+  const inputRef = useRef<HTMLInputElement>(null);
+
   // Gamification
   const { updateStats, addExperience } = useGamificationStore();
 
-  // Auto-resize du textarea
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
-      inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
-    }
-  }, [inputValue]);
+  // Plus besoin d'auto-resize avec input
 
   // Auto-tagging intelligent
   const extractTags = (text: string): string[] => {
@@ -77,12 +71,12 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
 
     onItemAdded(newItem);
     setInputValue('');
-    
+
     // Mise à jour des statistiques de gamification
     updateStats({
       ideasCaptured: 1 // Une idée capturée
     });
-    
+
     // Ajouter de l'expérience
     addExperience(5); // 5 XP par idée capturée
 
@@ -153,26 +147,17 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
       >
         <form onSubmit={handleSubmit} className="relative">
           <div className="relative">
-            <textarea
-              ref={inputRef}
+            <input
+              type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleKeyDown}
               placeholder="Tapez ici... !urgent fix bug"
-              className={`
-                w-full min-h-[60px] max-h-[200px] px-6 py-4
-                bg-transparent border-none outline-none
-                text-cortex-off-white text-xl font-mono
-                placeholder-cortex-muted
-                resize-none
-                transition-all duration-200
-                ${isFocused ? 'text-white' : ''}
-              `}
+              className="w-full h-16 px-6 py-4 bg-transparent border-2 border-cortex-electric-blue/30 rounded-lg outline-none text-cortex-off-white text-xl font-mono placeholder-cortex-muted transition-all duration-200 focus:border-cortex-electric-blue focus:text-white"
               style={{
                 fontSize: '20px',
-                lineHeight: '1.5',
               }}
             />
 

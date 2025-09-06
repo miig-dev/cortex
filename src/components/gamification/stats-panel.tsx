@@ -1,11 +1,11 @@
 'use client';
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 import { useGamificationStore } from '@/stores/gamification-store';
+import { motion } from 'framer-motion';
+import { type FC } from 'react';
 import { BadgeComponent } from './badge';
 import { ProgressBar } from './progress-bar';
-import { cn } from '@/lib/utils';
 
 interface StatsPanelProps {
   className?: string;
@@ -13,11 +13,11 @@ interface StatsPanelProps {
 
 export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
   const { stats } = useGamificationStore();
-  
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    
+
     if (hours > 0) {
       return `${hours}h ${minutes}m`;
     }

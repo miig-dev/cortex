@@ -19,7 +19,7 @@ export default function StatsPage() {
             Vos Statistiques
           </h1>
         </div>
-        
+
         <p className="text-cortex-muted font-mono text-lg">
           Suivez votre progression et débloquez des badges
         </p>

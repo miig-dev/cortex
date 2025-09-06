@@ -1,9 +1,9 @@
 'use client';
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
-import { type Badge } from '@/types/gamification';
 import { cn } from '@/lib/utils';
+import { type Badge } from '@/types/gamification';
+import { motion } from 'framer-motion';
+import { type FC } from 'react';
 
 interface BadgeProps {
   badge: Badge;
@@ -12,9 +12,9 @@ interface BadgeProps {
   isNew?: boolean;
 }
 
-export const BadgeComponent: FC<BadgeProps> = ({ 
-  badge, 
-  size = 'md', 
+export const BadgeComponent: FC<BadgeProps> = ({
+  badge,
+  size = 'md',
   showDescription = false,
   isNew = false
 }) => {
@@ -53,12 +53,12 @@ export const BadgeComponent: FC<BadgeProps> = ({
           <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
         </motion.div>
       )}
-      
+
       {/* Icône du badge */}
       <div className="text-center">
         {badge.icon}
       </div>
-      
+
       {/* Description (optionnelle) */}
       {showDescription && (
         <motion.div

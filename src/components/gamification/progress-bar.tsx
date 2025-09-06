@@ -1,8 +1,8 @@
 'use client';
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { type FC } from 'react';
 
 interface ProgressBarProps {
   current: number;
@@ -22,14 +22,14 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   size = 'md'
 }) => {
   const percentage = Math.min((current / max) * 100, 100);
-  
+
   const colorClasses = {
     blue: 'bg-cortex-electric-blue',
     green: 'bg-cortex-soft-green',
     orange: 'bg-cortex-vibrant-orange',
     red: 'bg-cortex-pulse-red'
   };
-  
+
   const sizeClasses = {
     sm: 'h-2',
     md: 'h-3',
@@ -50,7 +50,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
           )}
         </div>
       )}
-      
+
       <div className={cn(
         'w-full bg-cortex-charcoal rounded-full overflow-hidden',
         sizeClasses[size]
@@ -66,7 +66,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
           )}
         />
       </div>
-      
+
       <div className="flex justify-between items-center mt-1">
         <span className="font-mono text-xs text-cortex-muted">
           {current} / {max}
