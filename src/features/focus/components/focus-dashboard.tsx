@@ -111,7 +111,9 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
         className="absolute top-8 right-8 z-10 text-slate-300 font-mono text-sm bg-slate-800/50 backdrop-blur-sm rounded-lg p-3 border border-slate-700"
       >
         <div className="text-slate-200">Sessions: {sessionsCompleted}</div>
-        <div className="text-slate-200">Focus: {formatTime(totalFocusTime)}</div>
+        <div className="text-slate-200">
+          Focus: {formatTime(totalFocusTime)}
+        </div>
       </motion.div>
 
       {/* Contenu principal */}
@@ -166,10 +168,16 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
           className="mt-16 text-slate-300 font-mono text-sm max-w-md mx-auto bg-slate-800/50 backdrop-blur-sm rounded-lg p-4 border border-slate-700"
         >
           <div className="space-y-2">
-            <div className="text-slate-200">🎯 Concentrez-vous sur une seule tâche</div>
+            <div className="text-slate-200">
+              🎯 Concentrez-vous sur une seule tâche
+            </div>
             <div className="text-slate-200">⏰ 25 minutes de focus intense</div>
-            <div className="text-slate-200">☕ 5 minutes de pause entre les sessions</div>
-            <div className="text-slate-200">🔄 Répétez pour maintenir la productivité</div>
+            <div className="text-slate-200">
+              ☕ 5 minutes de pause entre les sessions
+            </div>
+            <div className="text-slate-200">
+              🔄 Répétez pour maintenir la productivité
+            </div>
           </div>
         </motion.div>
       </div>

@@ -1,20 +1,18 @@
 'use client';
 
-import {
-    ArrowRight,
-    Brain,
-    Calendar,
-    Plus,
-    Search,
-    Star
-} from 'lucide-react';
+import { ArrowRight, Brain, Calendar, Plus, Search, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
 export default function HomePage() {
   // États pour gérer les données dynamiques
   const [tasks, setTasks] = useState([
-    { id: 1, content: 'Tâche à accomplir', area: 'Freelance Work', completed: false }
+    {
+      id: 1,
+      content: 'Tâche à accomplir',
+      area: 'Freelance Work',
+      completed: false,
+    },
   ]);
   const [projects, setProjects] = useState<string[]>([]);
   const [areas, setAreas] = useState([
@@ -25,34 +23,37 @@ export default function HomePage() {
     'Admin',
     'Questionnaire avant le rendez-vous',
     'Personal Development',
-    'Discussion pendant l\'entretien'
+    "Discussion pendant l'entretien",
   ]);
   const [newTask, setNewTask] = useState('');
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
 
   // Fonctions pour ajouter des éléments
-  const addTask = () => {
+  const addTask = (e?: React.MouseEvent) => {
+    e?.preventDefault();
     if (newTask.trim()) {
       const task = {
         id: Date.now(),
         content: newTask,
         area: 'Freelance Work',
-        completed: false
+        completed: false,
       };
       setTasks([...tasks, task]);
       setNewTask('');
     }
   };
 
-  const addProject = () => {
+  const addProject = (e?: React.MouseEvent) => {
+    e?.preventDefault();
     if (newProject.trim()) {
       setProjects([...projects, newProject]);
       setNewProject('');
     }
   };
 
-  const addArea = () => {
+  const addArea = (e?: React.MouseEvent) => {
+    e?.preventDefault();
     if (newArea.trim()) {
       setAreas([...areas, newArea]);
       setNewArea('');
@@ -60,9 +61,18 @@ export default function HomePage() {
   };
 
   const toggleTask = (id: number) => {
-    setTasks(tasks.map(task => 
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      action();
+    }
   };
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
@@ -74,10 +84,14 @@ export default function HomePage() {
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-white" />
               </div>
-              <span className="text-slate-300 text-sm">La méthode P.A.R.A / Igor_MigDev</span>
+              <span className="text-slate-300 text-sm">
+                La méthode P.A.R.A / Igor_MigDev
+              </span>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-slate-400 text-sm">Dernière modification : 19 août</span>
+              <span className="text-slate-400 text-sm">
+                Dernière modification : 19 août
+              </span>
               <button className="text-slate-400 hover:text-white transition-colors">
                 <Star className="w-4 h-4" />
               </button>
@@ -96,7 +110,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-800 to-slate-700">
           <div className="absolute inset-0 opacity-20">
             <pre className="text-xs text-slate-400 p-4 font-mono">
-{`previousElements.length = 0;
+              {`previousElements.length = 0;
 for (let i = 0; i < elements.length; i++) {
   const element = elements[i];
   if (element.classList.contains('active')) {
@@ -155,15 +169,25 @@ for (let i = 0; i < elements.length; i++) {
             </div>
 
             <div className="grid grid-cols-7 gap-1 mb-4">
-              {['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'].map((day) => (
-                <div key={day} className="text-center text-slate-400 text-sm py-2">
-                  {day}
-                </div>
-              ))}
+              {['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'].map(
+                (day) => (
+                  <div
+                    key={day}
+                    className="text-center text-slate-400 text-sm py-2"
+                  >
+                    {day}
+                  </div>
+                ),
+              )}
               {[25, 26, 27, 28, 29, 30, 31].map((day) => (
-                <div key={day} className={`text-center py-2 text-sm rounded ${
-                  day === 28 ? 'bg-red-500 text-white' : 'text-slate-300 hover:bg-slate-700'
-                }`}>
+                <div
+                  key={day}
+                  className={`text-center py-2 text-sm rounded ${
+                    day === 28
+                      ? 'bg-red-500 text-white'
+                      : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
                   {day}
                 </div>
               ))}
@@ -232,7 +256,7 @@ for (let i = 0; i < elements.length; i++) {
                   type="text"
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && addTask()}
+                  onKeyDown={(e) => handleKeyDown(e, addTask)}
                   placeholder="Ajouter une nouvelle tâche..."
                   className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
                 />
@@ -243,17 +267,22 @@ for (let i = 0; i < elements.length; i++) {
                   Ajouter
                 </button>
               </div>
-              
+
               {/* Liste des tâches */}
               {tasks.map((task) => (
-                <div key={task.id} className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded">
-                  <input 
-                    type="checkbox" 
+                <div
+                  key={task.id}
+                  className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded"
+                >
+                  <input
+                    type="checkbox"
                     checked={task.completed}
                     onChange={() => toggleTask(task.id)}
-                    className="w-4 h-4 text-blue-600 rounded" 
+                    className="w-4 h-4 text-blue-600 rounded"
                   />
-                  <div className={`flex-1 text-sm ${task.completed ? 'line-through text-slate-500' : 'text-slate-300'}`}>
+                  <div
+                    className={`flex-1 text-sm ${task.completed ? 'line-through text-slate-500' : 'text-slate-300'}`}
+                  >
                     {task.content}
                   </div>
                   <div className="text-slate-400 text-sm">{task.area}</div>
@@ -311,7 +340,7 @@ for (let i = 0; i < elements.length; i++) {
                 type="text"
                 value={newProject}
                 onChange={(e) => setNewProject(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addProject()}
+                onKeyDown={(e) => handleKeyDown(e, addProject)}
                 placeholder="Nom du nouveau projet..."
                 className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
               />
@@ -331,9 +360,14 @@ for (let i = 0; i < elements.length; i++) {
                 </div>
               ) : (
                 projects.map((project, index) => (
-                  <div key={index} className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded">
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded"
+                  >
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <div className="flex-1 text-slate-300 text-sm">{project}</div>
+                    <div className="flex-1 text-slate-300 text-sm">
+                      {project}
+                    </div>
                   </div>
                 ))
               )}
@@ -381,7 +415,7 @@ for (let i = 0; i < elements.length; i++) {
                 type="text"
                 value={newArea}
                 onChange={(e) => setNewArea(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addArea()}
+                onKeyDown={(e) => handleKeyDown(e, addArea)}
                 placeholder="Nom de la nouvelle area..."
                 className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
               />
