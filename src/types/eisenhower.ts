@@ -21,28 +21,31 @@ export interface EisenhowerMatrix {
   'non-urgent-non-important': EisenhowerTask[];
 }
 
-export const QUADRANT_LABELS: Record<EisenhowerQuadrant, { title: string; description: string }> = {
+export const QUADRANT_LABELS: Record<
+  EisenhowerQuadrant,
+  { title: string; description: string }
+> = {
   'urgent-important': {
     title: 'URGENT & IMPORTANT',
-    description: 'Crises, délais serrés, problèmes critiques'
+    description: 'Crises, délais serrés, problèmes critiques',
   },
   'important-non-urgent': {
     title: 'IMPORTANT & NON URGENT',
-    description: 'Planification, développement, prévention'
+    description: 'Planification, développement, prévention',
   },
   'urgent-non-important': {
     title: 'URGENT & NON IMPORTANT',
-    description: 'Interruptions, distractions, tâches déléguables'
+    description: 'Interruptions, distractions, tâches déléguables',
   },
   'non-urgent-non-important': {
     title: 'NON URGENT & NON IMPORTANT',
-    description: 'Tâches chronophages, futilités'
-  }
+    description: 'Tâches chronophages, futilités',
+  },
 };
 
 export const QUADRANT_COLORS: Record<EisenhowerQuadrant, string> = {
   'urgent-important': 'quadrant-urgent-important',
   'important-non-urgent': 'quadrant-important-non-urgent',
   'urgent-non-important': 'quadrant-urgent-non-important',
-  'non-urgent-non-important': 'quadrant-non-urgent-non-important'
+  'non-urgent-non-important': 'quadrant-non-urgent-non-important',
 };

@@ -1,9 +1,9 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import type { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { useGamificationStore } from '@/stores/gamification-store';
-import { motion } from 'framer-motion';
-import { type FC } from 'react';
 import { BadgeComponent } from './badge';
 import { ProgressBar } from './progress-bar';
 
@@ -24,16 +24,19 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
     return `${minutes}m`;
   };
 
-  const formatDate = (date: Date) => {
+  const _formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('fr-FR', {
       day: 'numeric',
-      month: 'short'
+      month: 'short',
     });
   };
 
   const recentBadges = stats.badges
-    .filter(badge => badge.unlockedAt)
-    .sort((a, b) => new Date(b.unlockedAt!).getTime() - new Date(a.unlockedAt!).getTime())
+    .filter((badge) => badge.unlockedAt)
+    .sort(
+      (a, b) =>
+        new Date(b.unlockedAt!).getTime() - new Date(a.unlockedAt!).getTime(),
+    )
     .slice(0, 3);
 
   return (
@@ -42,7 +45,7 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
       animate={{ opacity: 1, y: 0 }}
       className={cn(
         'bg-cortex-charcoal/50 backdrop-blur-sm border border-cortex-charcoal rounded-xl p-6',
-        className
+        className,
       )}
     >
       {/* En-tête */}
@@ -75,17 +78,13 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
           <div className="text-2xl font-mono font-bold text-cortex-electric-blue">
             {stats.totalSessions}
           </div>
-          <div className="text-xs font-mono text-cortex-muted">
-            Sessions
-          </div>
+          <div className="text-xs font-mono text-cortex-muted">Sessions</div>
         </div>
         <div className="text-center">
           <div className="text-2xl font-mono font-bold text-cortex-soft-green">
             {formatTime(stats.totalFocusTime)}
           </div>
-          <div className="text-xs font-mono text-cortex-muted">
-            Focus total
-          </div>
+          <div className="text-xs font-mono text-cortex-muted">Focus total</div>
         </div>
         <div className="text-center">
           <div className="text-2xl font-mono font-bold text-cortex-vibrant-orange">

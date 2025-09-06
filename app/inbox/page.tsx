@@ -1,7 +1,7 @@
 'use client';
 
-import { InboxCapture } from '@/features/inbox/components/inbox-capture';
 import { useState } from 'react';
+import { InboxCapture } from '@/features/inbox/components/inbox-capture';
 
 interface InboxItem {
   id: string;
@@ -14,7 +14,7 @@ export default function InboxPage() {
   const [inboxItems, setInboxItems] = useState<InboxItem[]>([]);
 
   const handleItemAdded = (item: InboxItem) => {
-    setInboxItems(prev => [item, ...prev]);
+    setInboxItems((prev) => [item, ...prev]);
   };
 
   return (

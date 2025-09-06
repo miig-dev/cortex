@@ -1,11 +1,16 @@
 'use client';
 
-import { type FC } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { motion } from 'framer-motion';
-import { TaskCard } from './task-card';
-import { type EisenhowerQuadrant, type EisenhowerTask, QUADRANT_LABELS, QUADRANT_COLORS } from '@/types/eisenhower';
+import type { FC } from 'react';
 import { cn } from '@/lib/utils';
+import {
+  type EisenhowerQuadrant,
+  type EisenhowerTask,
+  QUADRANT_COLORS,
+  QUADRANT_LABELS,
+} from '@/types/eisenhower';
+import { TaskCard } from './task-card';
 
 interface EisenhowerQuadrantProps {
   quadrant: EisenhowerQuadrant;
@@ -18,7 +23,7 @@ export const EisenhowerQuadrantComponent: FC<EisenhowerQuadrantProps> = ({
   quadrant,
   tasks,
   onTaskComplete,
-  onTaskDelete
+  onTaskDelete,
 }) => {
   const { isOver, setNodeRef } = useDroppable({
     id: quadrant,
@@ -36,7 +41,8 @@ export const EisenhowerQuadrantComponent: FC<EisenhowerQuadrantProps> = ({
       className={cn(
         'relative min-h-[300px] p-6 rounded-xl border-2 border-dashed transition-all duration-300',
         `bg-${quadrantColor}`,
-        isOver && 'border-cortex-electric-blue border-solid scale-105 shadow-lg shadow-cortex-electric-blue/20'
+        isOver &&
+          'border-cortex-electric-blue border-solid scale-105 shadow-lg shadow-cortex-electric-blue/20',
       )}
     >
       {/* En-tête du quadrant */}

@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 interface CortexLogoProps {
   size?: number;
@@ -9,7 +9,7 @@ interface CortexLogoProps {
 export const CortexLogo: FC<CortexLogoProps> = ({
   size = 120,
   animated = true,
-  className = ''
+  className = '',
 }) => {
   return (
     <svg

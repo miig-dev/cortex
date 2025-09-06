@@ -1,8 +1,14 @@
 'use client';
 
-import { BADGES, type Badge, type BadgeType, EXPERIENCE_LEVELS, type UserStats } from '@/types/gamification';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import {
+  BADGES,
+  type Badge,
+  type BadgeType,
+  EXPERIENCE_LEVELS,
+  type UserStats,
+} from '@/types/gamification';
 
 interface GamificationState {
   stats: UserStats;
@@ -24,7 +30,7 @@ const initialStats: UserStats = {
   badges: [],
   level: 1,
   experience: 0,
-  nextLevelExp: 100
+  nextLevelExp: 100,
 };
 
 export const useGamificationStore = create<GamificationState>()(
@@ -37,16 +43,19 @@ export const useGamificationStore = create<GamificationState>()(
           const newStats = { ...state.stats, ...updates };
 
           // Recalculer le niveau
-          const currentLevel = EXPERIENCE_LEVELS.find(level =>
-            newStats.experience >= level.exp
-          ) || EXPERIENCE_LEVELS[0];
+          const currentLevel =
+            EXPERIENCE_LEVELS.find(
+              (level) => newStats.experience >= level.exp,
+            ) || EXPERIENCE_LEVELS[0];
 
-          const nextLevel = EXPERIENCE_LEVELS.find(level =>
-            level.exp > newStats.experience
+          const nextLevel = EXPERIENCE_LEVELS.find(
+            (level) => level.exp > newStats.experience,
           );
 
           newStats.level = currentLevel.level;
-          newStats.nextLevelExp = nextLevel?.exp || EXPERIENCE_LEVELS[EXPERIENCE_LEVELS.length - 1].exp;
+          newStats.nextLevelExp =
+            nextLevel?.exp ||
+            EXPERIENCE_LEVELS[EXPERIENCE_LEVELS.length - 1].exp;
 
           return { stats: newStats };
         });
@@ -61,16 +70,18 @@ export const useGamificationStore = create<GamificationState>()(
           const newStats = { ...state.stats, experience: newExperience };
 
           // Recalculer le niveau
-          const currentLevel = EXPERIENCE_LEVELS.find(level =>
-            newExperience >= level.exp
-          ) || EXPERIENCE_LEVELS[0];
+          const currentLevel =
+            EXPERIENCE_LEVELS.find((level) => newExperience >= level.exp) ||
+            EXPERIENCE_LEVELS[0];
 
-          const nextLevel = EXPERIENCE_LEVELS.find(level =>
-            level.exp > newExperience
+          const nextLevel = EXPERIENCE_LEVELS.find(
+            (level) => level.exp > newExperience,
           );
 
           newStats.level = currentLevel.level;
-          newStats.nextLevelExp = nextLevel?.exp || EXPERIENCE_LEVELS[EXPERIENCE_LEVELS.length - 1].exp;
+          newStats.nextLevelExp =
+            nextLevel?.exp ||
+            EXPERIENCE_LEVELS[EXPERIENCE_LEVELS.length - 1].exp;
 
           return { stats: newStats };
         });
@@ -82,9 +93,9 @@ export const useGamificationStore = create<GamificationState>()(
         const { stats } = get();
         const newBadges: Badge[] = [];
 
-        BADGES.forEach(badge => {
+        BADGES.forEach((badge) => {
           // Vérifier si le badge n'est pas déjà débloqué
-          if (stats.badges.some(b => b.id === badge.id)) return;
+          if (stats.badges.some((b) => b.id === badge.id)) return;
 
           // Vérifier les conditions
           let shouldUnlock = false;
@@ -100,7 +111,8 @@ export const useGamificationStore = create<GamificationState>()(
               shouldUnlock = stats.currentStreak >= badge.requirement.value;
               break;
             case 'speed':
-              shouldUnlock = stats.averageSessionLength <= badge.requirement.value;
+              shouldUnlock =
+                stats.averageSessionLength <= badge.requirement.value;
               break;
             case 'ideas':
               shouldUnlock = stats.ideasCaptured >= badge.requirement.value;
@@ -110,7 +122,7 @@ export const useGamificationStore = create<GamificationState>()(
           if (shouldUnlock) {
             newBadges.push({
               ...badge,
-              unlockedAt: new Date()
+              unlockedAt: new Date(),
             });
           }
         });
@@ -119,36 +131,41 @@ export const useGamificationStore = create<GamificationState>()(
           set((state) => ({
             stats: {
               ...state.stats,
-              badges: [...state.stats.badges, ...newBadges]
-            }
+              badges: [...state.stats.badges, ...newBadges],
+            },
           }));
         }
       },
 
       unlockBadge: (badgeId) => {
-        const badge = BADGES.find(b => b.id === badgeId);
+        const badge = BADGES.find((b) => b.id === badgeId);
         if (!badge) return;
 
         set((state) => {
-          const isAlreadyUnlocked = state.stats.badges.some(b => b.id === badgeId);
+          const isAlreadyUnlocked = state.stats.badges.some(
+            (b) => b.id === badgeId,
+          );
           if (isAlreadyUnlocked) return state;
 
           return {
             stats: {
               ...state.stats,
-              badges: [...state.stats.badges, { ...badge, unlockedAt: new Date() }]
-            }
+              badges: [
+                ...state.stats.badges,
+                { ...badge, unlockedAt: new Date() },
+              ],
+            },
           };
         });
       },
 
       resetStats: () => {
         set({ stats: initialStats });
-      }
+      },
     }),
     {
       name: 'cortex-gamification-storage',
-      partialize: (state) => ({ stats: state.stats })
-    }
-  )
+      partialize: (state) => ({ stats: state.stats }),
+    },
+  ),
 );

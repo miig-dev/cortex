@@ -1,8 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { StatsPanel } from '@/components/gamification/stats-panel';
 import { CortexLogo } from '@/components/ui/cortex-logo';
-import { motion } from 'framer-motion';
 
 export default function StatsPage() {
   return (
@@ -38,6 +38,7 @@ export default function StatsPage() {
         className="text-center mt-12"
       >
         <button
+          type="button"
           onClick={() => window.history.back()}
           className="text-cortex-muted hover:text-cortex-off-white font-mono text-sm transition-colors"
         >

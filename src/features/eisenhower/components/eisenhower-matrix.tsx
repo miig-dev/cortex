@@ -1,10 +1,20 @@
 'use client';
 
-import { CortexLogo } from '@/components/ui/cortex-logo';
-import { type EisenhowerMatrix as EisenhowerMatrixType, type EisenhowerQuadrant, type EisenhowerTask } from '@/types/eisenhower';
-import { closestCenter, DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
+import {
+  closestCenter,
+  DndContext,
+  type DragEndEvent,
+  DragOverlay,
+  type DragStartEvent,
+} from '@dnd-kit/core';
 import { motion } from 'framer-motion';
 import { type FC, useState } from 'react';
+import { CortexLogo } from '@/components/ui/cortex-logo';
+import type {
+  EisenhowerMatrix as EisenhowerMatrixType,
+  EisenhowerQuadrant,
+  EisenhowerTask,
+} from '@/types/eisenhower';
 import { EisenhowerQuadrantComponent } from './eisenhower-quadrant';
 import { TaskCard } from './task-card';
 
@@ -19,21 +29,29 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
   initialTasks = [],
   onTaskMove,
   onTaskComplete,
-  onTaskDelete
+  onTaskDelete,
 }) => {
   const [activeTask, setActiveTask] = useState<EisenhowerTask | null>(null);
   const [tasks, setTasks] = useState<EisenhowerTask[]>(initialTasks);
 
   // Organiser les tâches par quadrant
   const matrix: EisenhowerMatrixType = {
-    'urgent-important': tasks.filter(task => task.quadrant === 'urgent-important'),
-    'important-non-urgent': tasks.filter(task => task.quadrant === 'important-non-urgent'),
-    'urgent-non-important': tasks.filter(task => task.quadrant === 'urgent-non-important'),
-    'non-urgent-non-important': tasks.filter(task => task.quadrant === 'non-urgent-non-important'),
+    'urgent-important': tasks.filter(
+      (task) => task.quadrant === 'urgent-important',
+    ),
+    'important-non-urgent': tasks.filter(
+      (task) => task.quadrant === 'important-non-urgent',
+    ),
+    'urgent-non-important': tasks.filter(
+      (task) => task.quadrant === 'urgent-non-important',
+    ),
+    'non-urgent-non-important': tasks.filter(
+      (task) => task.quadrant === 'non-urgent-non-important',
+    ),
   };
 
   const handleDragStart = (event: DragStartEvent) => {
-    const task = tasks.find(t => t.id === event.active.id);
+    const task = tasks.find((t) => t.id === event.active.id);
     setActiveTask(task || null);
   };
 
@@ -46,12 +64,10 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
     const newQuadrant = over.id as EisenhowerQuadrant;
 
     // Mettre à jour la tâche
-    setTasks(prevTasks =>
-      prevTasks.map(task =>
-        task.id === taskId
-          ? { ...task, quadrant: newQuadrant }
-          : task
-      )
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, quadrant: newQuadrant } : task,
+      ),
     );
 
     // Callback parent
@@ -61,16 +77,12 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
   };
 
   const handleTaskComplete = (taskId: string) => {
-    setTasks(prevTasks =>
-      prevTasks.filter(task => task.id !== taskId)
-    );
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     onTaskComplete?.(taskId);
   };
 
   const handleTaskDelete = (taskId: string) => {
-    setTasks(prevTasks =>
-      prevTasks.filter(task => task.id !== taskId)
-    );
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     onTaskDelete?.(taskId);
   };
 
@@ -151,9 +163,7 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
 
         {/* Drag Overlay */}
         <DragOverlay>
-          {activeTask ? (
-            <TaskCard task={activeTask} isDragging={true} />
-          ) : null}
+          {activeTask ? <TaskCard task={activeTask} isDragging={true} /> : null}
         </DragOverlay>
       </DndContext>
 
@@ -165,9 +175,7 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
         className="mt-12 text-center text-cortex-muted font-mono text-sm"
       >
         <div>Glissez-déposez les tâches entre les quadrants</div>
-        <div className="mt-2">
-          Clic droit sur une tâche pour les actions
-        </div>
+        <div className="mt-2">Clic droit sur une tâche pour les actions</div>
       </motion.div>
     </div>
   );

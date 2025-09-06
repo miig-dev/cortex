@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { type Badge } from '@/types/gamification';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
+import type { FC } from 'react';
+import { cn } from '@/lib/utils';
+import type { Badge } from '@/types/gamification';
 
 interface BadgeProps {
   badge: Badge;
@@ -16,18 +16,18 @@ export const BadgeComponent: FC<BadgeProps> = ({
   badge,
   size = 'md',
   showDescription = false,
-  isNew = false
+  isNew = false,
 }) => {
   const sizeClasses = {
     sm: 'w-8 h-8 text-sm',
     md: 'w-12 h-12 text-lg',
-    lg: 'w-16 h-16 text-2xl'
+    lg: 'w-16 h-16 text-2xl',
   };
 
   const textSizeClasses = {
     sm: 'text-xs',
     md: 'text-sm',
-    lg: 'text-base'
+    lg: 'text-base',
   };
 
   return (
@@ -39,7 +39,7 @@ export const BadgeComponent: FC<BadgeProps> = ({
         'relative flex flex-col items-center justify-center rounded-full border-2 transition-all duration-200',
         sizeClasses[size],
         `bg-${badge.color}/20 border-${badge.color}/50`,
-        'hover:shadow-lg hover:shadow-cortex-electric-blue/20'
+        'hover:shadow-lg hover:shadow-cortex-electric-blue/20',
       )}
       title={badge.description}
     >
@@ -55,9 +55,7 @@ export const BadgeComponent: FC<BadgeProps> = ({
       )}
 
       {/* Icône du badge */}
-      <div className="text-center">
-        {badge.icon}
-      </div>
+      <div className="text-center">{badge.icon}</div>
 
       {/* Description (optionnelle) */}
       {showDescription && (
@@ -67,10 +65,12 @@ export const BadgeComponent: FC<BadgeProps> = ({
           transition={{ delay: 0.2 }}
           className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 z-10"
         >
-          <div className={cn(
-            'bg-cortex-charcoal/90 backdrop-blur-sm border border-cortex-electric-blue/30 rounded-lg px-3 py-2 shadow-lg whitespace-nowrap',
-            textSizeClasses[size]
-          )}>
+          <div
+            className={cn(
+              'bg-cortex-charcoal/90 backdrop-blur-sm border border-cortex-electric-blue/30 rounded-lg px-3 py-2 shadow-lg whitespace-nowrap',
+              textSizeClasses[size],
+            )}
+          >
             <div className="font-mono font-bold text-cortex-off-white">
               {badge.name}
             </div>

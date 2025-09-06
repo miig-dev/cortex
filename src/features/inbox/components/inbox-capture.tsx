@@ -1,9 +1,9 @@
 'use client';
 
-import { CortexLogo } from '@/components/ui/cortex-logo';
-import { useGamificationStore } from '@/stores/gamification-store';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { CortexLogo } from '@/components/ui/cortex-logo';
+import { useGamificationStore } from '@/stores/gamification-store';
 
 interface InboxItem {
   id: string;
@@ -56,7 +56,7 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
     // Tags de projet
     const projectMatch = text.match(/@(\w+)/g);
     if (projectMatch) {
-      tags.push(...projectMatch.map(tag => tag.substring(1)));
+      tags.push(...projectMatch.map((tag) => tag.substring(1)));
     }
 
     return tags;
@@ -83,7 +83,7 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
 
       // Mise à jour des statistiques de gamification
       updateStats({
-        ideasCaptured: 1 // Une idée capturée
+        ideasCaptured: 1, // Une idée capturée
       });
 
       // Ajouter de l'expérience
@@ -92,7 +92,9 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
       // Son de validation (optionnel)
       if (typeof window !== 'undefined' && 'Audio' in window) {
         try {
-          const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT');
+          const audio = new Audio(
+            'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT',
+          );
           audio.volume = 0.3;
           audio.play().catch(() => {}); // Ignore les erreurs de son
         } catch (error) {
@@ -120,21 +122,30 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
     return words.map((word, index) => {
       if (word.startsWith('!urgent') || word.startsWith('!important')) {
         return (
-          <span key={index} className="inline-block bg-cortex-pulse-red/20 text-cortex-pulse-red px-2 py-1 rounded text-sm font-mono font-bold mr-1">
+          <span
+            key={index}
+            className="inline-block bg-cortex-pulse-red/20 text-cortex-pulse-red px-2 py-1 rounded text-sm font-mono font-bold mr-1"
+          >
             {word}
           </span>
         );
       }
       if (word.startsWith('#')) {
         return (
-          <span key={index} className="inline-block bg-cortex-electric-blue/20 text-cortex-electric-blue px-2 py-1 rounded text-sm font-mono font-bold mr-1">
+          <span
+            key={index}
+            className="inline-block bg-cortex-electric-blue/20 text-cortex-electric-blue px-2 py-1 rounded text-sm font-mono font-bold mr-1"
+          >
             {word}
           </span>
         );
       }
       if (word.startsWith('@')) {
         return (
-          <span key={index} className="inline-block bg-cortex-vibrant-orange/20 text-cortex-vibrant-orange px-2 py-1 rounded text-sm font-mono font-bold mr-1">
+          <span
+            key={index}
+            className="inline-block bg-cortex-vibrant-orange/20 text-cortex-vibrant-orange px-2 py-1 rounded text-sm font-mono font-bold mr-1"
+          >
             {word}
           </span>
         );
@@ -223,10 +234,10 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
         transition={{ duration: 0.4, delay: 0.6 }}
         className="mt-12 text-cortex-muted font-mono text-xs text-center max-w-md"
       >
-        <div>Enter = sauvegarder • Ctrl+Enter = sauvegarder et rester ouvert</div>
-        <div className="mt-2">
-          Tags: !urgent #docs @projet
+        <div>
+          Enter = sauvegarder • Ctrl+Enter = sauvegarder et rester ouvert
         </div>
+        <div className="mt-2">Tags: !urgent #docs @projet</div>
       </motion.div>
     </div>
   );

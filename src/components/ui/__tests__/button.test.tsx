@@ -25,14 +25,17 @@ describe('Button', () => {
     render(<Button disabled>Disabled button</Button>);
     const button = screen.getByRole('button', { name: /disabled button/i });
     expect(button).toBeDisabled();
-    expect(button).toHaveClass('disabled:pointer-events-none', 'disabled:opacity-50');
+    expect(button).toHaveClass(
+      'disabled:pointer-events-none',
+      'disabled:opacity-50',
+    );
   });
 
   it('renders as child when asChild is true', () => {
     render(
       <Button asChild>
         <a href="/test">Link button</a>
-      </Button>
+      </Button>,
     );
     const link = screen.getByRole('link', { name: /link button/i });
     expect(link).toBeInTheDocument();

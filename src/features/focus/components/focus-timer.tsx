@@ -17,7 +17,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
   duration = 25, // 25 minutes par défaut (Pomodoro)
   onComplete,
   onPause,
-  onResume
+  onResume,
 }) => {
   const [timeLeft, setTimeLeft] = useState(duration * 60); // en secondes
   const [isActive, setIsActive] = useState(false);
@@ -30,7 +30,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
 
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft(time => time - 1);
+        setTimeLeft((time) => time - 1);
       }, 1000);
     } else if (timeLeft === 0 && isActive) {
       // Session terminée
@@ -40,7 +40,9 @@ export const FocusTimer: FC<FocusTimerProps> = ({
 
       // Son de fin de session
       if (typeof window !== 'undefined' && 'Audio' in window) {
-        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT');
+        const audio = new Audio(
+          'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT',
+        );
         audio.volume = 0.5;
         audio.play().catch(() => {});
       }
@@ -49,7 +51,9 @@ export const FocusTimer: FC<FocusTimerProps> = ({
       setTimeout(() => setShowConfetti(false), 3000);
     }
 
-    return () => { if (interval) clearInterval(interval); };
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isActive, timeLeft, onComplete]);
 
   // Calculs pour l'animation circulaire
@@ -59,9 +63,15 @@ export const FocusTimer: FC<FocusTimerProps> = ({
   const strokeDasharray = `${((100 - percentage) / 100) * circumference} ${circumference}`;
 
   // Interpolation de couleur : Rouge → Bleu
-  const red = Math.floor((percentage / 100) * 239 + (1 - percentage / 100) * 76);
-  const green = Math.floor((percentage / 100) * 71 + (1 - percentage / 100) * 201);
-  const blue = Math.floor((percentage / 100) * 111 + (1 - percentage / 100) * 240);
+  const red = Math.floor(
+    (percentage / 100) * 239 + (1 - percentage / 100) * 76,
+  );
+  const green = Math.floor(
+    (percentage / 100) * 71 + (1 - percentage / 100) * 201,
+  );
+  const blue = Math.floor(
+    (percentage / 100) * 111 + (1 - percentage / 100) * 240,
+  );
   const strokeColor = `rgb(${red}, ${green}, ${blue})`;
 
   // Formatage du temps
@@ -130,7 +140,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
           style={{ strokeDasharray }}
           initial={{ strokeDasharray: `${circumference} ${circumference}` }}
           animate={{ strokeDasharray }}
-          transition={{ duration: 1, ease: "linear" }}
+          transition={{ duration: 1, ease: 'linear' }}
           className="drop-shadow-lg"
         />
       </svg>

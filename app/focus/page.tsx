@@ -4,7 +4,9 @@ import { FocusDashboard } from '@/features/focus/components/focus-dashboard';
 
 export default function FocusPage() {
   const handleSessionComplete = (duration: number) => {
-    console.log(`Session terminée ! Durée: ${Math.floor(duration / 60)} minutes`);
+    console.log(
+      `Session terminée ! Durée: ${Math.floor(duration / 60)} minutes`,
+    );
     // Ici on pourrait sauvegarder les statistiques en base
   };
 

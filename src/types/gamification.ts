@@ -59,15 +59,15 @@ export const BADGES: Badge[] = [
     description: 'Complétez 10 sessions de focus',
     icon: '🧠',
     color: 'cortex-electric-blue',
-    requirement: { type: 'sessions', value: 10 }
+    requirement: { type: 'sessions', value: 10 },
   },
   {
     id: 'idea-master',
     name: 'Idea Master',
-    description: 'Capturez 50 idées dans l\'Inbox',
+    description: "Capturez 50 idées dans l'Inbox",
     icon: '💡',
     color: 'cortex-vibrant-orange',
-    requirement: { type: 'ideas', value: 50 }
+    requirement: { type: 'ideas', value: 50 },
   },
   {
     id: 'procrastination-slayer',
@@ -75,7 +75,7 @@ export const BADGES: Badge[] = [
     description: 'Terminez 25 tâches en une journée',
     icon: '⚔️',
     color: 'cortex-pulse-red',
-    requirement: { type: 'tasks', value: 25 }
+    requirement: { type: 'tasks', value: 25 },
   },
   {
     id: 'focus-champion',
@@ -83,7 +83,7 @@ export const BADGES: Badge[] = [
     description: 'Accumulez 10 heures de focus',
     icon: '🏆',
     color: 'cortex-soft-green',
-    requirement: { type: 'time', value: 36000 } // 10 heures en secondes
+    requirement: { type: 'time', value: 36000 }, // 10 heures en secondes
   },
   {
     id: 'productivity-guru',
@@ -91,15 +91,15 @@ export const BADGES: Badge[] = [
     description: 'Maintenez une série de 7 jours',
     icon: '🎯',
     color: 'cortex-electric-blue',
-    requirement: { type: 'streak', value: 7 }
+    requirement: { type: 'streak', value: 7 },
   },
   {
     id: 'consistency-king',
     name: 'Consistency King',
-    description: 'Utilisez l\'app pendant 30 jours consécutifs',
+    description: "Utilisez l'app pendant 30 jours consécutifs",
     icon: '👑',
     color: 'cortex-vibrant-orange',
-    requirement: { type: 'streak', value: 30 }
+    requirement: { type: 'streak', value: 30 },
   },
   {
     id: 'speed-demon',
@@ -107,7 +107,7 @@ export const BADGES: Badge[] = [
     description: 'Complétez une session en moins de 20 minutes',
     icon: '⚡',
     color: 'cortex-pulse-red',
-    requirement: { type: 'speed', value: 1200 } // 20 minutes en secondes
+    requirement: { type: 'speed', value: 1200 }, // 20 minutes en secondes
   },
   {
     id: 'zen-master',
@@ -115,8 +115,8 @@ export const BADGES: Badge[] = [
     description: 'Accumulez 100 heures de focus total',
     icon: '🧘',
     color: 'cortex-soft-green',
-    requirement: { type: 'time', value: 360000 } // 100 heures en secondes
-  }
+    requirement: { type: 'time', value: 360000 }, // 100 heures en secondes
+  },
 ];
 
 export const EXPERIENCE_LEVELS = [
@@ -129,5 +129,5 @@ export const EXPERIENCE_LEVELS = [
   { level: 7, exp: 3500, title: 'Guru' },
   { level: 8, exp: 5000, title: 'Légende' },
   { level: 9, exp: 7500, title: 'Mythique' },
-  { level: 10, exp: 10000, title: 'Transcendant' }
+  { level: 10, exp: 10000, title: 'Transcendant' },
 ];

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { EisenhowerMatrix } from '@/features/eisenhower/components/eisenhower-matrix';
-import { type EisenhowerTask, type EisenhowerQuadrant } from '@/types/eisenhower';
+import type { EisenhowerQuadrant, EisenhowerTask } from '@/types/eisenhower';
 
 // Tâches d'exemple pour la démonstration
 const sampleTasks: EisenhowerTask[] = [
@@ -12,7 +12,7 @@ const sampleTasks: EisenhowerTask[] = [
     tags: ['urgent', 'bug'],
     quadrant: 'urgent-important',
     createdAt: new Date(),
-    priority: 1
+    priority: 1,
   },
   {
     id: '2',
@@ -20,7 +20,7 @@ const sampleTasks: EisenhowerTask[] = [
     tags: ['docs'],
     quadrant: 'important-non-urgent',
     createdAt: new Date(),
-    priority: 2
+    priority: 2,
   },
   {
     id: '3',
@@ -28,7 +28,7 @@ const sampleTasks: EisenhowerTask[] = [
     tags: ['urgent'],
     quadrant: 'urgent-non-important',
     createdAt: new Date(),
-    priority: 3
+    priority: 3,
   },
   {
     id: '4',
@@ -36,8 +36,8 @@ const sampleTasks: EisenhowerTask[] = [
     tags: [],
     quadrant: 'non-urgent-non-important',
     createdAt: new Date(),
-    priority: 4
-  }
+    priority: 4,
+  },
 ];
 
 export default function EisenhowerPage() {

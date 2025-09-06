@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { type EisenhowerTask } from '@/types/eisenhower';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
+import type { FC } from 'react';
+import { cn } from '@/lib/utils';
+import type { EisenhowerTask } from '@/types/eisenhower';
 
 interface TaskCardProps {
   task: EisenhowerTask;
@@ -16,13 +16,15 @@ export const TaskCard: FC<TaskCardProps> = ({
   task,
   isDragging = false,
   onComplete,
-  onDelete
+  onDelete,
 }) => {
   const getTagColor = (tag: string) => {
     if (tag === 'urgent') return 'bg-cortex-pulse-red/20 text-cortex-pulse-red';
-    if (tag === 'docs') return 'bg-cortex-electric-blue/20 text-cortex-electric-blue';
+    if (tag === 'docs')
+      return 'bg-cortex-electric-blue/20 text-cortex-electric-blue';
     if (tag === 'bug') return 'bg-cortex-pulse-red/20 text-cortex-pulse-red';
-    if (tag === 'feature') return 'bg-cortex-soft-green/20 text-cortex-soft-green';
+    if (tag === 'feature')
+      return 'bg-cortex-soft-green/20 text-cortex-soft-green';
     return 'bg-cortex-muted/20 text-cortex-muted';
   };
 
@@ -33,7 +35,7 @@ export const TaskCard: FC<TaskCardProps> = ({
       animate={{
         opacity: 1,
         scale: isDragging ? 1.05 : 1,
-        rotate: isDragging ? 2 : 0
+        rotate: isDragging ? 2 : 0,
       }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.2 }}
@@ -42,7 +44,7 @@ export const TaskCard: FC<TaskCardProps> = ({
         'bg-cortex-charcoal/50 backdrop-blur-sm',
         'hover:border-cortex-electric-blue/30',
         'transition-all duration-200',
-        isDragging && 'shadow-2xl shadow-cortex-electric-blue/20'
+        isDragging && 'shadow-2xl shadow-cortex-electric-blue/20',
       )}
     >
       {/* Contenu de la tâche */}
@@ -59,7 +61,7 @@ export const TaskCard: FC<TaskCardProps> = ({
                 key={tag}
                 className={cn(
                   'px-2 py-1 rounded text-xs font-mono font-medium',
-                  getTagColor(tag)
+                  getTagColor(tag),
                 )}
               >
                 {tag}
@@ -72,7 +74,7 @@ export const TaskCard: FC<TaskCardProps> = ({
         <div className="text-cortex-muted text-xs font-mono">
           {new Date(task.createdAt).toLocaleTimeString('fr-FR', {
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
           })}
         </div>
       </div>
@@ -103,13 +105,15 @@ export const TaskCard: FC<TaskCardProps> = ({
 
       {/* Indicateur de priorité */}
       <div className="absolute top-2 left-2">
-        <div className={cn(
-          'w-2 h-2 rounded-full',
-          task.priority === 1 && 'bg-cortex-pulse-red',
-          task.priority === 2 && 'bg-cortex-vibrant-orange',
-          task.priority === 3 && 'bg-cortex-electric-blue',
-          task.priority === 4 && 'bg-cortex-muted'
-        )} />
+        <div
+          className={cn(
+            'w-2 h-2 rounded-full',
+            task.priority === 1 && 'bg-cortex-pulse-red',
+            task.priority === 2 && 'bg-cortex-vibrant-orange',
+            task.priority === 3 && 'bg-cortex-electric-blue',
+            task.priority === 4 && 'bg-cortex-muted',
+          )}
+        />
       </div>
     </motion.div>
   );

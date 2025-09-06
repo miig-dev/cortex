@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { type FC } from 'react';
+import type { FC } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ProgressBarProps {
   current: number;
@@ -19,7 +19,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   label,
   showPercentage = true,
   color = 'blue',
-  size = 'md'
+  size = 'md',
 }) => {
   const percentage = Math.min((current / max) * 100, 100);
 
@@ -27,13 +27,13 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     blue: 'bg-cortex-electric-blue',
     green: 'bg-cortex-soft-green',
     orange: 'bg-cortex-vibrant-orange',
-    red: 'bg-cortex-pulse-red'
+    red: 'bg-cortex-pulse-red',
   };
 
   const sizeClasses = {
     sm: 'h-2',
     md: 'h-3',
-    lg: 'h-4'
+    lg: 'h-4',
   };
 
   return (
@@ -51,18 +51,20 @@ export const ProgressBar: FC<ProgressBarProps> = ({
         </div>
       )}
 
-      <div className={cn(
-        'w-full bg-cortex-charcoal rounded-full overflow-hidden',
-        sizeClasses[size]
-      )}>
+      <div
+        className={cn(
+          'w-full bg-cortex-charcoal rounded-full overflow-hidden',
+          sizeClasses[size],
+        )}
+      >
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className={cn(
             'h-full rounded-full transition-all duration-300',
             colorClasses[color],
-            'shadow-lg'
+            'shadow-lg',
           )}
         />
       </div>
