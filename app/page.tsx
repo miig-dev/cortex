@@ -1,8 +1,7 @@
 'use client';
 
-import { ArrowRight, Brain, Calendar, Plus, Search, Star } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type TaskQuadrant = 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
 
@@ -98,8 +97,7 @@ export default function HomePage() {
   };
 
   // Fonctions pour ajouter des éléments
-  const addTask = (e?: React.MouseEvent) => {
-    e?.preventDefault();
+  const addTask = () => {
     if (newTask.trim()) {
       const categorization = categorizeTask(newTask);
       const task: Task = {
@@ -117,16 +115,14 @@ export default function HomePage() {
     }
   };
 
-  const addProject = (e?: React.MouseEvent) => {
-    e?.preventDefault();
+  const addProject = () => {
     if (newProject.trim()) {
       setProjects([...projects, newProject]);
       setNewProject('');
     }
   };
 
-  const addArea = (e?: React.MouseEvent) => {
-    e?.preventDefault();
+  const addArea = () => {
     if (newArea.trim()) {
       setAreas([...areas, newArea]);
       setNewArea('');
@@ -178,11 +174,11 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold" style={{ color: '#E0E0E0' }}>
               Calendrier hebdomadaire
             </h2>
-            <button 
+            <button
               className="px-4 py-2 rounded font-medium transition-colors"
-              style={{ 
-                backgroundColor: '#4361EE', 
-                color: 'white' 
+              style={{
+                backgroundColor: '#4361EE',
+                color: 'white'
               }}
             >
               Nouveau
@@ -240,11 +236,11 @@ export default function HomePage() {
               }}
             />
             <button
-              onClick={addTask}
+              onClick={() => addTask()}
               className="px-6 py-3 rounded font-medium transition-colors"
-              style={{ 
-                backgroundColor: '#4361EE', 
-                color: 'white' 
+              style={{
+                backgroundColor: '#4361EE',
+                color: 'white'
               }}
             >
               Ajouter
@@ -257,7 +253,7 @@ export default function HomePage() {
               <div
                 key={task.id}
                 className="flex items-center space-x-4 p-4 rounded border-l-4 hover:bg-gray-800 transition-colors"
-                style={{ 
+                style={{
                   borderLeftColor: task.color,
                   backgroundColor: task.bgColor + '10'
                 }}
@@ -276,7 +272,7 @@ export default function HomePage() {
                   >
                     {task.content}
                   </div>
-                  <div 
+                  <div
                     className="text-sm mt-1 font-semibold"
                     style={{ color: task.color }}
                   >
@@ -313,11 +309,11 @@ export default function HomePage() {
               }}
             />
             <button
-              onClick={addProject}
+              onClick={() => addProject()}
               className="px-6 py-3 rounded font-medium transition-colors"
-              style={{ 
-                backgroundColor: '#4361EE', 
-                color: 'white' 
+              style={{
+                backgroundColor: '#4361EE',
+                color: 'white'
               }}
             >
               Ajouter
@@ -368,11 +364,11 @@ export default function HomePage() {
               }}
             />
             <button
-              onClick={addArea}
+              onClick={() => addArea()}
               className="px-6 py-3 rounded font-medium transition-colors"
-              style={{ 
-                backgroundColor: '#4361EE', 
-                color: 'white' 
+              style={{
+                backgroundColor: '#4361EE',
+                color: 'white'
               }}
             >
               Ajouter
@@ -386,7 +382,7 @@ export default function HomePage() {
                 key={index}
                 href="/inbox"
                 className="p-4 rounded hover:bg-gray-800 transition-colors text-center"
-                style={{ 
+                style={{
                   border: '1px solid rgba(0,0,0,0.1)',
                   color: '#E0E0E0'
                 }}
