@@ -17,12 +17,15 @@ export default function Home() {
           <p className="text-xl text-gray-600 mb-8">
             Plateforme de gestion intelligente et moderne
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Button asChild size="lg" className="bg-cortex-electric-blue hover:bg-cortex-electric-blue/90">
-              <Link href="/inbox">🚀 Commencer - Inbox</Link>
+              <Link href="/inbox">🚀 Inbox - Capture</Link>
+            </Button>
+            <Button asChild size="lg" className="bg-cortex-vibrant-orange hover:bg-cortex-vibrant-orange/90">
+              <Link href="/eisenhower">⚡ Quartier Général</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-cortex-electric-blue text-cortex-electric-blue hover:bg-cortex-electric-blue/10">
-              <Link href="/dashboard">Dashboard</Link>
+              <Link href="/dashboard">🎯 Dashboard Focus</Link>
             </Button>
           </div>
         </div>

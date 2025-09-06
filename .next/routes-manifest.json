@@ -39,6 +39,12 @@
       "namedRegex": "^/dashboard(?:/)?$"
     },
     {
+      "page": "/eisenhower",
+      "regex": "^/eisenhower(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/eisenhower(?:/)?$"
+    },
+    {
       "page": "/inbox",
       "regex": "^/inbox(?:/)?$",
       "routeKeys": {},

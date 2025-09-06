@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { InboxCapture } from '@/features/inbox/components/inbox-capture';
+import { useState } from 'react';
 
 interface InboxItem {
   id: string;
@@ -18,7 +18,7 @@ export default function InboxPage() {
   };
 
   return (
-    <InboxCapture 
+    <InboxCapture
       onItemAdded={handleItemAdded}
       pendingCount={inboxItems.length}
     />

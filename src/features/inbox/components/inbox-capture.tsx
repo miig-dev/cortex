@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { CortexLogo } from '@/components/ui/cortex-logo';
+import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 interface InboxItem {
   id: string;
@@ -32,12 +32,12 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
   // Auto-tagging intelligent
   const extractTags = (text: string): string[] => {
     const tags: string[] = [];
-    
+
     // Tags d'urgence
     if (text.includes('!urgent') || text.includes('!important')) {
       tags.push('urgent');
     }
-    
+
     // Tags de type
     if (text.includes('#docs') || text.includes('#documentation')) {
       tags.push('docs');
@@ -48,19 +48,19 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
     if (text.includes('#feature') || text.includes('#feat')) {
       tags.push('feature');
     }
-    
+
     // Tags de projet
     const projectMatch = text.match(/@(\w+)/g);
     if (projectMatch) {
       tags.push(...projectMatch.map(tag => tag.substring(1)));
     }
-    
+
     return tags;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!inputValue.trim()) return;
 
     const tags = extractTags(inputValue);
@@ -73,7 +73,7 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
 
     onItemAdded(newItem);
     setInputValue('');
-    
+
     // Son de validation (optionnel)
     if (typeof window !== 'undefined' && 'Audio' in window) {
       const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT');
@@ -158,12 +158,12 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
                 transition-all duration-200
                 ${isFocused ? 'text-white' : ''}
               `}
-              style={{ 
+              style={{
                 fontSize: '20px',
                 lineHeight: '1.5',
               }}
             />
-            
+
             {/* Curseur clignotant simulé */}
             {isFocused && inputValue === '' && (
               <motion.div
