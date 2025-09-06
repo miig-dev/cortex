@@ -175,7 +175,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleStart}
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-mono font-bold rounded-lg transition-all duration-200 shadow-lg"
+              className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-mono font-bold rounded-lg transition-all duration-200 shadow-lg"
             >
               ▶️ Commencer
             </motion.button>

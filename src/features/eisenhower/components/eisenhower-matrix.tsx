@@ -189,7 +189,7 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
       >
         <Link
           href="/focus"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 transform hover:scale-105"
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 transform hover:scale-105"
         >
           <Clock className="mr-2 w-5 h-5" />
           Commencer le Focus

@@ -251,7 +251,7 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
       >
         <Link
           href="/eisenhower"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 transform hover:scale-105"
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 transform hover:scale-105"
         >
           Aller au Quartier Général
           <ArrowRight className="ml-2 w-5 h-5" />

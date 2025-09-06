@@ -34,25 +34,25 @@ export default function HomePage() {
             <nav className="hidden md:flex space-x-6">
               <Link
                 href="/inbox"
-                className="text-slate-300 hover:text-white transition-colors"
+                className="text-slate-300 hover:text-blue-400 transition-colors"
               >
                 Inbox
               </Link>
               <Link
-                href="/quartier-general"
-                className="text-slate-300 hover:text-white transition-colors"
+                href="/eisenhower"
+                className="text-slate-300 hover:text-green-400 transition-colors"
               >
                 Quartier Général
               </Link>
               <Link
                 href="/focus"
-                className="text-slate-300 hover:text-white transition-colors"
+                className="text-slate-300 hover:text-orange-400 transition-colors"
               >
                 Dashboard Focus
               </Link>
               <Link
-                href="/statistiques"
-                className="text-slate-300 hover:text-white transition-colors"
+                href="/stats"
+                className="text-slate-300 hover:text-purple-400 transition-colors"
               >
                 Statistiques
               </Link>
@@ -103,8 +103,8 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Inbox */}
             <Link href="/inbox" className="group">
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-purple-500 transition-all duration-200 hover:transform hover:scale-105">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-blue-500 transition-all duration-200 hover:transform hover:scale-105">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
                 <h4 className="text-xl font-semibold text-white mb-2">
@@ -118,9 +118,9 @@ export default function HomePage() {
             </Link>
 
             {/* Quartier Général */}
-            <Link href="/quartier-general" className="group">
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-purple-500 transition-all duration-200 hover:transform hover:scale-105">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4">
+            <Link href="/eisenhower" className="group">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-green-500 transition-all duration-200 hover:transform hover:scale-105">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4">
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <h4 className="text-xl font-semibold text-white mb-2">
@@ -134,8 +134,8 @@ export default function HomePage() {
 
             {/* Dashboard Focus */}
             <Link href="/focus" className="group">
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-purple-500 transition-all duration-200 hover:transform hover:scale-105">
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-4">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-orange-500 transition-all duration-200 hover:transform hover:scale-105">
+                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mb-4">
                   <Clock className="w-6 h-6 text-white" />
                 </div>
                 <h4 className="text-xl font-semibold text-white mb-2">
@@ -148,9 +148,9 @@ export default function HomePage() {
             </Link>
 
             {/* Statistiques */}
-            <Link href="/statistiques" className="group">
+            <Link href="/stats" className="group">
               <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-purple-500 transition-all duration-200 hover:transform hover:scale-105">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
                 <h4 className="text-xl font-semibold text-white mb-2">

@@ -54,7 +54,7 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
           Vos Statistiques
         </h3>
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-cortex-electric-blue rounded-full animate-pulse" />
+          <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
           <span className="font-mono text-sm text-cortex-muted">
             Niveau {stats.level} • {stats.experience} XP
           </span>
@@ -67,7 +67,7 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
           current={stats.experience}
           max={stats.nextLevelExp}
           label="Progression du niveau"
-          color="blue"
+          color="purple"
           size="md"
         />
       </div>
@@ -75,19 +75,19 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
       {/* Statistiques principales */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="text-center">
-          <div className="text-2xl font-mono font-bold text-cortex-electric-blue">
+          <div className="text-2xl font-mono font-bold text-blue-500">
             {stats.totalSessions}
           </div>
           <div className="text-xs font-mono text-cortex-muted">Sessions</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-mono font-bold text-cortex-soft-green">
+          <div className="text-2xl font-mono font-bold text-green-500">
             {formatTime(stats.totalFocusTime)}
           </div>
           <div className="text-xs font-mono text-cortex-muted">Focus total</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-mono font-bold text-cortex-vibrant-orange">
+          <div className="text-2xl font-mono font-bold text-orange-500">
             {stats.currentStreak}
           </div>
           <div className="text-xs font-mono text-cortex-muted">
@@ -95,7 +95,7 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
           </div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-mono font-bold text-cortex-pulse-red">
+          <div className="text-2xl font-mono font-bold text-purple-500">
             {stats.ideasCaptured}
           </div>
           <div className="text-xs font-mono text-cortex-muted">
