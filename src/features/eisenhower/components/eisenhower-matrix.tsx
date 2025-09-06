@@ -1,12 +1,12 @@
 'use client';
 
-import { type FC, useState } from 'react';
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCenter } from '@dnd-kit/core';
+import { CortexLogo } from '@/components/ui/cortex-logo';
+import { type EisenhowerMatrix as EisenhowerMatrixType, type EisenhowerQuadrant, type EisenhowerTask } from '@/types/eisenhower';
+import { closestCenter, DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
 import { motion } from 'framer-motion';
+import { type FC, useState } from 'react';
 import { EisenhowerQuadrantComponent } from './eisenhower-quadrant';
 import { TaskCard } from './task-card';
-import { type EisenhowerTask, type EisenhowerQuadrant, type EisenhowerMatrix as EisenhowerMatrixType } from '@/types/eisenhower';
-import { CortexLogo } from '@/components/ui/cortex-logo';
 
 interface EisenhowerMatrixProps {
   initialTasks?: EisenhowerTask[];
@@ -39,16 +39,16 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    
+
     if (!over) return;
 
     const taskId = active.id as string;
     const newQuadrant = over.id as EisenhowerQuadrant;
 
     // Mettre à jour la tâche
-    setTasks(prevTasks => 
-      prevTasks.map(task => 
-        task.id === taskId 
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === taskId
           ? { ...task, quadrant: newQuadrant }
           : task
       )
@@ -56,19 +56,19 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
 
     // Callback parent
     onTaskMove?.(taskId, newQuadrant);
-    
+
     setActiveTask(null);
   };
 
   const handleTaskComplete = (taskId: string) => {
-    setTasks(prevTasks => 
+    setTasks(prevTasks =>
       prevTasks.filter(task => task.id !== taskId)
     );
     onTaskComplete?.(taskId);
   };
 
   const handleTaskDelete = (taskId: string) => {
-    setTasks(prevTasks => 
+    setTasks(prevTasks =>
       prevTasks.filter(task => task.id !== taskId)
     );
     onTaskDelete?.(taskId);
@@ -91,11 +91,11 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
             Quartier Général
           </h1>
         </div>
-        
+
         <p className="text-cortex-muted font-mono text-lg mb-4">
           Matrice Eisenhower - Organisez vos tâches par urgence et importance
         </p>
-        
+
         {/* Statistiques */}
         <div className="flex justify-center gap-8 text-sm font-mono">
           <div className="text-cortex-soft-green">
@@ -130,7 +130,7 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
                 onTaskDelete={handleTaskDelete}
               />
             </div>
-            
+
             {/* Ligne 2: Non Important */}
             <div className="space-y-8">
               <EisenhowerQuadrantComponent

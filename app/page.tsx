@@ -24,8 +24,8 @@ export default function Home() {
             <Button asChild size="lg" className="bg-cortex-vibrant-orange hover:bg-cortex-vibrant-orange/90">
               <Link href="/eisenhower">⚡ Quartier Général</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-cortex-electric-blue text-cortex-electric-blue hover:bg-cortex-electric-blue/10">
-              <Link href="/dashboard">🎯 Dashboard Focus</Link>
+            <Button asChild size="lg" className="bg-cortex-pulse-red hover:bg-cortex-pulse-red/90">
+              <Link href="/focus">🎯 Dashboard Focus</Link>
             </Button>
           </div>
         </div>

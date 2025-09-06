@@ -45,6 +45,12 @@
       "namedRegex": "^/eisenhower(?:/)?$"
     },
     {
+      "page": "/focus",
+      "regex": "^/focus(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/focus(?:/)?$"
+    },
+    {
       "page": "/inbox",
       "regex": "^/inbox(?:/)?$",
       "routeKeys": {},

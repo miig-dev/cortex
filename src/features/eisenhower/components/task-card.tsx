@@ -1,9 +1,9 @@
 'use client';
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
-import { type EisenhowerTask } from '@/types/eisenhower';
 import { cn } from '@/lib/utils';
+import { type EisenhowerTask } from '@/types/eisenhower';
+import { motion } from 'framer-motion';
+import { type FC } from 'react';
 
 interface TaskCardProps {
   task: EisenhowerTask;
@@ -12,11 +12,11 @@ interface TaskCardProps {
   onDelete?: (taskId: string) => void;
 }
 
-export const TaskCard: FC<TaskCardProps> = ({ 
-  task, 
-  isDragging = false, 
+export const TaskCard: FC<TaskCardProps> = ({
+  task,
+  isDragging = false,
   onComplete,
-  onDelete 
+  onDelete
 }) => {
   const getTagColor = (tag: string) => {
     if (tag === 'urgent') return 'bg-cortex-pulse-red/20 text-cortex-pulse-red';
@@ -30,8 +30,8 @@ export const TaskCard: FC<TaskCardProps> = ({
     <motion.div
       layout
       initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
+        opacity: 1,
         scale: isDragging ? 1.05 : 1,
         rotate: isDragging ? 2 : 0
       }}
@@ -50,7 +50,7 @@ export const TaskCard: FC<TaskCardProps> = ({
         <p className="text-cortex-off-white font-mono text-sm leading-relaxed">
           {task.content}
         </p>
-        
+
         {/* Tags */}
         {task.tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
@@ -67,7 +67,7 @@ export const TaskCard: FC<TaskCardProps> = ({
             ))}
           </div>
         )}
-        
+
         {/* Timestamp */}
         <div className="text-cortex-muted text-xs font-mono">
           {new Date(task.createdAt).toLocaleTimeString('fr-FR', {

@@ -1,4 +1,4 @@
-export type EisenhowerQuadrant = 
+export type EisenhowerQuadrant =
   | 'urgent-important'
   | 'important-non-urgent'
   | 'urgent-non-important'
