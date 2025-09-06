@@ -121,10 +121,10 @@ export const FocusTimer: FC<FocusTimerProps> = ({
           cx="50%"
           cy="50%"
           r={radius}
-          stroke="#333"
+          stroke="#4A5568"
           strokeWidth="12"
           fill="transparent"
-          className="opacity-20"
+          className="opacity-40"
         />
 
         {/* Cercle animé */}
@@ -153,7 +153,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="text-6xl font-mono font-bold text-cortex-off-white mb-4"
+          className="text-6xl font-mono font-bold text-white mb-4 drop-shadow-lg"
         >
           {timeString}
         </motion.div>
@@ -163,7 +163,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-xl font-mono text-cortex-muted mb-8 max-w-xs"
+          className="text-xl font-mono text-slate-200 mb-8 max-w-xs drop-shadow-md"
         >
           {task}
         </motion.div>
@@ -175,7 +175,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleStart}
-              className="px-6 py-3 bg-cortex-electric-blue hover:bg-cortex-electric-blue/90 text-white font-mono font-bold rounded-lg transition-colors"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-mono font-bold rounded-lg transition-all duration-200 shadow-lg"
             >
               ▶️ Commencer
             </motion.button>
@@ -186,7 +186,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handlePause}
-              className="px-6 py-3 bg-cortex-vibrant-orange hover:bg-cortex-vibrant-orange/90 text-white font-mono font-bold rounded-lg transition-colors"
+              className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-mono font-bold rounded-lg transition-all duration-200 shadow-lg"
             >
               ⏸️ Pause
             </motion.button>
@@ -198,7 +198,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleResume}
-                className="px-4 py-2 bg-cortex-soft-green hover:bg-cortex-soft-green/90 text-white font-mono font-bold rounded-lg transition-colors"
+                className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-mono font-bold rounded-lg transition-all duration-200 shadow-lg"
               >
                 ▶️ Reprendre
               </motion.button>
@@ -206,7 +206,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleReset}
-                className="px-4 py-2 bg-cortex-muted hover:bg-cortex-muted/90 text-white font-mono font-bold rounded-lg transition-colors"
+                className="px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-mono font-bold rounded-lg transition-all duration-200 shadow-lg"
               >
                 🔄 Reset
               </motion.button>

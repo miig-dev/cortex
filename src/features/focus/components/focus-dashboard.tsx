@@ -88,11 +88,11 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-8 relative overflow-hidden">
       {/* Background pattern subtil */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-cortex-electric-blue/10 to-cortex-pulse-red/10" />
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(67,97,238,0.1)_100%)]" />
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-cortex-electric-blue/20 to-cortex-pulse-red/20" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(67,97,238,0.2)_100%)]" />
       </div>
 
       {/* Logo discret */}
@@ -108,10 +108,10 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute top-8 right-8 z-10 text-cortex-muted font-mono text-sm"
+        className="absolute top-8 right-8 z-10 text-slate-300 font-mono text-sm bg-slate-800/50 backdrop-blur-sm rounded-lg p-3 border border-slate-700"
       >
-        <div>Sessions: {sessionsCompleted}</div>
-        <div>Focus: {formatTime(totalFocusTime)}</div>
+        <div className="text-slate-200">Sessions: {sessionsCompleted}</div>
+        <div className="text-slate-200">Focus: {formatTime(totalFocusTime)}</div>
       </motion.div>
 
       {/* Contenu principal */}
@@ -152,7 +152,7 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
             type="text"
             value={currentTask}
             onChange={(e) => setCurrentTask(e.target.value)}
-            className="w-full bg-transparent border-none outline-none text-cortex-muted font-mono text-lg text-center placeholder-cortex-muted/50"
+            className="w-full bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-lg px-4 py-2 outline-none text-slate-200 font-mono text-lg text-center placeholder-slate-400 focus:border-slate-500 focus:bg-slate-800/70 transition-all duration-200"
             placeholder="Quelle tâche voulez-vous accomplir ?"
             disabled={isActive}
           />
@@ -163,13 +163,13 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="mt-16 text-cortex-muted font-mono text-sm max-w-md mx-auto"
+          className="mt-16 text-slate-300 font-mono text-sm max-w-md mx-auto bg-slate-800/50 backdrop-blur-sm rounded-lg p-4 border border-slate-700"
         >
           <div className="space-y-2">
-            <div>🎯 Concentrez-vous sur une seule tâche</div>
-            <div>⏰ 25 minutes de focus intense</div>
-            <div>☕ 5 minutes de pause entre les sessions</div>
-            <div>🔄 Répétez pour maintenir la productivité</div>
+            <div className="text-slate-200">🎯 Concentrez-vous sur une seule tâche</div>
+            <div className="text-slate-200">⏰ 25 minutes de focus intense</div>
+            <div className="text-slate-200">☕ 5 minutes de pause entre les sessions</div>
+            <div className="text-slate-200">🔄 Répétez pour maintenir la productivité</div>
           </div>
         </motion.div>
       </div>
@@ -187,7 +187,7 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
         <button
           type="button"
           onClick={() => window.history.back()}
-          className="text-cortex-muted hover:text-cortex-off-white font-mono text-sm transition-colors"
+          className="text-slate-300 hover:text-white font-mono text-sm transition-colors bg-slate-800/50 backdrop-blur-sm rounded-lg px-3 py-2 border border-slate-700 hover:bg-slate-800/70"
         >
           ← Retour
         </button>
