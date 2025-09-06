@@ -17,6 +17,8 @@ import type {
 } from '@/types/eisenhower';
 import { EisenhowerQuadrantComponent } from './eisenhower-quadrant';
 import { TaskCard } from './task-card';
+import Link from 'next/link';
+import { ArrowRight, Clock } from 'lucide-react';
 
 interface EisenhowerMatrixProps {
   initialTasks?: EisenhowerTask[];
@@ -176,6 +178,23 @@ export const EisenhowerMatrix: FC<EisenhowerMatrixProps> = ({
       >
         <div>Glissez-déposez les tâches entre les quadrants</div>
         <div className="mt-2">Clic droit sur une tâche pour les actions</div>
+      </motion.div>
+
+      {/* Bouton de navigation vers le focus */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.8 }}
+        className="mt-8 text-center"
+      >
+        <Link
+          href="/focus"
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 transform hover:scale-105"
+        >
+          <Clock className="mr-2 w-5 h-5" />
+          Commencer le Focus
+          <ArrowRight className="ml-2 w-5 h-5" />
+        </Link>
       </motion.div>
     </div>
   );

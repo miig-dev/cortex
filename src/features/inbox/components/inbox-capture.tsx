@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { CortexLogo } from '@/components/ui/cortex-logo';
 import { useGamificationStore } from '@/stores/gamification-store';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 interface InboxItem {
   id: string;
@@ -238,6 +240,22 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
           Enter = sauvegarder • Ctrl+Enter = sauvegarder et rester ouvert
         </div>
         <div className="mt-2">Tags: !urgent #docs @projet</div>
+      </motion.div>
+
+      {/* Bouton de navigation */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.8 }}
+        className="mt-8"
+      >
+        <Link
+          href="/eisenhower"
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 transform hover:scale-105"
+        >
+          Aller au Quartier Général
+          <ArrowRight className="ml-2 w-5 h-5" />
+        </Link>
       </motion.div>
     </div>
   );

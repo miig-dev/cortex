@@ -45,7 +45,7 @@ export default function HomePage() {
                 Quartier Général
               </Link>
               <Link
-                href="/dashboard-focus"
+                href="/focus"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 Dashboard Focus
@@ -84,7 +84,7 @@ export default function HomePage() {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link
-              href="/dashboard-focus"
+              href="/focus"
               className="inline-flex items-center px-8 py-4 border border-slate-600 text-white font-semibold rounded-lg hover:bg-slate-800 transition-all duration-200"
             >
               Mode Focus
@@ -133,7 +133,7 @@ export default function HomePage() {
             </Link>
 
             {/* Dashboard Focus */}
-            <Link href="/dashboard-focus" className="group">
+            <Link href="/focus" className="group">
               <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-purple-500 transition-all duration-200 hover:transform hover:scale-105">
                 <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-4">
                   <Clock className="w-6 h-6 text-white" />
