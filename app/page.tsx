@@ -2,7 +2,7 @@
 
 import { ArrowRight, Brain, Calendar, Plus, Search, Star } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type TaskQuadrant = 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
 
@@ -18,6 +18,9 @@ interface Task {
 }
 
 export default function HomePage() {
+  // État pour gérer l'hydratation
+  const [isHydrated, setIsHydrated] = useState(false);
+
   // États pour gérer les données dynamiques
   const [tasks, setTasks] = useState<Task[]>([
     {
@@ -46,18 +49,23 @@ export default function HomePage() {
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
 
+  // Effet pour gérer l'hydratation
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
   // Fonction pour catégoriser automatiquement les tâches selon Eisenhower
   const categorizeTask = (content: string) => {
     const lowerContent = content.toLowerCase();
-    
+
     // Mots-clés pour Urgent
     const urgentKeywords = ['urgent', 'asap', 'maintenant', 'immédiat', 'critique', 'deadline', 'échéance', '!urgent'];
     // Mots-clés pour Important
     const importantKeywords = ['important', 'priorité', 'essentiel', 'crucial', 'vital', '!important', 'prioritaire'];
-    
+
     const isUrgent = urgentKeywords.some(keyword => lowerContent.includes(keyword));
     const isImportant = importantKeywords.some(keyword => lowerContent.includes(keyword));
-    
+
     if (isUrgent && isImportant) {
       return {
         quadrant: 'urgent_important' as const,
@@ -139,6 +147,17 @@ export default function HomePage() {
       action();
     }
   };
+  // Éviter l'hydratation mismatch en ne rendant pas les inputs côté serveur
+  if (!isHydrated) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-slate-100">
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-slate-300">Chargement...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       {/* Top Bar */}
@@ -338,7 +357,7 @@ for (let i = 0; i < elements.length; i++) {
                 <div
                   key={task.id}
                   className="flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-lg border-l-4"
-                  style={{ 
+                  style={{
                     borderLeftColor: task.color,
                     backgroundColor: task.bgColor + '20'
                   }}
@@ -356,7 +375,7 @@ for (let i = 0; i < elements.length; i++) {
                     >
                       {task.content}
                     </div>
-                    <div 
+                    <div
                       className="text-xs mt-1 font-semibold"
                       style={{ color: task.color }}
                     >
