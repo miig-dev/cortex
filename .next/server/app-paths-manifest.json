@@ -1,6 +1,9 @@
 {
-  "/page": "app/page.js",
-  "/inbox/page": "app/inbox/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/eisenhower/page": "app/eisenhower/page.js",
   "/focus/page": "app/focus/page.js",
-  "/eisenhower/page": "app/eisenhower/page.js"
+  "/inbox/page": "app/inbox/page.js",
+  "/page": "app/page.js",
+  "/stats/page": "app/stats/page.js"
 }

@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import type { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { useGamificationStore } from '@/stores/gamification-store';
+import { motion } from 'framer-motion';
+import type { FC } from 'react';
 import { BadgeComponent } from './badge';
 import { ProgressBar } from './progress-bar';
 
@@ -67,7 +67,7 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
           current={stats.experience}
           max={stats.nextLevelExp}
           label="Progression du niveau"
-          color="purple"
+          color="blue"
           size="md"
         />
       </div>

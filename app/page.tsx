@@ -1,28 +1,69 @@
-import {
-  AlertCircle,
-  ArrowRight,
-  BarChart3,
-  Brain,
-  Calendar,
-  CheckCircle,
-  Circle,
-  Clock,
-  Plus,
-  Search,
-  Star,
-  Target,
-  Zap,
-} from 'lucide-react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Cortex Project - Votre centre de commande mental',
-  description:
-    'Organisez vos pensées, gérez vos tâches et atteignez vos objectifs avec le Cortex Project.',
-};
+import {
+    ArrowRight,
+    Brain,
+    Calendar,
+    Plus,
+    Search,
+    Star
+} from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function HomePage() {
+  // États pour gérer les données dynamiques
+  const [tasks, setTasks] = useState([
+    { id: 1, content: 'Tâche à accomplir', area: 'Freelance Work', completed: false }
+  ]);
+  const [projects, setProjects] = useState<string[]>([]);
+  const [areas, setAreas] = useState([
+    'Freelance Work',
+    'Marketing',
+    'Web site',
+    'Health & Wellness',
+    'Admin',
+    'Questionnaire avant le rendez-vous',
+    'Personal Development',
+    'Discussion pendant l\'entretien'
+  ]);
+  const [newTask, setNewTask] = useState('');
+  const [newProject, setNewProject] = useState('');
+  const [newArea, setNewArea] = useState('');
+
+  // Fonctions pour ajouter des éléments
+  const addTask = () => {
+    if (newTask.trim()) {
+      const task = {
+        id: Date.now(),
+        content: newTask,
+        area: 'Freelance Work',
+        completed: false
+      };
+      setTasks([...tasks, task]);
+      setNewTask('');
+    }
+  };
+
+  const addProject = () => {
+    if (newProject.trim()) {
+      setProjects([...projects, newProject]);
+      setNewProject('');
+    }
+  };
+
+  const addArea = () => {
+    if (newArea.trim()) {
+      setAreas([...areas, newArea]);
+      setNewArea('');
+    }
+  };
+
+  const toggleTask = (id: number) => {
+    setTasks(tasks.map(task => 
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       {/* Top Bar */}
@@ -89,7 +130,7 @@ for (let i = 0; i < elements.length; i++) {
               </button>
             </div>
           </div>
-          
+
           <div className="bg-slate-800 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <span className="text-slate-300 font-medium">août 2025</span>
@@ -112,7 +153,7 @@ for (let i = 0; i < elements.length; i++) {
                 </button>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-7 gap-1 mb-4">
               {['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'].map((day) => (
                 <div key={day} className="text-center text-slate-400 text-sm py-2">
@@ -127,7 +168,7 @@ for (let i = 0; i < elements.length; i++) {
                 </div>
               ))}
             </div>
-            
+
             <div className="flex items-center justify-between">
               <button className="text-slate-400 text-sm hover:text-white transition-colors">
                 Gérer dans le calendrier
@@ -158,7 +199,7 @@ for (let i = 0; i < elements.length; i++) {
               </button>
             </div>
           </div>
-          
+
           <div className="bg-slate-800 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <button className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors">
@@ -183,13 +224,41 @@ for (let i = 0; i < elements.length; i++) {
                 </button>
               </div>
             </div>
-            
+
             <div className="space-y-2">
-              <div className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded">
-                <input type="checkbox" className="w-4 h-4 text-blue-600 rounded" />
-                <div className="flex-1 text-slate-300 text-sm">Tâche à accomplir</div>
-                <div className="text-slate-400 text-sm">Freelance Work</div>
+              {/* Input pour ajouter une nouvelle tâche */}
+              <div className="flex items-center space-x-2 mb-3">
+                <input
+                  type="text"
+                  value={newTask}
+                  onChange={(e) => setNewTask(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && addTask()}
+                  placeholder="Ajouter une nouvelle tâche..."
+                  className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
+                />
+                <button
+                  onClick={addTask}
+                  className="px-3 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+                >
+                  Ajouter
+                </button>
               </div>
+              
+              {/* Liste des tâches */}
+              {tasks.map((task) => (
+                <div key={task.id} className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded">
+                  <input 
+                    type="checkbox" 
+                    checked={task.completed}
+                    onChange={() => toggleTask(task.id)}
+                    className="w-4 h-4 text-blue-600 rounded" 
+                  />
+                  <div className={`flex-1 text-sm ${task.completed ? 'line-through text-slate-500' : 'text-slate-300'}`}>
+                    {task.content}
+                  </div>
+                  <div className="text-slate-400 text-sm">{task.area}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -210,7 +279,7 @@ for (let i = 0; i < elements.length; i++) {
               </button>
             </div>
           </div>
-          
+
           <div className="bg-slate-800 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <button className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors">
@@ -234,6 +303,40 @@ for (let i = 0; i < elements.length; i++) {
                   <ArrowRight className="w-3 h-3 ml-1" />
                 </button>
               </div>
+            </div>
+
+            {/* Input pour ajouter un nouveau projet */}
+            <div className="flex items-center space-x-2 mb-4">
+              <input
+                type="text"
+                value={newProject}
+                onChange={(e) => setNewProject(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && addProject()}
+                placeholder="Nom du nouveau projet..."
+                className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
+              />
+              <button
+                onClick={addProject}
+                className="px-3 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+              >
+                Ajouter
+              </button>
+            </div>
+
+            {/* Liste des projets */}
+            <div className="space-y-2">
+              {projects.length === 0 ? (
+                <div className="text-slate-400 text-sm text-center py-4">
+                  Aucun projet pour le moment
+                </div>
+              ) : (
+                projects.map((project, index) => (
+                  <div key={index} className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <div className="flex-1 text-slate-300 text-sm">{project}</div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>
@@ -246,7 +349,7 @@ for (let i = 0; i < elements.length; i++) {
               All Areas
             </button>
           </div>
-          
+
           <div className="bg-slate-800 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <button className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors">
@@ -271,20 +374,29 @@ for (let i = 0; i < elements.length; i++) {
                 </button>
               </div>
             </div>
-            
+
+            {/* Input pour ajouter une nouvelle area */}
+            <div className="flex items-center space-x-2 mb-4">
+              <input
+                type="text"
+                value={newArea}
+                onChange={(e) => setNewArea(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && addArea()}
+                placeholder="Nom de la nouvelle area..."
+                className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
+              />
+              <button
+                onClick={addArea}
+                className="px-3 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+              >
+                Ajouter
+              </button>
+            </div>
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                'Freelance Work',
-                'Marketing', 
-                'Web site',
-                'Health & Wellness',
-                'Admin',
-                'Questionnaire avant le rendez-vous',
-                'Personal Development',
-                'Discussion pendant l\'entretien'
-              ].map((area) => (
+              {areas.map((area, index) => (
                 <Link
-                  key={area}
+                  key={index}
                   href="/inbox"
                   className="p-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-slate-200 text-sm transition-colors"
                 >
