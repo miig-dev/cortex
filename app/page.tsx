@@ -18,11 +18,11 @@ export default function Home() {
             Plateforme de gestion intelligente et moderne
           </p>
           <div className="flex gap-4 justify-center">
-            <Button asChild size="lg">
-              <Link href="/dashboard">Accéder au Dashboard</Link>
+            <Button asChild size="lg" className="bg-cortex-electric-blue hover:bg-cortex-electric-blue/90">
+              <Link href="/inbox">🚀 Commencer - Inbox</Link>
             </Button>
-            <Button variant="outline" size="lg">
-              En savoir plus
+            <Button asChild variant="outline" size="lg" className="border-cortex-electric-blue text-cortex-electric-blue hover:bg-cortex-electric-blue/10">
+              <Link href="/dashboard">Dashboard</Link>
             </Button>
           </div>
         </div>
