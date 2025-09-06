@@ -20,12 +20,18 @@ interface InboxCaptureProps {
 export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // Gamification
   const { updateStats, addExperience } = useGamificationStore();
 
-  // Plus besoin d'auto-resize avec input
+  // Auto-resize du textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto';
+      inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
+    }
+  }, [inputValue]);
 
   // Auto-tagging intelligent
   const extractTags = (text: string): string[] => {
@@ -56,45 +62,56 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
     return tags;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
 
     if (!inputValue.trim()) return;
 
-    const tags = extractTags(inputValue);
-    const newItem: InboxItem = {
-      id: Date.now().toString(),
-      content: inputValue.trim(),
-      tags,
-      createdAt: new Date(),
-    };
+    try {
+      const tags = extractTags(inputValue);
+      const newItem: InboxItem = {
+        id: Date.now().toString(),
+        content: inputValue.trim(),
+        tags,
+        createdAt: new Date(),
+      };
 
-    onItemAdded(newItem);
-    setInputValue('');
+      onItemAdded(newItem);
+      setInputValue('');
 
-    // Mise à jour des statistiques de gamification
-    updateStats({
-      ideasCaptured: 1 // Une idée capturée
-    });
+      // Mise à jour des statistiques de gamification
+      updateStats({
+        ideasCaptured: 1 // Une idée capturée
+      });
 
-    // Ajouter de l'expérience
-    addExperience(5); // 5 XP par idée capturée
+      // Ajouter de l'expérience
+      addExperience(5); // 5 XP par idée capturée
 
-    // Son de validation (optionnel)
-    if (typeof window !== 'undefined' && 'Audio' in window) {
-      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT');
-      audio.volume = 0.3;
-      audio.play().catch(() => {}); // Ignore les erreurs de son
+      // Son de validation (optionnel)
+      if (typeof window !== 'undefined' && 'Audio' in window) {
+        try {
+          const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU5k9n1unEiBC13yO/eizEIHWq+8+OWT');
+          audio.volume = 0.3;
+          audio.play().catch(() => {}); // Ignore les erreurs de son
+        } catch (error) {
+          console.log('Erreur audio ignorée:', error);
+        }
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) {
       e.preventDefault();
-      handleSubmit(e);
+      handleSubmit();
     } else if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      // Cmd+Enter = reste ouvert pour rafale d'idées
-      handleSubmit(e);
+      // Cmd+Enter ou Ctrl+Enter = reste ouvert pour rafale d'idées
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -147,17 +164,18 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
       >
         <form onSubmit={handleSubmit} className="relative">
           <div className="relative">
-            <input
-              type="text"
+            <textarea
+              ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleKeyDown}
               placeholder="Tapez ici... !urgent fix bug"
-              className="w-full h-16 px-6 py-4 bg-transparent border-2 border-cortex-electric-blue/30 rounded-lg outline-none text-cortex-off-white text-xl font-mono placeholder-cortex-muted transition-all duration-200 focus:border-cortex-electric-blue focus:text-white"
+              className="w-full min-h-[60px] max-h-[200px] px-6 py-4 bg-transparent border-2 border-cortex-electric-blue/30 rounded-lg outline-none text-cortex-off-white text-xl font-mono placeholder-cortex-muted resize-none transition-all duration-200 focus:border-cortex-electric-blue focus:text-white"
               style={{
                 fontSize: '20px',
+                lineHeight: '1.5',
               }}
             />
 
@@ -205,7 +223,7 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
         transition={{ duration: 0.4, delay: 0.6 }}
         className="mt-12 text-cortex-muted font-mono text-xs text-center max-w-md"
       >
-        <div>Enter = sauvegarder • Cmd+Enter = sauvegarder et rester ouvert</div>
+        <div>Enter = sauvegarder • Ctrl+Enter = sauvegarder et rester ouvert</div>
         <div className="mt-2">
           Tags: !urgent #docs @projet
         </div>

@@ -12,7 +12,7 @@
       "static/chunks/d764cd1b-ff94fc829997fa44.js",
       "static/chunks/369-cf756ae1304b4680.js",
       "static/chunks/main-app-f3313665aed7ac6c.js",
-      "static/css/37dc28860425ec29.css",
+      "static/css/6358fe5afd06c069.css",
       "static/chunks/app/layout-25864790dc4eb97b.js"
     ],
     "/(dashboard)/dashboard/page": [
@@ -47,7 +47,7 @@
       "static/chunks/369-cf756ae1304b4680.js",
       "static/chunks/main-app-f3313665aed7ac6c.js",
       "static/chunks/969-0bc7481007d5197e.js",
-      "static/chunks/app/inbox/page-79adff03da569793.js"
+      "static/chunks/app/inbox/page-9f502e42e58bee89.js"
     ],
     "/page": [
       "static/chunks/webpack-28bd7da60312324e.js",
