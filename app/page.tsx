@@ -27,6 +27,9 @@ export default function Home() {
             <Button asChild size="lg" className="bg-cortex-pulse-red hover:bg-cortex-pulse-red/90">
               <Link href="/focus">🎯 Dashboard Focus</Link>
             </Button>
+            <Button asChild variant="outline" size="lg" className="border-cortex-soft-green text-cortex-soft-green hover:bg-cortex-soft-green/10">
+              <Link href="/stats">📊 Statistiques</Link>
+            </Button>
           </div>
         </div>
 

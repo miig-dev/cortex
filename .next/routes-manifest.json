@@ -55,6 +55,12 @@
       "regex": "^/inbox(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/inbox(?:/)?$"
+    },
+    {
+      "page": "/stats",
+      "regex": "^/stats(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/stats(?:/)?$"
     }
   ],
   "dataRoutes": [],

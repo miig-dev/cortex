@@ -3,6 +3,7 @@
 import { CortexLogo } from '@/components/ui/cortex-logo';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { useGamificationStore } from '@/stores/gamification-store';
 
 interface InboxItem {
   id: string;
@@ -20,6 +21,9 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  
+  // Gamification
+  const { updateStats, addExperience } = useGamificationStore();
 
   // Auto-resize du textarea
   useEffect(() => {
@@ -73,6 +77,14 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
 
     onItemAdded(newItem);
     setInputValue('');
+    
+    // Mise à jour des statistiques de gamification
+    updateStats({
+      ideasCaptured: 1 // Une idée capturée
+    });
+    
+    // Ajouter de l'expérience
+    addExperience(5); // 5 XP par idée capturée
 
     // Son de validation (optionnel)
     if (typeof window !== 'undefined' && 'Audio' in window) {

@@ -1,10 +1,11 @@
 'use client';
 
-import { type FC, useState, useEffect } from 'react';
+import { CortexLogo } from '@/components/ui/cortex-logo';
 import { motion } from 'framer-motion';
+import { type FC, useEffect, useState } from 'react';
+import { useGamificationStore } from '@/stores/gamification-store';
 import { FocusTimer } from './focus-timer';
 import { MicroConseils } from './micro-conseils';
-import { CortexLogo } from '@/components/ui/cortex-logo';
 
 interface FocusDashboardProps {
   initialTask?: string;
@@ -24,17 +25,20 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
   const [totalFocusTime, setTotalFocusTime] = useState(0);
+  
+  // Gamification
+  const { updateStats, addExperience } = useGamificationStore();
 
   // Mise à jour du temps écoulé
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-    
+
     if (isActive) {
       interval = setInterval(() => {
         setTimeElapsed(prev => prev + 1);
       }, 1000);
     }
-    
+
     return () => { if (interval) clearInterval(interval); };
   }, [isActive]);
 
@@ -44,6 +48,19 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
     setTotalFocusTime(prev => prev + sessionDuration);
     setTimeElapsed(0);
     setIsActive(false);
+    
+    // Mise à jour des statistiques de gamification
+    updateStats({
+      totalSessions: sessionsCompleted + 1,
+      totalFocusTime: totalFocusTime + sessionDuration,
+      tasksCompleted: 1, // Une tâche terminée par session
+      averageSessionLength: sessionDuration
+    });
+    
+    // Ajouter de l'expérience
+    const expGained = Math.floor(sessionDuration / 60) * 10; // 10 XP par minute
+    addExperience(expGained);
+    
     onSessionComplete?.(sessionDuration);
   };
 
@@ -61,7 +78,7 @@ export const FocusDashboard: FC<FocusDashboardProps> = ({
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    
+
     if (hours > 0) {
       return `${hours}h ${minutes}m ${secs}s`;
     }

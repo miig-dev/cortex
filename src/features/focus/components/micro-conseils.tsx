@@ -1,7 +1,7 @@
 'use client';
 
-import { type FC, useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { type FC, useEffect, useState } from 'react';
 
 interface MicroConseilsProps {
   isActive: boolean;
@@ -32,7 +32,7 @@ export const MicroConseils: FC<MicroConseilsProps> = ({ isActive, timeElapsed })
     const interval = setInterval(() => {
       setShowConseil(true);
       setCurrentConseil(prev => (prev + 1) % conseils.length);
-      
+
       // Masquer le conseil après 5 secondes
       setTimeout(() => setShowConseil(false), 5000);
     }, 120000); // 2 minutes
