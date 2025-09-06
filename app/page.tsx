@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type TaskQuadrant = 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
 
@@ -17,9 +17,6 @@ interface Task {
 }
 
 export default function HomePage() {
-  // État pour gérer l'hydratation
-  const [isHydrated, setIsHydrated] = useState(false);
-
   // États pour gérer les données dynamiques
   const [tasks, setTasks] = useState<Task[]>([
     {
@@ -47,11 +44,6 @@ export default function HomePage() {
   const [newTask, setNewTask] = useState('');
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
-
-  // Effet pour gérer l'hydratation
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
 
   // Fonction pour catégoriser automatiquement les tâches selon Eisenhower
   const categorizeTask = (content: string) => {
@@ -98,6 +90,7 @@ export default function HomePage() {
 
   // Fonctions pour ajouter des éléments
   const addTask = () => {
+    console.log('addTask called, newTask:', newTask);
     if (newTask.trim()) {
       const categorization = categorizeTask(newTask);
       const task: Task = {
@@ -110,20 +103,25 @@ export default function HomePage() {
         bgColor: categorization.bgColor,
         title: categorization.title,
       };
+      console.log('Adding task:', task);
       setTasks([...tasks, task]);
       setNewTask('');
     }
   };
 
   const addProject = () => {
+    console.log('addProject called, newProject:', newProject);
     if (newProject.trim()) {
+      console.log('Adding project:', newProject);
       setProjects([...projects, newProject]);
       setNewProject('');
     }
   };
 
   const addArea = () => {
+    console.log('addArea called, newArea:', newArea);
     if (newArea.trim()) {
+      console.log('Adding area:', newArea);
       setAreas([...areas, newArea]);
       setNewArea('');
     }
@@ -143,16 +141,6 @@ export default function HomePage() {
       action();
     }
   };
-  // Éviter l'hydratation mismatch en ne rendant pas les inputs côté serveur
-  if (!isHydrated) {
-    return (
-      <div className="min-h-screen bg-slate-900 text-slate-100">
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-slate-300">Chargement...</div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#121212' }}>
@@ -162,6 +150,12 @@ export default function HomePage() {
           <h1 className="text-4xl font-bold" style={{ color: '#E0E0E0' }}>
             Igor_MigDev
           </h1>
+          <button
+            onClick={() => console.log('Test button clicked!')}
+            className="ml-4 px-4 py-2 bg-red-500 text-white rounded"
+          >
+            Test
+          </button>
         </div>
       </header>
 
@@ -236,7 +230,11 @@ export default function HomePage() {
               }}
             />
             <button
-              onClick={() => addTask()}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log('Button clicked!');
+                addTask();
+              }}
               className="px-6 py-3 rounded font-medium transition-colors"
               style={{
                 backgroundColor: '#4361EE',
