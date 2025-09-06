@@ -4,14 +4,31 @@ import { ArrowRight, Brain, Calendar, Plus, Search, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
+type TaskQuadrant = 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
+
+interface Task {
+  id: number;
+  content: string;
+  area: string;
+  completed: boolean;
+  quadrant: TaskQuadrant;
+  color?: string;
+  bgColor?: string;
+  title?: string;
+}
+
 export default function HomePage() {
   // États pour gérer les données dynamiques
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState<Task[]>([
     {
       id: 1,
       content: 'Tâche à accomplir',
       area: 'Freelance Work',
       completed: false,
+      quadrant: 'noturgent_notimportant',
+      color: '#6B7280',
+      bgColor: '#1A1A1A',
+      title: '🗑️ ÉLIMINER',
     },
   ]);
   const [projects, setProjects] = useState<string[]>([]);
@@ -29,15 +46,63 @@ export default function HomePage() {
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
 
+  // Fonction pour catégoriser automatiquement les tâches selon Eisenhower
+  const categorizeTask = (content: string) => {
+    const lowerContent = content.toLowerCase();
+    
+    // Mots-clés pour Urgent
+    const urgentKeywords = ['urgent', 'asap', 'maintenant', 'immédiat', 'critique', 'deadline', 'échéance', '!urgent'];
+    // Mots-clés pour Important
+    const importantKeywords = ['important', 'priorité', 'essentiel', 'crucial', 'vital', '!important', 'prioritaire'];
+    
+    const isUrgent = urgentKeywords.some(keyword => lowerContent.includes(keyword));
+    const isImportant = importantKeywords.some(keyword => lowerContent.includes(keyword));
+    
+    if (isUrgent && isImportant) {
+      return {
+        quadrant: 'urgent_important' as const,
+        color: '#EF476F',
+        bgColor: '#2A0A0A',
+        title: '🔥 FAIRE MAINTENANT'
+      };
+    } else if (!isUrgent && isImportant) {
+      return {
+        quadrant: 'noturgent_important' as const,
+        color: '#4361EE',
+        bgColor: '#0A1A2A',
+        title: '🧠 PLANIFIER'
+      };
+    } else if (isUrgent && !isImportant) {
+      return {
+        quadrant: 'urgent_notimportant' as const,
+        color: '#FFD166',
+        bgColor: '#2A2A0A',
+        title: '⏱️ DÉLÉGUER'
+      };
+    } else {
+      return {
+        quadrant: 'noturgent_notimportant' as const,
+        color: '#6B7280',
+        bgColor: '#1A1A1A',
+        title: '🗑️ ÉLIMINER'
+      };
+    }
+  };
+
   // Fonctions pour ajouter des éléments
   const addTask = (e?: React.MouseEvent) => {
     e?.preventDefault();
     if (newTask.trim()) {
-      const task = {
+      const categorization = categorizeTask(newTask);
+      const task: Task = {
         id: Date.now(),
         content: newTask,
         area: 'Freelance Work',
         completed: false,
+        quadrant: categorization.quadrant,
+        color: categorization.color,
+        bgColor: categorization.bgColor,
+        title: categorization.title,
       };
       setTasks([...tasks, task]);
       setNewTask('');
@@ -257,7 +322,7 @@ for (let i = 0; i < elements.length; i++) {
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
                   onKeyDown={(e) => handleKeyDown(e, addTask)}
-                  placeholder="Ajouter une nouvelle tâche..."
+                  placeholder="Ex: 'urgent important fix bug' ou 'planifier réunion'..."
                   className="flex-1 px-3 py-2 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:border-blue-500 focus:outline-none"
                 />
                 <button
@@ -272,18 +337,31 @@ for (let i = 0; i < elements.length; i++) {
               {tasks.map((task) => (
                 <div
                   key={task.id}
-                  className="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded"
+                  className="flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-lg border-l-4"
+                  style={{ 
+                    borderLeftColor: task.color,
+                    backgroundColor: task.bgColor + '20'
+                  }}
                 >
                   <input
                     type="checkbox"
                     checked={task.completed}
                     onChange={() => toggleTask(task.id)}
-                    className="w-4 h-4 text-blue-600 rounded"
+                    className="w-4 h-4 rounded"
+                    style={{ accentColor: task.color }}
                   />
-                  <div
-                    className={`flex-1 text-sm ${task.completed ? 'line-through text-slate-500' : 'text-slate-300'}`}
-                  >
-                    {task.content}
+                  <div className="flex-1">
+                    <div
+                      className={`text-sm font-medium ${task.completed ? 'line-through text-slate-500' : 'text-slate-200'}`}
+                    >
+                      {task.content}
+                    </div>
+                    <div 
+                      className="text-xs mt-1 font-semibold"
+                      style={{ color: task.color }}
+                    >
+                      {task.title}
+                    </div>
                   </div>
                   <div className="text-slate-400 text-sm">{task.area}</div>
                 </div>

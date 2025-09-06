@@ -2,8 +2,8 @@
   "/_not-found/page": "/_not-found",
   "/(dashboard)/dashboard/page": "/dashboard",
   "/eisenhower/page": "/eisenhower",
+  "/focus/page": "/focus",
   "/inbox/page": "/inbox",
   "/page": "/",
-  "/focus/page": "/focus",
   "/stats/page": "/stats"
 }
