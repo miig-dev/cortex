@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Hook personnalisé pour gérer la persistance des données dans localStorage
@@ -16,10 +16,10 @@ export function useLocalStorage<T>(
     try {
       // Permettre à value d'être une fonction pour une mise à jour basée sur l'état précédent
       const valueToStore = value instanceof Function ? value(storedValue) : value;
-      
+
       // Sauvegarder l'état
       setStoredValue(valueToStore);
-      
+
       // Sauvegarder dans localStorage
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));

@@ -1,7 +1,7 @@
 'use client';
 
+import { type Task, useCortexStore } from '@/stores/cortex-store';
 import { useState } from 'react';
-import { useCortexStore, type Task } from '@/stores/cortex-store';
 
 interface TaskItemProps {
   task: Task;
@@ -12,13 +12,13 @@ interface TaskItemProps {
   compact?: boolean;
 }
 
-export function TaskItem({ 
-  task, 
-  onEdit, 
-  onDelete, 
-  onMove, 
+export function TaskItem({
+  task,
+  onEdit,
+  onDelete,
+  onMove,
   showActions = true,
-  compact = false 
+  compact = false
 }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(task.content);
@@ -65,7 +65,7 @@ export function TaskItem({
   };
 
   return (
-    <div 
+    <div
       className={`group flex items-start gap-3 p-3 rounded-lg border transition-all duration-200 hover:shadow-md ${
         compact ? 'py-2' : 'py-3'
       }`}
@@ -79,8 +79,8 @@ export function TaskItem({
         type="button"
         onClick={handleToggle}
         className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 ${
-          task.completed 
-            ? 'bg-green-500 border-green-500' 
+          task.completed
+            ? 'bg-green-500 border-green-500'
             : 'border-gray-400 hover:border-gray-300'
         }`}
         style={{ marginTop: '2px' }}
@@ -108,7 +108,7 @@ export function TaskItem({
           />
         ) : (
           <div className="flex items-center gap-2">
-            <span 
+            <span
               className={`text-sm ${task.completed ? 'line-through opacity-60' : ''}`}
               style={{ color: task.color || '#E0E0E0' }}
             >
@@ -121,21 +121,21 @@ export function TaskItem({
             )}
           </div>
         )}
-        
+
         {!compact && (
           <div className="flex items-center gap-2 mt-1">
-            <span 
+            <span
               className="text-xs px-2 py-1 rounded"
-              style={{ 
+              style={{
                 backgroundColor: `${task.color}20`,
                 color: task.color || '#E0E0E0'
               }}
             >
               {task.area}
             </span>
-            <span 
+            <span
               className="text-xs px-2 py-1 rounded"
-              style={{ 
+              style={{
                 backgroundColor: `${task.color}20`,
                 color: task.color || '#E0E0E0'
               }}
@@ -160,7 +160,7 @@ export function TaskItem({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
           </button>
-          
+
           <button
             type="button"
             onClick={handleDelete}

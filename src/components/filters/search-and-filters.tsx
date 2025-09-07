@@ -1,6 +1,6 @@
 'use client';
 
-import { useCortexStore, type TaskQuadrant } from '@/stores/cortex-store';
+import { type TaskQuadrant, useCortexStore } from '@/stores/cortex-store';
 
 const QUADRANT_LABELS: Record<TaskQuadrant, string> = {
   urgent_important: '🔥 Urgent & Important',
@@ -25,6 +25,10 @@ export function SearchAndFilters() {
 
   return (
     <div className="space-y-4">
+      <h3 className="text-lg font-semibold" style={{ color: '#E0E0E0' }}>
+        🔍 Recherche & Filtres
+      </h3>
+      
       {/* Barre de recherche */}
       <div className="relative">
         <input
@@ -32,14 +36,14 @@ export function SearchAndFilters() {
           placeholder="Rechercher une tâche..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-3 pl-10 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          className="w-full px-4 py-2 pl-10 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
           style={{
             borderColor: 'rgba(255,255,255,0.1)',
             color: '#E0E0E0',
           }}
         />
         <svg
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -54,20 +58,20 @@ export function SearchAndFilters() {
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200"
             aria-label="Effacer la recherche"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         )}
       </div>
 
-      {/* Filtres */}
-      <div className="flex flex-wrap gap-3">
+      {/* Filtres compacts */}
+      <div className="space-y-3">
         {/* Filtre par area */}
         <select
           value={selectedArea || ''}
           onChange={(e) => setSelectedArea(e.target.value || null)}
-          className="px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
           style={{
             borderColor: 'rgba(255,255,255,0.1)',
             color: '#E0E0E0',
@@ -85,7 +89,7 @@ export function SearchAndFilters() {
         <select
           value={selectedQuadrant || ''}
           onChange={(e) => setSelectedQuadrant((e.target.value as TaskQuadrant) || null)}
-          className="px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
           style={{
             borderColor: 'rgba(255,255,255,0.1)',
             color: '#E0E0E0',
@@ -115,11 +119,11 @@ export function SearchAndFilters() {
 
         {/* Bouton clear */}
         {(searchQuery || selectedArea || selectedQuadrant || !showCompleted) && (
-        <button
-          type="button"
-          onClick={clearFilters}
-          className="px-3 py-2 rounded-lg border-2 border-red-400 text-red-400 hover:bg-red-400 hover:bg-opacity-10 transition-all duration-200"
-        >
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="w-full px-3 py-2 rounded-lg border-2 border-red-400 text-red-400 hover:bg-red-400 hover:bg-opacity-10 transition-all duration-200"
+          >
             Effacer filtres
           </button>
         )}

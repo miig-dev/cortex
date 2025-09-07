@@ -7,40 +7,39 @@ export function QuickStats() {
   const { getStats } = useCortexStore();
   const stats = getStats();
 
-  const completionRate = stats.totalTasks > 0 
-    ? Math.round((stats.completedTasks / stats.totalTasks) * 100) 
+  const completionRate = stats.totalTasks > 0
+    ? Math.round((stats.completedTasks / stats.totalTasks) * 100)
     : 0;
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {/* Tâches totales */}
-      <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-lg">
-        <div className="text-2xl font-bold text-white">{stats.totalTasks}</div>
-        <div className="text-sm text-blue-100">Tâches totales</div>
+    <div className="space-y-6">
+      {/* Stats principales */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-white">{stats.totalTasks}</div>
+          <div className="text-sm text-blue-100">Tâches totales</div>
+        </div>
+
+        <div className="bg-gradient-to-br from-green-500 to-green-600 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-white">{stats.completedTasks}</div>
+          <div className="text-sm text-green-100">Terminées</div>
+        </div>
+
+        <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-white">{stats.pendingTasks}</div>
+          <div className="text-sm text-orange-100">En cours</div>
+        </div>
+
+        <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-white">{completionRate}%</div>
+          <div className="text-sm text-purple-100">Complétion</div>
+        </div>
       </div>
 
-      {/* Tâches terminées */}
-      <div className="bg-gradient-to-br from-green-500 to-green-600 p-4 rounded-lg">
-        <div className="text-2xl font-bold text-white">{stats.completedTasks}</div>
-        <div className="text-sm text-green-100">Terminées</div>
-      </div>
-
-      {/* Tâches en cours */}
-      <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-lg">
-        <div className="text-2xl font-bold text-white">{stats.pendingTasks}</div>
-        <div className="text-sm text-orange-100">En cours</div>
-      </div>
-
-      {/* Taux de completion */}
-      <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-4 rounded-lg">
-        <div className="text-2xl font-bold text-white">{completionRate}%</div>
-        <div className="text-sm text-purple-100">Complétion</div>
-      </div>
-
-      {/* Répartition par quadrant */}
-      <div className="col-span-2 md:col-span-4 bg-gray-800 p-4 rounded-lg">
+      {/* Répartition Eisenhower */}
+      <div className="bg-gray-800 p-4 rounded-lg">
         <h3 className="text-lg font-semibold mb-3" style={{ color: '#E0E0E0' }}>
-          Répartition Eisenhower
+          📊 Répartition Eisenhower
         </h3>
         <div className="grid grid-cols-2 gap-3">
           <div className="flex items-center justify-between p-2 rounded" style={{ backgroundColor: '#2A0A0A' }}>
@@ -71,7 +70,7 @@ export function QuickStats() {
       </div>
 
       {/* Liens rapides */}
-      <div className="col-span-2 md:col-span-4 flex gap-2">
+      <div className="flex gap-2">
         <Link
           href="/eisenhower"
           className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-lg text-center font-medium hover:from-green-600 hover:to-green-700 transition-all duration-200"

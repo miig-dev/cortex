@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { useCortexStore } from '@/stores/cortex-store';
-import { TaskItem } from '@/components/task/task-item';
 import { SearchAndFilters } from '@/components/filters/search-and-filters';
 import { QuickStats } from '@/components/stats/quick-stats';
+import { TaskItem } from '@/components/task/task-item';
+import { useCortexStore } from '@/stores/cortex-store';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function HomePage() {
   const {
@@ -66,7 +66,7 @@ export default function HomePage() {
               <Link
                 href="/inbox"
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
-                style={{ 
+                style={{
                   backgroundColor: '#4361EE',
                   color: 'white'
                 }}
@@ -76,7 +76,7 @@ export default function HomePage() {
               <Link
                 href="/eisenhower"
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
-                style={{ 
+                style={{
                   backgroundColor: '#4CAF50',
                   color: 'white'
                 }}
@@ -86,7 +86,7 @@ export default function HomePage() {
               <Link
                 href="/focus"
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
-                style={{ 
+                style={{
                   backgroundColor: '#FF7733',
                   color: 'white'
                 }}
@@ -96,7 +96,7 @@ export default function HomePage() {
               <Link
                 href="/stats"
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
-                style={{ 
+                style={{
                   backgroundColor: '#EF476F',
                   color: 'white'
                 }}
@@ -110,15 +110,17 @@ export default function HomePage() {
 
       {/* Contenu principal */}
       <div className="container mx-auto px-8 py-8">
-        
-        {/* Stats rapides */}
-        <section className="mb-12">
-          <QuickStats />
-        </section>
 
-        {/* Recherche et filtres */}
-        <section className="mb-8">
-          <SearchAndFilters />
+        {/* Stats rapides et recherche */}
+        <section className="mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <QuickStats />
+            </div>
+            <div className="lg:col-span-1">
+              <SearchAndFilters />
+            </div>
+          </div>
         </section>
 
         {/* Planificateur principal */}
@@ -197,7 +199,7 @@ export default function HomePage() {
 
         {/* Projets et Areas en grille */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Projets */}
           <section>
             <h2 className="text-2xl font-bold mb-6" style={{ color: '#E0E0E0' }}>
@@ -258,7 +260,7 @@ export default function HomePage() {
                           </div>
                         )}
                       </div>
-                      <div 
+                      <div
                         className="w-4 h-4 rounded-full"
                         style={{ backgroundColor: project.color }}
                       />
@@ -313,7 +315,7 @@ export default function HomePage() {
                     backgroundColor: area.color + '10'
                   }}
                 >
-                  <div 
+                  <div
                     className="w-6 h-6 rounded-full mx-auto mb-2"
                     style={{ backgroundColor: area.color }}
                   />
