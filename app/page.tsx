@@ -7,6 +7,7 @@ import { MiniCalendar } from '@/components/overview/mini-calendar';
 import { QuickTasks } from '@/components/overview/quick-tasks';
 import { QuickProjects } from '@/components/overview/quick-projects';
 import { QuickAreas } from '@/components/overview/quick-areas';
+import { DigitalClock } from '@/components/overview/digital-clock';
 import { useCortexStore } from '@/stores/cortex-store';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -125,12 +126,10 @@ export default function HomePage() {
       {/* Contenu principal - Vue d'ensemble Notion-like */}
       <div className="container mx-auto px-8 py-8">
         
-        {/* Header avec recherche */}
+        {/* Header avec horloge et recherche */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold" style={{ color: '#E0E0E0' }}>
-              Vue d'ensemble
-            </h2>
+            <DigitalClock />
             <div className="w-96">
               <SearchAndFilters />
             </div>
