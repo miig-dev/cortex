@@ -1,3 +1,4 @@
+import { mockAreas, mockEvents, mockProjects, mockTasks } from '@/data/mock-data';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -139,77 +140,11 @@ const categorizeTask = (content: string): { quadrant: TaskQuadrant; color: strin
 export const useCortexStore = create<CortexState>()(
   persist(
     (set, get) => ({
-      // État initial avec quelques tâches d'exemple
-      events: [],
-      tasks: [
-        {
-          id: 1,
-          content: 'urgent important fix bug critique',
-          area: 'Freelance Work',
-          completed: false,
-          quadrant: 'urgent_important',
-          priority: 1,
-          createdAt: new Date('2024-01-01'),
-          updatedAt: new Date('2024-01-01'),
-          color: '#EF476F',
-          bgColor: '#2A0A0A',
-          title: '🔥 URGENT & IMPORTANT',
-        },
-        {
-          id: 2,
-          content: 'planifier réunion client important',
-          area: 'Marketing',
-          completed: true,
-          quadrant: 'noturgent_important',
-          priority: 2,
-          createdAt: new Date('2024-01-01'),
-          updatedAt: new Date('2024-01-01'),
-          color: '#4CAF50',
-          bgColor: '#0A1A2A',
-          title: '📋 IMPORTANT',
-        },
-        {
-          id: 3,
-          content: 'appeler maman urgent',
-          area: 'Personal Development',
-          completed: false,
-          quadrant: 'urgent_notimportant',
-          priority: 3,
-          createdAt: new Date('2024-01-01'),
-          updatedAt: new Date('2024-01-01'),
-          color: '#FF7733',
-          bgColor: '#2A2A0A',
-          title: '⚡ URGENT',
-        },
-      ],
-      projects: [
-        {
-          id: 1,
-          name: 'Site e-commerce',
-          description: 'Développement d\'une boutique en ligne',
-          color: '#4361EE',
-          createdAt: new Date('2024-01-01'),
-          updatedAt: new Date('2024-01-01'),
-          completed: false,
-        },
-        {
-          id: 2,
-          name: 'App mobile',
-          description: 'Application mobile React Native',
-          color: '#4CAF50',
-          createdAt: new Date('2024-01-01'),
-          updatedAt: new Date('2024-01-01'),
-          completed: false,
-        },
-      ],
-      areas: [
-        { id: 1, name: 'Freelance Work', color: '#4361EE', createdAt: new Date('2024-01-01'), updatedAt: new Date('2024-01-01') },
-        { id: 2, name: 'Marketing', color: '#4CAF50', createdAt: new Date('2024-01-01'), updatedAt: new Date('2024-01-01') },
-        { id: 3, name: 'Web site', color: '#FF7733', createdAt: new Date('2024-01-01'), updatedAt: new Date('2024-01-01') },
-        { id: 4, name: 'Health & Wellness', color: '#EF476F', createdAt: new Date('2024-01-01'), updatedAt: new Date('2024-01-01') },
-        { id: 5, name: 'Admin', color: '#6B7280', createdAt: new Date('2024-01-01'), updatedAt: new Date('2024-01-01') },
-        { id: 6, name: 'Personal Development', color: '#4CC9F0', createdAt: new Date('2024-01-01'), updatedAt: new Date('2024-01-01') },
-      ],
+      // État initial avec données mock
+      events: mockEvents,
+      tasks: mockTasks,
+      projects: mockProjects,
+      areas: mockAreas,
       searchQuery: '',
       selectedArea: null,
       selectedQuadrant: null,
@@ -364,7 +299,7 @@ export const useCortexStore = create<CortexState>()(
           ...eventData,
           id: `event-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         };
-        
+
         set((state) => ({
           events: [...state.events, newEvent]
         }));
@@ -373,7 +308,7 @@ export const useCortexStore = create<CortexState>()(
       updateEvent: (id: string, updates: Partial<CalendarEvent>) => {
         set((state) => ({
           events: state.events.map((event) =>
-            event.id === id 
+            event.id === id
               ? { ...event, ...updates }
               : event
           )

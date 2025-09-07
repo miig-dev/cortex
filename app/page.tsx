@@ -8,30 +8,27 @@ import { QuickAreas } from '@/components/overview/quick-areas';
 import { QuickProjects } from '@/components/overview/quick-projects';
 import { QuickTasks } from '@/components/overview/quick-tasks';
 import { QuickStats } from '@/components/stats/quick-stats';
-import { TaskItem } from '@/components/task/task-item';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { useCortexStore } from '@/stores/cortex-store';
-import Link from 'next/link';
 import { useState } from 'react';
 
 export default function HomePage() {
   const {
-    projects,
-    areas,
     addTask,
     addProject,
     addArea,
-    getFilteredTasks,
   } = useCortexStore();
 
   const [newTask, setNewTask] = useState('');
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
-  const [selectedArea, setSelectedArea] = useState('Freelance Work');
 
   // Fonctions pour ajouter des éléments
   const handleAddTask = () => {
     if (newTask.trim()) {
-      addTask(newTask, selectedArea);
+      addTask(newTask, 'Freelance Work');
       setNewTask('');
     }
   };
@@ -57,7 +54,6 @@ export default function HomePage() {
     }
   };
 
-  const filteredTasks = getFilteredTasks();
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#121212' }}>
@@ -109,110 +105,92 @@ export default function HomePage() {
 
         {/* Section d'ajout rapide */}
         <section className="mt-8">
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700">
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
-              <span className="text-2xl">⚡</span>
-              Ajout rapide
-            </h3>
+          <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
+                <span className="text-2xl">⚡</span>
+                Ajout rapide
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Ajouter une tâche */}
+                <div className="space-y-3">
+                  <label htmlFor="new-task" className="text-sm font-medium text-gray-400">
+                    Nouvelle tâche
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="new-task"
+                      type="text"
+                      value={newTask}
+                      onChange={(e) => setNewTask(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
+                      placeholder="Que devez-vous faire ?"
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleAddTask}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      ➕
+                    </Button>
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Ajouter une tâche */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-                  Nouvelle tâche
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
-                    placeholder="Tâche urgente..."
-                    className="flex-1 px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    style={{
-                      borderColor: 'rgba(255,255,255,0.1)',
-                      color: '#E0E0E0'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddTask}
-                    className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-sm"
-                    style={{
-                      backgroundColor: '#4361EE',
-                      color: 'white'
-                    }}
-                  >
-                    ➕
-                  </button>
+                {/* Ajouter un projet */}
+                <div className="space-y-3">
+                  <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
+                    Nouveau projet
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="new-project"
+                      type="text"
+                      value={newProject}
+                      onChange={(e) => setNewProject(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
+                      placeholder="Nom du nouveau projet..."
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleAddProject}
+                      className="bg-green-600 hover:bg-green-700"
+                    >
+                      ➕
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Ajouter une area */}
+                <div className="space-y-3">
+                  <label htmlFor="new-area" className="text-sm font-medium text-gray-400">
+                    Nouvelle area
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="new-area"
+                      type="text"
+                      value={newArea}
+                      onChange={(e) => setNewArea(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
+                      placeholder="Nom de la nouvelle area..."
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleAddArea}
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      ➕
+                    </Button>
+                  </div>
                 </div>
               </div>
-
-              {/* Ajouter un projet */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-                  Nouveau projet
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newProject}
-                    onChange={(e) => setNewProject(e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
-                    placeholder="Site e-commerce..."
-                    className="flex-1 px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
-                    style={{
-                      borderColor: 'rgba(255,255,255,0.1)',
-                      color: '#E0E0E0'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddProject}
-                    className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-sm"
-                    style={{
-                      backgroundColor: '#4CAF50',
-                      color: 'white'
-                    }}
-                  >
-                    ➕
-                  </button>
-                </div>
-              </div>
-
-              {/* Ajouter une area */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-                  Nouvelle area
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newArea}
-                    onChange={(e) => setNewArea(e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
-                    placeholder="Formation..."
-                    className="flex-1 px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
-                    style={{
-                      borderColor: 'rgba(255,255,255,0.1)',
-                      color: '#E0E0E0'
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddArea}
-                    className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-sm"
-                    style={{
-                      backgroundColor: '#EF476F',
-                      color: 'white'
-                    }}
-                  >
-                    ➕
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </section>
       </div>
     </div>
