@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 
 export function DigitalClock() {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
+    // Initialiser le temps côté client pour éviter l'hydratation mismatch
+    setTime(new Date());
+    
     const timer = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -30,6 +33,32 @@ export function DigitalClock() {
       year: 'numeric'
     });
   };
+
+  // Éviter l'hydratation mismatch en attendant que le temps soit initialisé côté client
+  if (!time) {
+    return (
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+          <span className="text-2xl">⏰</span>
+        </div>
+        <div>
+          <div className="text-4xl font-mono font-bold mb-2" style={{ color: '#E0E0E0' }}>
+            --:--:--
+          </div>
+          <div className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
+            Chargement...
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-sm font-medium text-green-400">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          </span>
+          En ligne
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700">

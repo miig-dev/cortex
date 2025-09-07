@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
+import { useState } from 'react';
 
 export function MiniCalendar() {
   const { events } = useCortexStore();
@@ -18,20 +18,20 @@ export function MiniCalendar() {
   const startingDayOfWeek = firstDay.getDay();
 
   const days = [];
-  
+
   // Jours du mois précédent
   for (let i = startingDayOfWeek - 1; i >= 0; i--) {
     const day = new Date(currentYear, currentMonth, -i);
     days.push({ date: day, isCurrentMonth: false, isToday: false });
   }
-  
+
   // Jours du mois actuel
   for (let day = 1; day <= daysInMonth; day++) {
     const date = new Date(currentYear, currentMonth, day);
     const isToday = date.toDateString() === today.toDateString();
     days.push({ date, isCurrentMonth: true, isToday });
   }
-  
+
   // Jours du mois suivant pour compléter la grille
   const remainingDays = 42 - days.length; // 6 semaines × 7 jours
   for (let day = 1; day <= remainingDays; day++) {
@@ -115,8 +115,8 @@ export function MiniCalendar() {
 
       {/* Jours de la semaine */}
       <div className="grid grid-cols-7 gap-1 mb-2">
-        {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day) => (
-          <div key={day} className="text-center text-xs font-bold" style={{ color: '#9CA3AF' }}>
+        {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, index) => (
+          <div key={`day-${index}`} className="text-center text-xs font-bold" style={{ color: '#9CA3AF' }}>
             {day}
           </div>
         ))}
