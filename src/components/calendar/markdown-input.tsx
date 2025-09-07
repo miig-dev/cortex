@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { parseMarkdownTasks, markdownTaskToEvent } from '@/utils/markdown-parser';
-import { CalendarEvent } from '@/types/calendar';
 import { useCortexStore } from '@/stores/cortex-store';
+import { CalendarEvent } from '@/types/calendar';
+import { markdownTaskToEvent, parseMarkdownTasks } from '@/utils/markdown-parser';
+import { useRef, useState } from 'react';
 
 interface MarkdownInputProps {
   onTasksCreated?: (events: CalendarEvent[]) => void;
@@ -11,8 +11,8 @@ interface MarkdownInputProps {
   className?: string;
 }
 
-export function MarkdownInput({ 
-  onTasksCreated, 
+export function MarkdownInput({
+  onTasksCreated,
   placeholder = "Tapez vos tâches en markdown...\nEx: - [ ] urgent important fix bug @monday @14:30 #bug @area:Freelance Work",
   className = ""
 }: MarkdownInputProps) {
@@ -25,11 +25,11 @@ export function MarkdownInput({
     if (!input.trim() || isProcessing) return;
 
     setIsProcessing(true);
-    
+
     try {
       // Parser le markdown
       const markdownTasks = parseMarkdownTasks(input);
-      
+
       if (markdownTasks.length === 0) {
         // Si pas de tâches markdown détectées, créer une tâche simple
         const area = areas[0]?.name || 'Freelance Work';
@@ -40,12 +40,12 @@ export function MarkdownInput({
 
       // Créer les tâches et événements
       const events: CalendarEvent[] = [];
-      
+
       for (const markdownTask of markdownTasks) {
         // Ajouter la tâche au store
         const area = markdownTask.area || areas[0]?.name || 'Freelance Work';
         addTask(markdownTask.content, area);
-        
+
         // Créer l'événement calendrier si une date est spécifiée
         if (markdownTask.date) {
           const taskId = Date.now() + Math.random(); // ID temporaire
@@ -76,12 +76,12 @@ export function MarkdownInput({
 
   const handlePaste = async (e: React.ClipboardEvent) => {
     const pastedText = e.clipboardData.getData('text');
-    
+
     // Détecter si c'est du markdown
     if (pastedText.includes('```') || pastedText.includes('- [') || pastedText.includes('* ') || pastedText.includes('1. ')) {
       e.preventDefault();
       setInput(pastedText);
-      
+
       // Auto-processer après un délai
       setTimeout(() => {
         handleSubmit();
@@ -105,7 +105,7 @@ export function MarkdownInput({
             color: '#E0E0E0'
           }}
         />
-        
+
         {/* Indicateur de traitement */}
         {isProcessing && (
           <div className="absolute top-3 right-3">

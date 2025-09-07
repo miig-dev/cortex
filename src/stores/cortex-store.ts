@@ -35,11 +35,26 @@ export interface Area {
   updatedAt: Date;
 }
 
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  description?: string;
+  start: Date;
+  end: Date;
+  allDay: boolean;
+  color: string;
+  type: 'task' | 'event' | 'meeting' | 'deadline';
+  taskId?: number;
+  area?: string;
+  quadrant?: TaskQuadrant;
+}
+
 interface CortexState {
   // Données
   tasks: Task[];
   projects: Project[];
   areas: Area[];
+  events: CalendarEvent[];
 
   // Filtres et recherche
   searchQuery: string;
@@ -64,6 +79,11 @@ interface CortexState {
   addArea: (name: string, color?: string) => void;
   updateArea: (id: number, updates: Partial<Area>) => void;
   deleteArea: (id: number) => void;
+
+  // Actions pour les événements
+  addEvent: (event: Omit<CalendarEvent, 'id'>) => void;
+  updateEvent: (id: string, updates: Partial<CalendarEvent>) => void;
+  deleteEvent: (id: string) => void;
 
   // Actions pour les filtres
   setSearchQuery: (query: string) => void;
@@ -120,6 +140,7 @@ export const useCortexStore = create<CortexState>()(
   persist(
     (set, get) => ({
       // État initial avec quelques tâches d'exemple
+      events: [],
       tasks: [
         {
           id: 1,
@@ -337,6 +358,34 @@ export const useCortexStore = create<CortexState>()(
         }));
       },
 
+      // Actions pour les événements
+      addEvent: (eventData: Omit<CalendarEvent, 'id'>) => {
+        const newEvent: CalendarEvent = {
+          ...eventData,
+          id: `event-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        };
+        
+        set((state) => ({
+          events: [...state.events, newEvent]
+        }));
+      },
+
+      updateEvent: (id: string, updates: Partial<CalendarEvent>) => {
+        set((state) => ({
+          events: state.events.map((event) =>
+            event.id === id 
+              ? { ...event, ...updates }
+              : event
+          )
+        }));
+      },
+
+      deleteEvent: (id: string) => {
+        set((state) => ({
+          events: state.events.filter((event) => event.id !== id)
+        }));
+      },
+
       // Actions pour les filtres
       setSearchQuery: (query: string) => set({ searchQuery: query }),
       setSelectedArea: (area: string | null) => set({ selectedArea: area }),
@@ -417,6 +466,7 @@ export const useCortexStore = create<CortexState>()(
         tasks: state.tasks,
         projects: state.projects,
         areas: state.areas,
+        events: state.events,
       }),
     }
   )

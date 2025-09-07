@@ -1,4 +1,4 @@
-import { MarkdownTask, CalendarEvent } from '@/types/calendar';
+import { CalendarEvent, MarkdownTask } from '@/types/calendar';
 
 /**
  * Parse une chaîne markdown et extrait les tâches avec leurs métadonnées
@@ -9,7 +9,7 @@ export function parseMarkdownTasks(markdown: string): MarkdownTask[] {
 
   for (const line of lines) {
     const trimmedLine = line.trim();
-    
+
     // Détecter les listes de tâches (bullet points, checkboxes, etc.)
     if (isTaskLine(trimmedLine)) {
       const task = parseTaskLine(trimmedLine);
@@ -149,7 +149,7 @@ function getNextWeekday(from: Date, targetDay: number): Date {
 export function markdownTaskToEvent(task: MarkdownTask, taskId: number): CalendarEvent {
   const startDate = task.date || new Date();
   const startTime = task.time ? parseTime(task.time) : null;
-  
+
   let start = new Date(startDate);
   if (startTime) {
     start.setHours(startTime.hours, startTime.minutes, 0, 0);
@@ -194,13 +194,13 @@ function parseTime(timeStr: string): { hours: number; minutes: number } {
     let hours = parseInt(match[1], 10);
     const minutes = parseInt(match[2], 10);
     const ampm = match[4].toLowerCase();
-    
+
     if (ampm === 'pm' && hours !== 12) {
       hours += 12;
     } else if (ampm === 'am' && hours === 12) {
       hours = 0;
     }
-    
+
     return { hours, minutes };
   }
 

@@ -1,16 +1,20 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import { WeekView } from '@/components/calendar/week-view';
 import { MarkdownInput } from '@/components/calendar/markdown-input';
-import { CalendarEvent } from '@/types/calendar';
+import { WeekView } from '@/components/calendar/week-view';
+import { EventModal } from '@/components/calendar/event-modal';
 import { useCortexStore } from '@/stores/cortex-store';
+import { CalendarEvent } from '@/types/calendar';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
 
 export default function AgendaPage() {
-  const { tasks, addTask } = useCortexStore();
-  const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const { tasks, events, addTask, addEvent, updateEvent, deleteEvent } = useCortexStore();
   const [showMarkdownInput, setShowMarkdownInput] = useState(false);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedTime, setSelectedTime] = useState<string | undefined>();
 
   // Convertir les tâches en événements calendrier
   const calendarEvents = useMemo(() => {
@@ -32,13 +36,15 @@ export default function AgendaPage() {
   }, [tasks, events]);
 
   const handleEventClick = (event: CalendarEvent) => {
-    console.log('Événement cliqué:', event);
-    // Ici on pourrait ouvrir un modal d'édition
+    setSelectedEvent(event);
+    setShowEventModal(true);
   };
 
   const handleEventCreate = (date: Date, time?: string) => {
-    console.log('Créer événement:', date, time);
-    // Ici on pourrait ouvrir un formulaire de création d'événement
+    setSelectedEvent(null);
+    setSelectedDate(date);
+    setSelectedTime(time);
+    setShowEventModal(true);
   };
 
   const handleTaskDrop = (taskId: number, date: Date, time?: string) => {
@@ -46,8 +52,21 @@ export default function AgendaPage() {
     // Ici on pourrait mettre à jour la date de la tâche
   };
 
+  const handleEventSave = (eventData: Omit<CalendarEvent, 'id'>) => {
+    if (selectedEvent) {
+      updateEvent(selectedEvent.id, eventData);
+    } else {
+      addEvent(eventData);
+    }
+    setShowEventModal(false);
+    setSelectedEvent(null);
+    setSelectedDate(undefined);
+    setSelectedTime(undefined);
+  };
+
   const handleTasksCreated = (newEvents: CalendarEvent[]) => {
-    setEvents(prev => [...prev, ...newEvents]);
+    // Les événements sont maintenant gérés par le store
+    console.log('Tâches créées:', newEvents);
   };
 
   return (
@@ -68,7 +87,7 @@ export default function AgendaPage() {
                 📅 Agenda
               </h1>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <button
                 type="button"
@@ -81,7 +100,7 @@ export default function AgendaPage() {
               >
                 {showMarkdownInput ? 'Masquer' : 'Ajouter'} Markdown
               </button>
-              
+
               <Link
                 href="/"
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
@@ -119,63 +138,75 @@ export default function AgendaPage() {
 
         {/* Stats rapides */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2" style={{ color: '#E0E0E0' }}>
-              📊 Statistiques
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+              <span className="text-2xl">📊</span>
+              Statistiques
             </h3>
-            <div className="space-y-2 text-sm" style={{ color: '#6B7280' }}>
-              <div>Total tâches: {tasks.length}</div>
-              <div>Événements calendrier: {events.length}</div>
-              <div>Tâches cette semaine: {calendarEvents.length}</div>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between items-center">
+                <span style={{ color: '#9CA3AF' }}>Total tâches:</span>
+                <span className="font-bold text-blue-400">{tasks.length}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span style={{ color: '#9CA3AF' }}>Événements:</span>
+                <span className="font-bold text-purple-400">{events.length}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span style={{ color: '#9CA3AF' }}>Cette semaine:</span>
+                <span className="font-bold text-green-400">{calendarEvents.length}</span>
+              </div>
             </div>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2" style={{ color: '#E0E0E0' }}>
-              🎯 Actions rapides
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+              <span className="text-2xl">🎯</span>
+              Actions rapides
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <button
                 type="button"
                 onClick={() => setShowMarkdownInput(true)}
-                className="w-full text-left px-3 py-2 rounded hover:bg-gray-700 transition-colors"
+                className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-all duration-200 hover:scale-105 border border-gray-600"
                 style={{ color: '#E0E0E0' }}
               >
-                + Ajouter tâches markdown
+                📝 Ajouter tâches markdown
               </button>
               <button
                 type="button"
-                onClick={() => console.log('Créer événement')}
-                className="w-full text-left px-3 py-2 rounded hover:bg-gray-700 transition-colors"
+                onClick={() => handleEventCreate(new Date())}
+                className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-all duration-200 hover:scale-105 border border-gray-600"
                 style={{ color: '#E0E0E0' }}
               >
-                + Créer événement
+                ➕ Créer événement
               </button>
             </div>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2" style={{ color: '#E0E0E0' }}>
-              🔗 Navigation
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+              <span className="text-2xl">🔗</span>
+              Navigation
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Link
                 href="/"
-                className="block px-3 py-2 rounded hover:bg-gray-700 transition-colors"
+                className="block px-4 py-3 rounded-lg hover:bg-gray-700 transition-all duration-200 hover:scale-105 border border-gray-600"
                 style={{ color: '#E0E0E0' }}
               >
                 📋 Planificateur
               </Link>
               <Link
                 href="/eisenhower"
-                className="block px-3 py-2 rounded hover:bg-gray-700 transition-colors"
+                className="block px-4 py-3 rounded-lg hover:bg-gray-700 transition-all duration-200 hover:scale-105 border border-gray-600"
                 style={{ color: '#E0E0E0' }}
               >
                 📊 Eisenhower
               </Link>
               <Link
                 href="/focus"
-                className="block px-3 py-2 rounded hover:bg-gray-700 transition-colors"
+                className="block px-4 py-3 rounded-lg hover:bg-gray-700 transition-all duration-200 hover:scale-105 border border-gray-600"
                 style={{ color: '#E0E0E0' }}
               >
                 🍅 Focus Timer
@@ -183,6 +214,21 @@ export default function AgendaPage() {
             </div>
           </div>
         </div>
+
+        {/* Modal d'événement */}
+        <EventModal
+          isOpen={showEventModal}
+          onClose={() => {
+            setShowEventModal(false);
+            setSelectedEvent(null);
+            setSelectedDate(undefined);
+            setSelectedTime(undefined);
+          }}
+          onSave={handleEventSave}
+          initialDate={selectedDate}
+          initialTime={selectedTime}
+          event={selectedEvent}
+        />
       </div>
     </div>
   );
