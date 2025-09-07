@@ -1,0 +1,50 @@
+'use client';
+
+import { useCortexStore } from '@/stores/cortex-store';
+import { TaskItem } from '@/components/task/task-item';
+
+export function QuickTasks() {
+  const { tasks, getFilteredTasks } = useCortexStore();
+  const recentTasks = getFilteredTasks().slice(0, 5);
+
+  return (
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+          <span className="text-2xl">📋</span>
+          Planificateur
+        </h3>
+        <div className="text-sm" style={{ color: '#9CA3AF' }}>
+          {tasks.length} tâche{tasks.length > 1 ? 's' : ''}
+        </div>
+      </div>
+
+      {/* Tâches récentes */}
+      <div className="space-y-2">
+        {recentTasks.length === 0 ? (
+          <div className="text-center py-6" style={{ color: '#6B7280' }}>
+            <div className="text-4xl mb-2">📝</div>
+            <div className="text-sm">Aucune tâche</div>
+          </div>
+        ) : (
+          recentTasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              showActions={false}
+              compact={true}
+            />
+          ))
+        )}
+      </div>
+
+      {/* Actions rapides */}
+      <div className="mt-4 pt-3 border-t border-gray-600">
+        <div className="text-xs" style={{ color: '#9CA3AF' }}>
+          {tasks.filter(t => !t.completed).length} en cours • {tasks.filter(t => t.completed).length} terminées
+        </div>
+      </div>
+    </div>
+  );
+}
