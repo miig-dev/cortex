@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function DigitalClock() {
   const [time, setTime] = useState(new Date());
@@ -35,9 +35,9 @@ export function DigitalClock() {
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700">
       {/* Horloge numérique */}
       <div className="text-center">
-        <div 
+        <div
           className="text-4xl font-mono font-bold mb-2"
-          style={{ 
+          style={{
             color: '#E0E0E0',
             textShadow: '0 0 20px rgba(67, 97, 238, 0.5)',
             letterSpacing: '0.1em'
@@ -45,9 +45,9 @@ export function DigitalClock() {
         >
           {formatTime(time)}
         </div>
-        
+
         {/* Date */}
-        <div 
+        <div
           className="text-sm font-medium capitalize"
           style={{ color: '#9CA3AF' }}
         >
