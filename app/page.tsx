@@ -2,137 +2,46 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-
-type TaskQuadrant = 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
-
-interface Task {
-  id: number;
-  content: string;
-  area: string;
-  completed: boolean;
-  quadrant: TaskQuadrant;
-  color?: string;
-  bgColor?: string;
-  title?: string;
-}
+import { useCortexStore } from '@/stores/cortex-store';
+import { TaskItem } from '@/components/task/task-item';
+import { SearchAndFilters } from '@/components/filters/search-and-filters';
+import { QuickStats } from '@/components/stats/quick-stats';
 
 export default function HomePage() {
-  // États pour gérer les données dynamiques
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 1,
-      content: 'Tâche à accomplir',
-      area: 'Freelance Work',
-      completed: false,
-      quadrant: 'noturgent_notimportant',
-      color: '#6B7280',
-      bgColor: '#1A1A1A',
-      title: '🗑️ ÉLIMINER',
-    },
-  ]);
-  const [projects, setProjects] = useState<string[]>([]);
-  const [areas, setAreas] = useState([
-    'Freelance Work',
-    'Marketing',
-    'Web site',
-    'Health & Wellness',
-    'Admin',
-    'Questionnaire avant le rendez-vous',
-    'Personal Development',
-    "Discussion pendant l'entretien",
-  ]);
+  const {
+    projects,
+    areas,
+    addTask,
+    addProject,
+    addArea,
+    getFilteredTasks,
+  } = useCortexStore();
+
   const [newTask, setNewTask] = useState('');
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
-
-  // Fonction pour catégoriser automatiquement les tâches selon Eisenhower
-  const categorizeTask = (content: string) => {
-    const lowerContent = content.toLowerCase();
-
-    // Mots-clés pour Urgent
-    const urgentKeywords = ['urgent', 'asap', 'maintenant', 'immédiat', 'critique', 'deadline', 'échéance', '!urgent'];
-    // Mots-clés pour Important
-    const importantKeywords = ['important', 'priorité', 'essentiel', 'crucial', 'vital', '!important', 'prioritaire'];
-
-    const isUrgent = urgentKeywords.some(keyword => lowerContent.includes(keyword));
-    const isImportant = importantKeywords.some(keyword => lowerContent.includes(keyword));
-
-    if (isUrgent && isImportant) {
-      return {
-        quadrant: 'urgent_important' as const,
-        color: '#EF476F',
-        bgColor: '#2A0A0A',
-        title: '🔥 FAIRE MAINTENANT'
-      };
-    } else if (!isUrgent && isImportant) {
-      return {
-        quadrant: 'noturgent_important' as const,
-        color: '#4361EE',
-        bgColor: '#0A1A2A',
-        title: '🧠 PLANIFIER'
-      };
-    } else if (isUrgent && !isImportant) {
-      return {
-        quadrant: 'urgent_notimportant' as const,
-        color: '#FFD166',
-        bgColor: '#2A2A0A',
-        title: '⏱️ DÉLÉGUER'
-      };
-    } else {
-      return {
-        quadrant: 'noturgent_notimportant' as const,
-        color: '#6B7280',
-        bgColor: '#1A1A1A',
-        title: '🗑️ ÉLIMINER'
-      };
-    }
-  };
+  const [selectedArea, setSelectedArea] = useState('Freelance Work');
 
   // Fonctions pour ajouter des éléments
-  const addTask = () => {
-    console.log('addTask called, newTask:', newTask);
+  const handleAddTask = () => {
     if (newTask.trim()) {
-      const categorization = categorizeTask(newTask);
-      const task: Task = {
-        id: Date.now(),
-        content: newTask,
-        area: 'Freelance Work',
-        completed: false,
-        quadrant: categorization.quadrant,
-        color: categorization.color,
-        bgColor: categorization.bgColor,
-        title: categorization.title,
-      };
-      console.log('Adding task:', task);
-      setTasks([...tasks, task]);
+      addTask(newTask, selectedArea);
       setNewTask('');
     }
   };
 
-  const addProject = () => {
-    console.log('addProject called, newProject:', newProject);
+  const handleAddProject = () => {
     if (newProject.trim()) {
-      console.log('Adding project:', newProject);
-      setProjects([...projects, newProject]);
+      addProject(newProject);
       setNewProject('');
     }
   };
 
-  const addArea = () => {
-    console.log('addArea called, newArea:', newArea);
+  const handleAddArea = () => {
     if (newArea.trim()) {
-      console.log('Adding area:', newArea);
-      setAreas([...areas, newArea]);
+      addArea(newArea);
       setNewArea('');
     }
-  };
-
-  const toggleTask = (id: number) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task,
-      ),
-    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
@@ -142,254 +51,280 @@ export default function HomePage() {
     }
   };
 
+  const filteredTasks = getFilteredTasks();
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#121212' }}>
-      {/* Header simplifié */}
+      {/* Header avec navigation */}
       <header className="border-b" style={{ borderColor: 'rgba(0,0,0,0.1)' }}>
         <div className="container mx-auto px-8 py-6">
-          <h1 className="text-4xl font-bold" style={{ color: '#E0E0E0' }}>
-            Igor_MigDev
-          </h1>
-          <button
-            onClick={() => console.log('Test button clicked!')}
-            className="ml-4 px-4 py-2 bg-red-500 text-white rounded"
-          >
-            Test
-          </button>
+          <div className="flex items-center justify-between">
+            <h1 className="text-4xl font-bold" style={{ color: '#E0E0E0' }}>
+              Cortex - Dashboard
+            </h1>
+            <nav className="flex gap-4">
+              <Link
+                href="/inbox"
+                className="px-4 py-2 rounded-lg font-medium transition-colors"
+                style={{ 
+                  backgroundColor: '#4361EE',
+                  color: 'white'
+                }}
+              >
+                📥 Inbox
+              </Link>
+              <Link
+                href="/eisenhower"
+                className="px-4 py-2 rounded-lg font-medium transition-colors"
+                style={{ 
+                  backgroundColor: '#4CAF50',
+                  color: 'white'
+                }}
+              >
+                📊 Eisenhower
+              </Link>
+              <Link
+                href="/focus"
+                className="px-4 py-2 rounded-lg font-medium transition-colors"
+                style={{ 
+                  backgroundColor: '#FF7733',
+                  color: 'white'
+                }}
+              >
+                🍅 Focus
+              </Link>
+              <Link
+                href="/stats"
+                className="px-4 py-2 rounded-lg font-medium transition-colors"
+                style={{ 
+                  backgroundColor: '#EF476F',
+                  color: 'white'
+                }}
+              >
+                🏆 Stats
+              </Link>
+            </nav>
+          </div>
         </div>
       </header>
 
       {/* Contenu principal */}
       <div className="container mx-auto px-8 py-8">
-
-        {/* Calendrier Section - Version simplifiée */}
-        <section className="mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold" style={{ color: '#E0E0E0' }}>
-              Calendrier hebdomadaire
-            </h2>
-            <button
-              className="px-4 py-2 rounded font-medium transition-colors"
-              style={{
-                backgroundColor: '#4361EE',
-                color: 'white'
-              }}
-            >
-              Nouveau
-            </button>
-          </div>
-
-          <div className="grid grid-cols-7 gap-2">
-            {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day) => (
-              <div
-                key={day}
-                className="text-center py-3 text-sm font-medium"
-                style={{ color: '#6B7280' }}
-              >
-                {day}
-              </div>
-            ))}
-            {[25, 26, 27, 28, 29, 30, 31].map((day) => (
-              <div
-                key={day}
-                className={`text-center py-3 text-lg font-bold rounded ${
-                  day === 28
-                    ? 'text-white'
-                    : 'hover:bg-gray-800'
-                }`}
-                style={{
-                  backgroundColor: day === 28 ? '#EF476F' : 'transparent',
-                  color: day === 28 ? 'white' : '#E0E0E0'
-                }}
-              >
-                {day}
-              </div>
-            ))}
-          </div>
+        
+        {/* Stats rapides */}
+        <section className="mb-12">
+          <QuickStats />
         </section>
 
-        {/* Planificateur Section - Version simplifiée */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6" style={{ color: '#E0E0E0' }}>
-            PLANIFICATEUR
-          </h2>
+        {/* Recherche et filtres */}
+        <section className="mb-8">
+          <SearchAndFilters />
+        </section>
 
-          {/* Zone d'ajout simplifiée */}
+        {/* Planificateur principal */}
+        <section className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl font-bold" style={{ color: '#E0E0E0' }}>
+              📋 Planificateur
+            </h2>
+            <div className="flex items-center gap-4">
+              <select
+                value={selectedArea}
+                onChange={(e) => setSelectedArea(e.target.value)}
+                className="px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  color: '#E0E0E0',
+                }}
+              >
+                {areas.map((area) => (
+                  <option key={area.id} value={area.name}>
+                    {area.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Zone d'ajout de tâche */}
           <div className="flex items-center space-x-4 mb-8">
             <input
               type="text"
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, addTask)}
+              onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
               placeholder="Ex: 'urgent important fix bug' ou 'planifier réunion'..."
-              className="flex-1 px-4 py-3 text-lg rounded border-2 focus:outline-none"
+              className="flex-1 px-4 py-3 text-lg rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
               style={{
                 backgroundColor: 'transparent',
-                borderColor: 'rgba(0,0,0,0.1)',
+                borderColor: 'rgba(255,255,255,0.1)',
                 color: '#E0E0E0'
               }}
             />
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                console.log('Button clicked!');
-                addTask();
-              }}
-              className="px-6 py-3 rounded font-medium transition-colors"
+              type="button"
+              onClick={handleAddTask}
+              className="px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
               style={{
                 backgroundColor: '#4361EE',
                 color: 'white'
               }}
             >
-              Ajouter
+              ➕ Ajouter
             </button>
           </div>
 
-          {/* Liste des tâches simplifiée */}
+          {/* Liste des tâches */}
           <div className="space-y-3">
-            {tasks.map((task) => (
-              <div
-                key={task.id}
-                className="flex items-center space-x-4 p-4 rounded border-l-4 hover:bg-gray-800 transition-colors"
-                style={{
-                  borderLeftColor: task.color,
-                  backgroundColor: task.bgColor + '10'
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => toggleTask(task.id)}
-                  className="w-5 h-5 rounded"
-                  style={{ accentColor: task.color }}
-                />
-                <div className="flex-1">
-                  <div
-                    className={`text-lg ${task.completed ? 'line-through opacity-50' : ''}`}
-                    style={{ color: '#E0E0E0' }}
-                  >
-                    {task.content}
-                  </div>
-                  <div
-                    className="text-sm mt-1 font-semibold"
-                    style={{ color: task.color }}
-                  >
-                    {task.title}
-                  </div>
-                </div>
-                <div className="text-sm" style={{ color: '#6B7280' }}>
-                  {task.area}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Projets Section - Version simplifiée */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6" style={{ color: '#E0E0E0' }}>
-            PROJETS
-          </h2>
-
-          {/* Zone d'ajout simplifiée */}
-          <div className="flex items-center space-x-4 mb-8">
-            <input
-              type="text"
-              value={newProject}
-              onChange={(e) => setNewProject(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, addProject)}
-              placeholder="Nom du nouveau projet..."
-              className="flex-1 px-4 py-3 text-lg rounded border-2 focus:outline-none"
-              style={{
-                backgroundColor: 'transparent',
-                borderColor: 'rgba(0,0,0,0.1)',
-                color: '#E0E0E0'
-              }}
-            />
-            <button
-              onClick={() => addProject()}
-              className="px-6 py-3 rounded font-medium transition-colors"
-              style={{
-                backgroundColor: '#4361EE',
-                color: 'white'
-              }}
-            >
-              Ajouter
-            </button>
-          </div>
-
-          {/* Liste des projets simplifiée */}
-          <div className="space-y-3">
-            {projects.length === 0 ? (
-              <div className="text-center py-8" style={{ color: '#6B7280' }}>
-                Aucun projet pour le moment
+            {filteredTasks.length === 0 ? (
+              <div className="text-center py-12" style={{ color: '#6B7280' }}>
+                <div className="text-6xl mb-4">📝</div>
+                <div className="text-xl">Aucune tâche trouvée</div>
+                <div className="text-sm mt-2">Ajoutez votre première tâche ci-dessus</div>
               </div>
             ) : (
-              projects.map((project, index) => (
-                <div
-                  key={index}
-                  className="p-4 rounded hover:bg-gray-800 transition-colors"
-                  style={{ border: '1px solid rgba(0,0,0,0.1)' }}
-                >
-                  <div className="text-lg" style={{ color: '#E0E0E0' }}>
-                    {project}
-                  </div>
-                </div>
+              filteredTasks.map((task) => (
+                <TaskItem
+                  key={task.id}
+                  task={task}
+                  showActions={true}
+                  compact={false}
+                />
               ))
             )}
           </div>
         </section>
 
-        {/* Areas Section - Version simplifiée */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6" style={{ color: '#E0E0E0' }}>
-            AREAS
-          </h2>
+        {/* Projets et Areas en grille */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Projets */}
+          <section>
+            <h2 className="text-2xl font-bold mb-6" style={{ color: '#E0E0E0' }}>
+              🚀 Projets
+            </h2>
 
-          {/* Zone d'ajout simplifiée */}
-          <div className="flex items-center space-x-4 mb-8">
-            <input
-              type="text"
-              value={newArea}
-              onChange={(e) => setNewArea(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, addArea)}
-              placeholder="Nom de la nouvelle area..."
-              className="flex-1 px-4 py-3 text-lg rounded border-2 focus:outline-none"
-              style={{
-                backgroundColor: 'transparent',
-                borderColor: 'rgba(0,0,0,0.1)',
-                color: '#E0E0E0'
-              }}
-            />
-            <button
-              onClick={() => addArea()}
-              className="px-6 py-3 rounded font-medium transition-colors"
-              style={{
-                backgroundColor: '#4361EE',
-                color: 'white'
-              }}
-            >
-              Ajouter
-            </button>
-          </div>
-
-          {/* Grille des areas simplifiée */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {areas.map((area, index) => (
-              <Link
-                key={index}
-                href="/inbox"
-                className="p-4 rounded hover:bg-gray-800 transition-colors text-center"
+            <div className="flex items-center space-x-4 mb-6">
+              <input
+                type="text"
+                value={newProject}
+                onChange={(e) => setNewProject(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
+                placeholder="Nom du nouveau projet..."
+                className="flex-1 px-4 py-2 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                 style={{
-                  border: '1px solid rgba(0,0,0,0.1)',
+                  backgroundColor: 'transparent',
+                  borderColor: 'rgba(255,255,255,0.1)',
                   color: '#E0E0E0'
                 }}
+              />
+              <button
+                type="button"
+                onClick={handleAddProject}
+                className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                style={{
+                  backgroundColor: '#4CAF50',
+                  color: 'white'
+                }}
               >
-                {area}
-              </Link>
-            ))}
-          </div>
-        </section>
+                ➕
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {projects.length === 0 ? (
+                <div className="text-center py-8" style={{ color: '#6B7280' }}>
+                  <div className="text-4xl mb-2">🚀</div>
+                  <div>Aucun projet</div>
+                </div>
+              ) : (
+                projects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="p-4 rounded-lg border-2 hover:shadow-md transition-all duration-200"
+                    style={{
+                      borderColor: project.color + '40',
+                      backgroundColor: project.color + '10'
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-lg font-medium" style={{ color: '#E0E0E0' }}>
+                          {project.name}
+                        </div>
+                        {project.description && (
+                          <div className="text-sm mt-1" style={{ color: '#6B7280' }}>
+                            {project.description}
+                          </div>
+                        )}
+                      </div>
+                      <div 
+                        className="w-4 h-4 rounded-full"
+                        style={{ backgroundColor: project.color }}
+                      />
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </section>
+
+          {/* Areas */}
+          <section>
+            <h2 className="text-2xl font-bold mb-6" style={{ color: '#E0E0E0' }}>
+              🎯 Areas
+            </h2>
+
+            <div className="flex items-center space-x-4 mb-6">
+              <input
+                type="text"
+                value={newArea}
+                onChange={(e) => setNewArea(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
+                placeholder="Nom de la nouvelle area..."
+                className="flex-1 px-4 py-2 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                style={{
+                  backgroundColor: 'transparent',
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  color: '#E0E0E0'
+                }}
+              />
+              <button
+                type="button"
+                onClick={handleAddArea}
+                className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                style={{
+                  backgroundColor: '#EF476F',
+                  color: 'white'
+                }}
+              >
+                ➕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {areas.map((area) => (
+                <Link
+                  key={area.id}
+                  href="/inbox"
+                  className="p-4 rounded-lg border-2 hover:shadow-md transition-all duration-200 text-center group"
+                  style={{
+                    borderColor: area.color + '40',
+                    backgroundColor: area.color + '10'
+                  }}
+                >
+                  <div 
+                    className="w-6 h-6 rounded-full mx-auto mb-2"
+                    style={{ backgroundColor: area.color }}
+                  />
+                  <div className="text-sm font-medium" style={{ color: '#E0E0E0' }}>
+                    {area.name}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );
