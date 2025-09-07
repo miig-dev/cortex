@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useGamificationStore } from '@/stores/gamification-store';
+import { useEffect, useState } from 'react';
 
 export function CompactPomodoro() {
   const { addExperience, unlockBadge } = useGamificationStore();
@@ -12,7 +12,7 @@ export function CompactPomodoro() {
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    
+
     if (isRunning && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft(time => time - 1);
@@ -20,17 +20,17 @@ export function CompactPomodoro() {
     } else if (timeLeft === 0) {
       // Session terminée
       setIsRunning(false);
-      
+
       if (!isBreak) {
         // Fin de session de travail
         setSessionCount(prev => prev + 1);
         addExperience(50); // +50 XP par session
-        
+
         // Badge pour 10 sessions (deep-worker)
         if (sessionCount + 1 === 10) {
           unlockBadge('deep-worker');
         }
-        
+
         // Passer à la pause
         setIsBreak(true);
         setTimeLeft(5 * 60); // 5 minutes de pause
@@ -80,9 +80,9 @@ export function CompactPomodoro() {
 
       {/* Timer */}
       <div className="text-center mb-4">
-        <div 
+        <div
           className="text-3xl font-mono font-bold mb-2"
-          style={{ 
+          style={{
             color: isBreak ? '#4CAF50' : '#FF7733',
             textShadow: `0 0 20px ${isBreak ? 'rgba(76, 175, 80, 0.5)' : 'rgba(255, 119, 51, 0.5)'}`,
             letterSpacing: '0.1em'
@@ -90,9 +90,9 @@ export function CompactPomodoro() {
         >
           {formatTime(timeLeft)}
         </div>
-        
+
         {/* Mode */}
-        <div 
+        <div
           className="text-sm font-medium"
           style={{ color: isBreak ? '#4CAF50' : '#FF7733' }}
         >

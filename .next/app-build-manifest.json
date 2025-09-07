@@ -22,6 +22,15 @@
       "static/chunks/main-app-f3313665aed7ac6c.js",
       "static/chunks/app/(dashboard)/dashboard/page-aa1ee65e028bcbb0.js"
     ],
+    "/agenda/page": [
+      "static/chunks/webpack-ccf1d0611ec12016.js",
+      "static/chunks/d764cd1b-ff94fc829997fa44.js",
+      "static/chunks/369-cf756ae1304b4680.js",
+      "static/chunks/main-app-f3313665aed7ac6c.js",
+      "static/chunks/463-f4b0c1d2db10de0d.js",
+      "static/chunks/226-cf3408b9869b7d54.js",
+      "static/chunks/app/agenda/page-32c6fad7b95303b3.js"
+    ],
     "/eisenhower/page": [
       "static/chunks/webpack-ccf1d0611ec12016.js",
       "static/chunks/d764cd1b-ff94fc829997fa44.js",
@@ -42,15 +51,6 @@
       "static/chunks/786-07f919c632689ac8.js",
       "static/chunks/app/focus/page-431a6fbe3b283fe2.js"
     ],
-    "/agenda/page": [
-      "static/chunks/webpack-ccf1d0611ec12016.js",
-      "static/chunks/d764cd1b-ff94fc829997fa44.js",
-      "static/chunks/369-cf756ae1304b4680.js",
-      "static/chunks/main-app-f3313665aed7ac6c.js",
-      "static/chunks/463-f4b0c1d2db10de0d.js",
-      "static/chunks/226-cf3408b9869b7d54.js",
-      "static/chunks/app/agenda/page-32c6fad7b95303b3.js"
-    ],
     "/inbox/page": [
       "static/chunks/webpack-ccf1d0611ec12016.js",
       "static/chunks/d764cd1b-ff94fc829997fa44.js",
@@ -68,7 +68,7 @@
       "static/chunks/main-app-f3313665aed7ac6c.js",
       "static/chunks/463-f4b0c1d2db10de0d.js",
       "static/chunks/226-cf3408b9869b7d54.js",
-      "static/chunks/app/page-810d89d5f72a60bd.js"
+      "static/chunks/app/page-837cf0591debde4e.js"
     ],
     "/stats/page": [
       "static/chunks/webpack-ccf1d0611ec12016.js",

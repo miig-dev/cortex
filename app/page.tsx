@@ -8,7 +8,9 @@ import { QuickAreas } from '@/components/overview/quick-areas';
 import { QuickProjects } from '@/components/overview/quick-projects';
 import { QuickTasks } from '@/components/overview/quick-tasks';
 import { QuickStats } from '@/components/stats/quick-stats';
+import { TaskItem } from '@/components/task/task-item';
 import { useCortexStore } from '@/stores/cortex-store';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function HomePage() {
