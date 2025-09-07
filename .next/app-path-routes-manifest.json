@@ -1,9 +1,10 @@
 {
   "/_not-found/page": "/_not-found",
   "/(dashboard)/dashboard/page": "/dashboard",
+  "/agenda/page": "/agenda",
   "/eisenhower/page": "/eisenhower",
-  "/inbox/page": "/inbox",
   "/focus/page": "/focus",
-  "/stats/page": "/stats",
-  "/page": "/"
+  "/inbox/page": "/inbox",
+  "/page": "/",
+  "/stats/page": "/stats"
 }

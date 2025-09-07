@@ -74,6 +74,16 @@ export default function HomePage() {
                 📥 Inbox
               </Link>
               <Link
+                href="/agenda"
+                className="px-4 py-2 rounded-lg font-medium transition-colors"
+                style={{
+                  backgroundColor: '#9C27B0',
+                  color: 'white'
+                }}
+              >
+                📅 Agenda
+              </Link>
+              <Link
                 href="/eisenhower"
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
                 style={{
