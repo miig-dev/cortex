@@ -248,9 +248,9 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
                 Historique des sessions :
               </h4>
               <div className="flex flex-wrap gap-2">
-                {sessionHistory.map((time, index) => (
+                {sessionHistory.map((time, idx) => (
                   <span
-                    key={index}
+                    key={`session-${time}-${idx}`}
                     className="px-2 py-1 bg-gray-700 text-slate-300 text-xs rounded font-mono"
                   >
                     {formatTime(time)}
