@@ -1,10 +1,10 @@
 {
-  "/(dashboard)/dashboard/page": "/dashboard",
-  "/page": "/",
   "/_not-found/page": "/_not-found",
+  "/(dashboard)/dashboard/page": "/dashboard",
   "/agenda/page": "/agenda",
   "/eisenhower/page": "/eisenhower",
   "/focus/page": "/focus",
   "/inbox/page": "/inbox",
+  "/page": "/",
   "/stats/page": "/stats"
 }

@@ -1,120 +1,149 @@
-# Cortex App
+# 🧠 Cortex App - Plateforme de Gestion Intelligente
 
-Plateforme de gestion intelligente et moderne construite avec Next.js 15, TypeScript et Tailwind CSS v4.
+> **Application de gestion de tâches moderne inspirée de la méthode P.A.R.A. et Notion**
 
-## 🚀 Technologies
+## 🚀 Fonctionnalités Principales
 
-- **Framework** : Next.js 15 (App Router)
-- **Language** : TypeScript
-- **Styling** : Tailwind CSS v4
-- **UI Components** : shadcn/ui
-- **Database** : Prisma + PostgreSQL
-- **Testing** : Vitest + Playwright
-- **Linting** : Biome
-- **Package Manager** : pnpm
+### 📥 **Inbox - Capture Sans Friction**
+- Interface ultra-minimaliste pour capturer rapidement les idées
+- Auto-tagging avec syntaxe Markdown (`!urgent`, `#projet`, `@personne`)
+- Sauvegarde instantanée avec Enter ou Cmd+Enter
+- Design dark mode optimisé pour les développeurs
 
-## 📦 Installation
+### 🎯 **Quartier Général - Matrice Eisenhower**
+- Tri intelligent des tâches par urgence et importance
+- Drag & drop fluide entre les quadrants
+- Visualisation claire des priorités
+- Catégorisation automatique des nouvelles tâches
 
+### ⏱️ **Focus - Chronomètre de Tâches**
+- Chronomètre pour évaluer le temps réel des tâches
+- Timer avec pause/reprise/arrêt
+- Statistiques détaillées (temps total, moyen, sessions)
+- Historique des tâches chronométrées
+- Parfait pour évaluer le temps de correction de bugs
+
+### 📊 **Dashboard - Vue d'Ensemble**
+- Interface Notion-like avec widgets compacts
+- Calendrier mini avec événements
+- Statistiques en temps réel
+- Ajout rapide de tâches, projets et areas
+- Horloge numérique et pomodoro compact
+
+### 📅 **Agenda - Planification**
+- Vue calendrier hebdomadaire
+- Intégration des tâches et événements
+- Création d'événements avec syntaxe Markdown
+- Gestion des plages horaires
+
+### 📈 **Statistiques - Suivi des Performances**
+- Métriques de productivité
+- Répartition Eisenhower
+- Historique des sessions
+- Graphiques de progression
+
+## 🛠️ Stack Technique
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **State Management**: Zustand
+- **UI Components**: Shadcn/ui
+- **Linting**: Biome
+- **Package Manager**: pnpm
+
+## 🚀 Installation et Démarrage
+
+### Prérequis
+- Node.js 18+ 
+- pnpm
+
+### Installation
 ```bash
-# Cloner le repository
+# Cloner le projet
 git clone <repository-url>
 cd cortex-app
 
 # Installer les dépendances
 pnpm install
 
-# Configurer la base de données
-cp .env.example .env
-# Éditer .env avec vos paramètres de base de données
-
-# Générer le client Prisma
-pnpm prisma generate
-
-# Lancer le serveur de développement
+# Démarrer en développement
 pnpm dev
 ```
 
-## 🛠️ Scripts disponibles
+### Build de Production
+```bash
+# Build optimisé
+pnpm build
+
+# Démarrer en production
+pnpm start
+```
+
+## 📁 Structure du Projet
+
+```
+cortex-app/
+├── app/                    # Pages Next.js (App Router)
+│   ├── page.tsx           # Dashboard principal
+│   ├── inbox/             # Capture de tâches
+│   ├── eisenhower/        # Matrice Eisenhower
+│   ├── focus/             # Chronomètre de tâches
+│   ├── agenda/            # Planification
+│   └── stats/             # Statistiques
+├── src/
+│   ├── components/        # Composants réutilisables
+│   ├── features/          # Fonctionnalités métier
+│   ├── stores/            # Gestion d'état (Zustand)
+│   ├── types/             # Types TypeScript
+│   └── utils/             # Utilitaires
+└── public/                # Assets statiques
+```
+
+## 🎨 Design System
+
+### Palette de Couleurs
+- **Background**: `#121212` (Dark Charcoal)
+- **Text**: `#E0E0E0` (Light Gray)
+- **Urgent & Important**: `#EF476F` (Pulse Red)
+- **Important**: `#4CAF50` (Success Green)
+- **Urgent**: `#FF7733` (Warning Orange)
+- **Eliminate**: `#6B7280` (Neutral Gray)
+
+### Typographie
+- **Titres**: Poppins (H1, H2)
+- **Corps**: Lato (paragraphes)
+- **Code**: JetBrains Mono
+
+## 🔧 Scripts Disponibles
 
 ```bash
-# Développement
-pnpm dev          # Serveur de développement
+pnpm dev          # Développement
 pnpm build        # Build de production
 pnpm start        # Serveur de production
-
-# Qualité de code
-pnpm lint         # Linting avec Biome
-pnpm format       # Formatage automatique
-pnpm type-check   # Vérification des types
-
-# Tests
-pnpm test         # Tests unitaires
-pnpm test:watch   # Tests en mode watch
-pnpm test:coverage # Tests avec couverture
-pnpm test:e2e     # Tests end-to-end
-
-# CI/CD
-pnpm ci           # Script CI complet
+pnpm lint         # Linting
+pnpm type-check   # Vérification TypeScript
 ```
 
-## 🏗️ Architecture
+## 📱 Responsive Design
 
-```
-src/
-├── components/          # Composants réutilisables
-│   ├── ui/             # Composants UI de base (shadcn/ui)
-│   ├── layout/         # Composants de layout
-│   └── features/       # Composants spécifiques aux features
-├── features/           # Logique métier par feature
-├── lib/                # Utilitaires et configuration
-├── types/              # Types TypeScript partagés
-├── stores/             # État global (Zustand)
-└── test/               # Configuration des tests
-```
-
-## 🧪 Tests
-
-### Tests unitaires
-```bash
-pnpm test
-```
-
-### Tests e2e
-```bash
-pnpm test:e2e
-```
-
-### Couverture de code
-```bash
-pnpm test:coverage
-```
+- **Mobile**: Interface adaptée pour smartphones
+- **Tablet**: Layout optimisé pour tablettes
+- **Desktop**: Expérience complète sur ordinateur
 
 ## 🚀 Déploiement
 
-Le projet est configuré pour être déployé sur Vercel :
-
-1. Connecter le repository à Vercel
-2. Configurer les variables d'environnement
-3. Le déploiement se fait automatiquement sur push
-
-## 📝 Doctrine de développement
-
-Ce projet suit la [doctrine MIGDEV](./CLEAN_CODE.md) qui définit :
-
-- **TypeScript strict** : Pas de `any`, validation Zod
-- **Architecture Next.js** : App Router, Server Components
-- **Qualité de code** : Linting, tests, formatage automatique
-- **Performance** : Optimisations Next.js, images optimisées
-- **Sécurité** : Validation des données, headers de sécurité
-
-## 🤝 Contribution
-
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/amazing-feature`)
-3. Commit les changements (`git commit -m 'feat: add amazing feature'`)
-4. Push vers la branche (`git push origin feature/amazing-feature`)
-5. Ouvrir une Pull Request
+L'application est prête pour le déploiement sur :
+- Vercel (recommandé)
+- Netlify
+- AWS Amplify
+- Tout hébergeur supportant Next.js
 
 ## 📄 Licence
 
-MIT © MIGDEV
+Propriétaire - Tous droits réservés
+
+---
+
+**Développé avec ❤️ pour optimiser la productivité des développeurs**
