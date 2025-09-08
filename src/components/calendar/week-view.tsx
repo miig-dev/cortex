@@ -10,7 +10,12 @@ interface WeekViewProps {
   onTaskDrop?: (taskId: number, date: Date, time?: string) => void;
 }
 
-export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: WeekViewProps) {
+export function WeekView({
+  events,
+  onEventClick,
+  onEventCreate,
+  onTaskDrop,
+}: WeekViewProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [draggedTask, setDraggedTask] = useState<number | null>(null);
 
@@ -26,7 +31,7 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
       const date = new Date(startOfWeek);
       date.setDate(startOfWeek.getDate() + i);
 
-      const dayEvents = events.filter(event => {
+      const dayEvents = events.filter((event) => {
         const eventDate = new Date(event.start);
         return eventDate.toDateString() === date.toDateString();
       });
@@ -44,7 +49,9 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
 
   const weekNumber = useMemo(() => {
     const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
-    const days = Math.floor((currentDate.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000));
+    const days = Math.floor(
+      (currentDate.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000),
+    );
     return Math.ceil((days + startOfYear.getDay() + 1) / 7);
   }, [currentDate]);
 
@@ -74,14 +81,14 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
     return date.toLocaleDateString('fr-FR', {
       weekday: 'short',
       day: 'numeric',
-      month: 'short'
+      month: 'short',
     });
   };
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('fr-FR', {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -99,9 +106,10 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
                 Agenda
               </h2>
               <p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-                Semaine {weekNumber} • {currentDate.toLocaleDateString('fr-FR', {
+                Semaine {weekNumber} •{' '}
+                {currentDate.toLocaleDateString('fr-FR', {
                   month: 'long',
-                  year: 'numeric'
+                  year: 'numeric',
                 })}
               </p>
             </div>
@@ -115,8 +123,18 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
             className="p-3 rounded-xl hover:bg-gray-700 transition-all duration-200 hover:scale-105"
             style={{ color: '#E0E0E0' }}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
 
@@ -126,7 +144,7 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
             className="px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg"
             style={{
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white'
+              color: 'white',
             }}
           >
             Aujourd'hui
@@ -138,8 +156,18 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
             className="p-3 rounded-xl hover:bg-gray-700 transition-all duration-200 hover:scale-105"
             style={{ color: '#E0E0E0' }}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
@@ -191,8 +219,18 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
                 style={{ color: '#9CA3AF' }}
                 title="Ajouter un événement"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
                 </svg>
               </button>
             </div>
@@ -208,10 +246,12 @@ export function WeekView({ events, onEventClick, onEventCreate, onTaskDrop }: We
                     backgroundColor: event.color + '25',
                     borderLeft: `4px solid ${event.color}`,
                     color: '#E0E0E0',
-                    boxShadow: `0 2px 8px ${event.color}20`
+                    boxShadow: `0 2px 8px ${event.color}20`,
                   }}
                 >
-                  <div className="font-semibold truncate mb-1">{event.title}</div>
+                  <div className="font-semibold truncate mb-1">
+                    {event.title}
+                  </div>
                   {!event.allDay && (
                     <div className="text-xs opacity-80 font-medium">
                       {formatTime(event.start)}

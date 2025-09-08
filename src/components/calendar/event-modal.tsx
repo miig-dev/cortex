@@ -13,13 +13,13 @@ interface EventModalProps {
   event?: CalendarEvent | null;
 }
 
-export function EventModal({ 
-  isOpen, 
-  onClose, 
-  onSave, 
-  initialDate, 
+export function EventModal({
+  isOpen,
+  onClose,
+  onSave,
+  initialDate,
   initialTime,
-  event 
+  event,
 }: EventModalProps) {
   const { areas } = useCortexStore();
   const [formData, setFormData] = useState({
@@ -40,13 +40,17 @@ export function EventModal({
       const now = new Date();
       const date = initialDate || now;
       const time = initialTime || '09:00';
-      
+
       setFormData({
         title: event?.title || '',
         description: event?.description || '',
-        startDate: event?.start ? event.start.toISOString().split('T')[0] : date.toISOString().split('T')[0],
+        startDate: event?.start
+          ? event.start.toISOString().split('T')[0]
+          : date.toISOString().split('T')[0],
         startTime: event?.start ? event.start.toTimeString().slice(0, 5) : time,
-        endDate: event?.end ? event.end.toISOString().split('T')[0] : date.toISOString().split('T')[0],
+        endDate: event?.end
+          ? event.end.toISOString().split('T')[0]
+          : date.toISOString().split('T')[0],
         endTime: event?.end ? event.end.toTimeString().slice(0, 5) : '10:00',
         allDay: event?.allDay || false,
         type: event?.type || 'event',
@@ -58,12 +62,12 @@ export function EventModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const start = new Date(`${formData.startDate}T${formData.startTime}:00`);
     const end = new Date(`${formData.endDate}T${formData.endTime}:00`);
-    
+
     if (start >= end) {
-      alert('L\'heure de fin doit être après l\'heure de début');
+      alert("L'heure de fin doit être après l'heure de début");
       return;
     }
 
@@ -77,12 +81,12 @@ export function EventModal({
       type: formData.type,
       area: formData.area,
     });
-    
+
     onClose();
   };
 
   const handleAllDayChange = (checked: boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       allDay: checked,
       startTime: checked ? '' : '09:00',
@@ -97,15 +101,25 @@ export function EventModal({
       <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md mx-4 border border-gray-700">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold" style={{ color: '#E0E0E0' }}>
-            {event ? 'Modifier l\'événement' : 'Nouvel événement'}
+            {event ? "Modifier l'événement" : 'Nouvel événement'}
           </h2>
           <button
             type="button"
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -113,17 +127,22 @@ export function EventModal({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Titre */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: '#E0E0E0' }}
+            >
               Titre *
             </label>
             <input
               type="text"
               value={formData.title}
-              onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, title: e.target.value }))
+              }
               className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 borderColor: 'rgba(255,255,255,0.1)',
-                color: '#E0E0E0'
+                color: '#E0E0E0',
               }}
               required
             />
@@ -131,16 +150,24 @@ export function EventModal({
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: '#E0E0E0' }}
+            >
               Description
             </label>
             <textarea
               value={formData.description}
-              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }))
+              }
               className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               style={{
                 borderColor: 'rgba(255,255,255,0.1)',
-                color: '#E0E0E0'
+                color: '#E0E0E0',
               }}
               rows={3}
             />
@@ -148,16 +175,24 @@ export function EventModal({
 
           {/* Type */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: '#E0E0E0' }}
+            >
               Type
             </label>
             <select
               value={formData.type}
-              onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as any }))}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  type: e.target.value as any,
+                }))
+              }
               className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 borderColor: 'rgba(255,255,255,0.1)',
-                color: '#E0E0E0'
+                color: '#E0E0E0',
               }}
             >
               <option value="event">📅 Événement</option>
@@ -169,16 +204,21 @@ export function EventModal({
 
           {/* Area */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: '#E0E0E0' }}
+            >
               Area
             </label>
             <select
               value={formData.area}
-              onChange={(e) => setFormData(prev => ({ ...prev, area: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, area: e.target.value }))
+              }
               className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 borderColor: 'rgba(255,255,255,0.1)',
-                color: '#E0E0E0'
+                color: '#E0E0E0',
               }}
             >
               {areas.map((area) => (
@@ -198,7 +238,11 @@ export function EventModal({
               onChange={(e) => handleAllDayChange(e.target.checked)}
               className="w-4 h-4 rounded border-2 border-gray-400 bg-transparent focus:ring-2 focus:ring-blue-500"
             />
-            <label htmlFor="allDay" className="text-sm" style={{ color: '#E0E0E0' }}>
+            <label
+              htmlFor="allDay"
+              className="text-sm"
+              style={{ color: '#E0E0E0' }}
+            >
               Toute la journée
             </label>
           </div>
@@ -206,17 +250,25 @@ export function EventModal({
           {/* Dates et heures */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+              <label
+                className="block text-sm font-medium mb-2"
+                style={{ color: '#E0E0E0' }}
+              >
                 Date de début *
               </label>
               <input
                 type="date"
                 value={formData.startDate}
-                onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    startDate: e.target.value,
+                  }))
+                }
                 className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                 style={{
                   borderColor: 'rgba(255,255,255,0.1)',
-                  color: '#E0E0E0'
+                  color: '#E0E0E0',
                 }}
                 required
               />
@@ -224,17 +276,25 @@ export function EventModal({
 
             {!formData.allDay && (
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: '#E0E0E0' }}
+                >
                   Heure de début
                 </label>
                 <input
                   type="time"
                   value={formData.startTime}
-                  onChange={(e) => setFormData(prev => ({ ...prev, startTime: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      startTime: e.target.value,
+                    }))
+                  }
                   className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                   style={{
                     borderColor: 'rgba(255,255,255,0.1)',
-                    color: '#E0E0E0'
+                    color: '#E0E0E0',
                   }}
                 />
               </div>
@@ -243,17 +303,22 @@ export function EventModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+              <label
+                className="block text-sm font-medium mb-2"
+                style={{ color: '#E0E0E0' }}
+              >
                 Date de fin *
               </label>
               <input
                 type="date"
                 value={formData.endDate}
-                onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, endDate: e.target.value }))
+                }
                 className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                 style={{
                   borderColor: 'rgba(255,255,255,0.1)',
-                  color: '#E0E0E0'
+                  color: '#E0E0E0',
                 }}
                 required
               />
@@ -261,17 +326,25 @@ export function EventModal({
 
             {!formData.allDay && (
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: '#E0E0E0' }}
+                >
                   Heure de fin
                 </label>
                 <input
                   type="time"
                   value={formData.endTime}
-                  onChange={(e) => setFormData(prev => ({ ...prev, endTime: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      endTime: e.target.value,
+                    }))
+                  }
                   className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                   style={{
                     borderColor: 'rgba(255,255,255,0.1)',
-                    color: '#E0E0E0'
+                    color: '#E0E0E0',
                   }}
                 />
               </div>
@@ -280,7 +353,10 @@ export function EventModal({
 
           {/* Couleur */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#E0E0E0' }}>
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: '#E0E0E0' }}
+            >
               Couleur
             </label>
             <div className="flex gap-2">
@@ -295,9 +371,13 @@ export function EventModal({
                 <button
                   key={color.value}
                   type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, color: color.value }))}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, color: color.value }))
+                  }
                   className={`w-8 h-8 rounded-full border-2 transition-all ${
-                    formData.color === color.value ? 'border-white scale-110' : 'border-gray-600'
+                    formData.color === color.value
+                      ? 'border-white scale-110'
+                      : 'border-gray-600'
                   }`}
                   style={{ backgroundColor: color.value }}
                   title={color.name}
@@ -320,7 +400,7 @@ export function EventModal({
               className="flex-1 px-4 py-2 rounded-lg font-medium transition-colors"
               style={{
                 backgroundColor: '#4361EE',
-                color: 'white'
+                color: 'white',
               }}
             >
               {event ? 'Modifier' : 'Créer'}

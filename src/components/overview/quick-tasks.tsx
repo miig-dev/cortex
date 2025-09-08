@@ -18,7 +18,10 @@ export function QuickTasks() {
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+        <h3
+          className="text-lg font-bold flex items-center gap-2"
+          style={{ color: '#E0E0E0' }}
+        >
           <span className="text-2xl">📋</span>
           Planificateur
         </h3>
@@ -54,7 +57,8 @@ export function QuickTasks() {
       {/* Actions rapides */}
       <div className="mt-4 pt-3 border-t border-gray-600">
         <div className="text-xs" style={{ color: '#9CA3AF' }}>
-          {tasks.filter(t => !t.completed).length} en cours • {tasks.filter(t => t.completed).length} terminées
+          {tasks.filter((t) => !t.completed).length} en cours •{' '}
+          {tasks.filter((t) => t.completed).length} terminées
         </div>
       </div>
     </div>

@@ -1,9 +1,17 @@
-
-import { mockAreas, mockEvents, mockProjects, mockTasks } from '@/data/mock-data';
+import {
+  mockAreas,
+  mockEvents,
+  mockProjects,
+  mockTasks,
+} from '@/data/mock-data';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TaskQuadrant = 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
+export type TaskQuadrant =
+  | 'urgent_important'
+  | 'noturgent_important'
+  | 'urgent_notimportant'
+  | 'noturgent_notimportant';
 
 export interface Task {
   id: number;
@@ -109,23 +117,71 @@ interface CortexState {
 
 // Couleurs par défaut pour les quadrants Eisenhower
 const QUADRANT_COLORS = {
-  urgent_important: { quadrant: 'urgent_important' as TaskQuadrant, color: '#EF476F', bgColor: '#2A0A0A', title: '🔥 URGENT & IMPORTANT' },
-  noturgent_important: { quadrant: 'noturgent_important' as TaskQuadrant, color: '#4CAF50', bgColor: '#0A1A2A', title: '📋 IMPORTANT' },
-  urgent_notimportant: { quadrant: 'urgent_notimportant' as TaskQuadrant, color: '#FF7733', bgColor: '#2A2A0A', title: '⚡ URGENT' },
-  noturgent_notimportant: { quadrant: 'noturgent_notimportant' as TaskQuadrant, color: '#6B7280', bgColor: '#1A1A1A', title: '🗑️ ÉLIMINER' },
+  urgent_important: {
+    quadrant: 'urgent_important' as TaskQuadrant,
+    color: '#EF476F',
+    bgColor: '#2A0A0A',
+    title: '🔥 URGENT & IMPORTANT',
+  },
+  noturgent_important: {
+    quadrant: 'noturgent_important' as TaskQuadrant,
+    color: '#4CAF50',
+    bgColor: '#0A1A2A',
+    title: '📋 IMPORTANT',
+  },
+  urgent_notimportant: {
+    quadrant: 'urgent_notimportant' as TaskQuadrant,
+    color: '#FF7733',
+    bgColor: '#2A2A0A',
+    title: '⚡ URGENT',
+  },
+  noturgent_notimportant: {
+    quadrant: 'noturgent_notimportant' as TaskQuadrant,
+    color: '#6B7280',
+    bgColor: '#1A1A1A',
+    title: '🗑️ ÉLIMINER',
+  },
 };
 
 // Fonction pour catégoriser automatiquement les tâches
-const categorizeTask = (content: string): { quadrant: TaskQuadrant; color: string; bgColor: string; title: string } => {
+const categorizeTask = (
+  content: string,
+): {
+  quadrant: TaskQuadrant;
+  color: string;
+  bgColor: string;
+  title: string;
+} => {
   const lowerContent = content.toLowerCase();
 
   // Mots-clés pour Urgent
-  const urgentKeywords = ['urgent', 'asap', 'maintenant', 'immédiat', 'critique', 'deadline', 'échéance', '!urgent'];
+  const urgentKeywords = [
+    'urgent',
+    'asap',
+    'maintenant',
+    'immédiat',
+    'critique',
+    'deadline',
+    'échéance',
+    '!urgent',
+  ];
   // Mots-clés pour Important
-  const importantKeywords = ['important', 'priorité', 'essentiel', 'crucial', 'vital', 'stratégique', '!important'];
+  const importantKeywords = [
+    'important',
+    'priorité',
+    'essentiel',
+    'crucial',
+    'vital',
+    'stratégique',
+    '!important',
+  ];
 
-  const isUrgent = urgentKeywords.some(keyword => lowerContent.includes(keyword));
-  const isImportant = importantKeywords.some(keyword => lowerContent.includes(keyword));
+  const isUrgent = urgentKeywords.some((keyword) =>
+    lowerContent.includes(keyword),
+  );
+  const isImportant = importantKeywords.some((keyword) =>
+    lowerContent.includes(keyword),
+  );
 
   if (isUrgent && isImportant) {
     return QUADRANT_COLORS.urgent_important;
@@ -160,8 +216,12 @@ export const useCortexStore = create<CortexState>()(
           area,
           completed: false,
           quadrant: categorization.quadrant,
-          priority: categorization.quadrant === 'urgent_important' ? 1 :
-                   categorization.quadrant === 'noturgent_important' ? 2 : 3,
+          priority:
+            categorization.quadrant === 'urgent_important'
+              ? 1
+              : categorization.quadrant === 'noturgent_important'
+                ? 2
+                : 3,
           createdAt: new Date(),
           updatedAt: new Date(),
           color: categorization.color,
@@ -170,7 +230,7 @@ export const useCortexStore = create<CortexState>()(
         };
 
         set((state) => ({
-          tasks: [...state.tasks, newTask]
+          tasks: [...state.tasks, newTask],
         }));
       },
 
@@ -179,14 +239,14 @@ export const useCortexStore = create<CortexState>()(
           tasks: state.tasks.map((task) =>
             task.id === id
               ? { ...task, ...updates, updatedAt: new Date() }
-              : task
-          )
+              : task,
+          ),
         }));
       },
 
       deleteTask: (id: number) => {
         set((state) => ({
-          tasks: state.tasks.filter((task) => task.id !== id)
+          tasks: state.tasks.filter((task) => task.id !== id),
         }));
       },
 
@@ -195,8 +255,8 @@ export const useCortexStore = create<CortexState>()(
           tasks: state.tasks.map((task) =>
             task.id === id
               ? { ...task, completed: !task.completed, updatedAt: new Date() }
-              : task
-          )
+              : task,
+          ),
         }));
       },
 
@@ -211,16 +271,23 @@ export const useCortexStore = create<CortexState>()(
                   color: categorization.color,
                   bgColor: categorization.bgColor,
                   title: categorization.title,
-                  updatedAt: new Date()
+                  updatedAt: new Date(),
                 }
-              : task
-          )
+              : task,
+          ),
         }));
       },
 
       // Actions pour les projets
       addProject: (name: string, description?: string, color?: string) => {
-        const colors = ['#4361EE', '#4CAF50', '#FF7733', '#EF476F', '#4CC9F0', '#6B7280'];
+        const colors = [
+          '#4361EE',
+          '#4CAF50',
+          '#FF7733',
+          '#EF476F',
+          '#4CC9F0',
+          '#6B7280',
+        ];
         const newProject: Project = {
           id: Date.now(),
           name,
@@ -232,7 +299,7 @@ export const useCortexStore = create<CortexState>()(
         };
 
         set((state) => ({
-          projects: [...state.projects, newProject]
+          projects: [...state.projects, newProject],
         }));
       },
 
@@ -241,14 +308,14 @@ export const useCortexStore = create<CortexState>()(
           projects: state.projects.map((project) =>
             project.id === id
               ? { ...project, ...updates, updatedAt: new Date() }
-              : project
-          )
+              : project,
+          ),
         }));
       },
 
       deleteProject: (id: number) => {
         set((state) => ({
-          projects: state.projects.filter((project) => project.id !== id)
+          projects: state.projects.filter((project) => project.id !== id),
         }));
       },
 
@@ -256,15 +323,26 @@ export const useCortexStore = create<CortexState>()(
         set((state) => ({
           projects: state.projects.map((project) =>
             project.id === id
-              ? { ...project, completed: !project.completed, updatedAt: new Date() }
-              : project
-          )
+              ? {
+                  ...project,
+                  completed: !project.completed,
+                  updatedAt: new Date(),
+                }
+              : project,
+          ),
         }));
       },
 
       // Actions pour les areas
       addArea: (name: string, color?: string) => {
-        const colors = ['#4361EE', '#4CAF50', '#FF7733', '#EF476F', '#4CC9F0', '#6B7280'];
+        const colors = [
+          '#4361EE',
+          '#4CAF50',
+          '#FF7733',
+          '#EF476F',
+          '#4CC9F0',
+          '#6B7280',
+        ];
         const newArea: Area = {
           id: Date.now(),
           name,
@@ -274,7 +352,7 @@ export const useCortexStore = create<CortexState>()(
         };
 
         set((state) => ({
-          areas: [...state.areas, newArea]
+          areas: [...state.areas, newArea],
         }));
       },
 
@@ -283,14 +361,14 @@ export const useCortexStore = create<CortexState>()(
           areas: state.areas.map((area) =>
             area.id === id
               ? { ...area, ...updates, updatedAt: new Date() }
-              : area
-          )
+              : area,
+          ),
         }));
       },
 
       deleteArea: (id: number) => {
         set((state) => ({
-          areas: state.areas.filter((area) => area.id !== id)
+          areas: state.areas.filter((area) => area.id !== id),
         }));
       },
 
@@ -302,37 +380,37 @@ export const useCortexStore = create<CortexState>()(
         };
 
         set((state) => ({
-          events: [...state.events, newEvent]
+          events: [...state.events, newEvent],
         }));
       },
 
       updateEvent: (id: string, updates: Partial<CalendarEvent>) => {
         set((state) => ({
           events: state.events.map((event) =>
-            event.id === id
-              ? { ...event, ...updates }
-              : event
-          )
+            event.id === id ? { ...event, ...updates } : event,
+          ),
         }));
       },
 
       deleteEvent: (id: string) => {
         set((state) => ({
-          events: state.events.filter((event) => event.id !== id)
+          events: state.events.filter((event) => event.id !== id),
         }));
       },
 
       // Actions pour les filtres
       setSearchQuery: (query: string) => set({ searchQuery: query }),
       setSelectedArea: (area: string | null) => set({ selectedArea: area }),
-      setSelectedQuadrant: (quadrant: TaskQuadrant | null) => set({ selectedQuadrant: quadrant }),
+      setSelectedQuadrant: (quadrant: TaskQuadrant | null) =>
+        set({ selectedQuadrant: quadrant }),
       setShowCompleted: (show: boolean) => set({ showCompleted: show }),
-      clearFilters: () => set({
-        searchQuery: '',
-        selectedArea: null,
-        selectedQuadrant: null,
-        showCompleted: true
-      }),
+      clearFilters: () =>
+        set({
+          searchQuery: '',
+          selectedArea: null,
+          selectedQuadrant: null,
+          showCompleted: true,
+        }),
 
       // Actions utilitaires
       getTasksByQuadrant: (quadrant: TaskQuadrant) => {
@@ -344,11 +422,20 @@ export const useCortexStore = create<CortexState>()(
       },
 
       getFilteredTasks: () => {
-        const { tasks, searchQuery, selectedArea, selectedQuadrant, showCompleted } = get();
+        const {
+          tasks,
+          searchQuery,
+          selectedArea,
+          selectedQuadrant,
+          showCompleted,
+        } = get();
 
         return tasks.filter((task) => {
           // Filtre par recherche
-          if (searchQuery && !task.content.toLowerCase().includes(searchQuery.toLowerCase())) {
+          if (
+            searchQuery &&
+            !task.content.toLowerCase().includes(searchQuery.toLowerCase())
+          ) {
             return false;
           }
 
@@ -377,15 +464,21 @@ export const useCortexStore = create<CortexState>()(
         const completedTasks = tasks.filter((task) => task.completed).length;
         const pendingTasks = totalTasks - completedTasks;
 
-        const tasksByQuadrant = tasks.reduce((acc, task) => {
-          acc[task.quadrant] = (acc[task.quadrant] || 0) + 1;
-          return acc;
-        }, {} as Record<TaskQuadrant, number>);
+        const tasksByQuadrant = tasks.reduce(
+          (acc, task) => {
+            acc[task.quadrant] = (acc[task.quadrant] || 0) + 1;
+            return acc;
+          },
+          {} as Record<TaskQuadrant, number>,
+        );
 
-        const tasksByArea = tasks.reduce((acc, task) => {
-          acc[task.area] = (acc[task.area] || 0) + 1;
-          return acc;
-        }, {} as Record<string, number>);
+        const tasksByArea = tasks.reduce(
+          (acc, task) => {
+            acc[task.area] = (acc[task.area] || 0) + 1;
+            return acc;
+          },
+          {} as Record<string, number>,
+        );
 
         return {
           totalTasks,
@@ -404,6 +497,6 @@ export const useCortexStore = create<CortexState>()(
         areas: state.areas,
         events: state.events,
       }),
-    }
-  )
+    },
+  ),
 );

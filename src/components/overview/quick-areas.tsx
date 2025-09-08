@@ -7,14 +7,17 @@ export function QuickAreas() {
   const { areas, tasks } = useCortexStore();
 
   const getTasksForArea = (areaName: string) => {
-    return tasks.filter(task => task.area === areaName);
+    return tasks.filter((task) => task.area === areaName);
   };
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+        <h3
+          className="text-lg font-bold flex items-center gap-2"
+          style={{ color: '#E0E0E0' }}
+        >
           <span className="text-2xl">🎯</span>
           Areas
         </h3>
@@ -27,9 +30,9 @@ export function QuickAreas() {
       <div className="grid grid-cols-2 gap-3">
         {areas.slice(0, 6).map((area) => {
           const areaTasks = getTasksForArea(area.name);
-          const completedTasks = areaTasks.filter(t => t.completed).length;
+          const completedTasks = areaTasks.filter((t) => t.completed).length;
           const totalTasks = areaTasks.length;
-          
+
           return (
             <Link
               key={area.id}
@@ -41,19 +44,25 @@ export function QuickAreas() {
                   className="w-4 h-4 rounded-full flex-shrink-0"
                   style={{ backgroundColor: area.color }}
                 />
-                <div className="font-medium text-sm truncate" style={{ color: '#E0E0E0' }}>
+                <div
+                  className="font-medium text-sm truncate"
+                  style={{ color: '#E0E0E0' }}
+                >
                   {area.name}
                 </div>
               </div>
-              
+
               {/* Progression */}
               <div className="flex items-center gap-2">
                 <div className="flex-1 bg-gray-600 rounded-full h-1.5">
                   <div
                     className="h-1.5 rounded-full transition-all duration-300"
                     style={{
-                      width: totalTasks > 0 ? `${(completedTasks / totalTasks) * 100}%` : '0%',
-                      backgroundColor: area.color
+                      width:
+                        totalTasks > 0
+                          ? `${(completedTasks / totalTasks) * 100}%`
+                          : '0%',
+                      backgroundColor: area.color,
                     }}
                   />
                 </div>

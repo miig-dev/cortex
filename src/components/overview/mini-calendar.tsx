@@ -40,7 +40,7 @@ export function MiniCalendar() {
   }
 
   const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentDate(prev => {
+    setCurrentDate((prev) => {
       const newDate = new Date(prev);
       newDate.setMonth(prev.getMonth() + (direction === 'next' ? 1 : -1));
       return newDate;
@@ -52,22 +52,35 @@ export function MiniCalendar() {
   };
 
   const getEventsForDate = (date: Date) => {
-    return events.filter(event => {
+    return events.filter((event) => {
       const eventDate = new Date(event.start);
       return eventDate.toDateString() === date.toDateString();
     });
   };
 
   const monthNames = [
-    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
   ];
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+        <h3
+          className="text-lg font-bold flex items-center gap-2"
+          style={{ color: '#E0E0E0' }}
+        >
           <span className="text-2xl">📅</span>
           Calendrier
         </h3>
@@ -78,8 +91,18 @@ export function MiniCalendar() {
             className="p-1 rounded hover:bg-gray-700 transition-colors"
             style={{ color: '#9CA3AF' }}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
           <button
@@ -88,7 +111,7 @@ export function MiniCalendar() {
             className="px-3 py-1 text-xs rounded-lg font-medium transition-colors"
             style={{
               backgroundColor: '#4361EE',
-              color: 'white'
+              color: 'white',
             }}
           >
             Aujourd'hui
@@ -99,8 +122,18 @@ export function MiniCalendar() {
             className="p-1 rounded hover:bg-gray-700 transition-colors"
             style={{ color: '#9CA3AF' }}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
@@ -116,7 +149,11 @@ export function MiniCalendar() {
       {/* Jours de la semaine */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {['L', 'M', 'W', 'J', 'V', 'S', 'D'].map((day, index) => (
-          <div key={`day-${index}`} className="text-center text-xs font-bold" style={{ color: '#9CA3AF' }}>
+          <div
+            key={`day-${index}`}
+            className="text-center text-xs font-bold"
+            style={{ color: '#9CA3AF' }}
+          >
             {day}
           </div>
         ))}

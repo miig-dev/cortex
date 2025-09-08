@@ -40,7 +40,7 @@ function isTaskLine(line: string): boolean {
     /^\s*-\s+/, // - simple
   ];
 
-  return taskPatterns.some(pattern => pattern.test(line));
+  return taskPatterns.some((pattern) => pattern.test(line));
 }
 
 /**
@@ -59,14 +59,18 @@ function parseTaskLine(line: string): MarkdownTask | null {
   const task: MarkdownTask = { content };
 
   // Extraire la date (format: @2024-01-15, @today, @tomorrow, @monday, etc.)
-  const dateMatch = content.match(/@(today|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday|\d{4}-\d{2}-\d{2})/i);
+  const dateMatch = content.match(
+    /@(today|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday|\d{4}-\d{2}-\d{2})/i,
+  );
   if (dateMatch) {
     task.date = parseDate(dateMatch[1]);
     content = content.replace(dateMatch[0], '').trim();
   }
 
   // Extraire l'heure (format: @14:30, @2:30pm, @14h30, etc.)
-  const timeMatch = content.match(/@(\d{1,2}:\d{2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}h\d{2})/i);
+  const timeMatch = content.match(
+    /@(\d{1,2}:\d{2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}h\d{2})/i,
+  );
   if (timeMatch) {
     task.time = timeMatch[1];
     content = content.replace(timeMatch[0], '').trim();
@@ -82,7 +86,7 @@ function parseTaskLine(line: string): MarkdownTask | null {
   // Extraire les tags (format: #tag1 #tag2)
   const tagMatches = content.match(/#(\w+)/g);
   if (tagMatches) {
-    task.tags = tagMatches.map(tag => tag.substring(1));
+    task.tags = tagMatches.map((tag) => tag.substring(1));
     content = content.replace(/#\w+/g, '').trim();
   }
 
@@ -139,14 +143,19 @@ function getNextWeekday(from: Date, targetDay: number): Date {
   const result = new Date(from);
   const currentDay = result.getDay();
   const daysUntilTarget = (targetDay - currentDay + 7) % 7;
-  result.setDate(result.getDate() + (daysUntilTarget === 0 ? 7 : daysUntilTarget));
+  result.setDate(
+    result.getDate() + (daysUntilTarget === 0 ? 7 : daysUntilTarget),
+  );
   return result;
 }
 
 /**
  * Convertit une tâche markdown en événement calendrier
  */
-export function markdownTaskToEvent(task: MarkdownTask, taskId: number): CalendarEvent {
+export function markdownTaskToEvent(
+  task: MarkdownTask,
+  taskId: number,
+): CalendarEvent {
   const startDate = task.date || new Date();
   const startTime = task.time ? parseTime(task.time) : null;
 

@@ -9,10 +9,7 @@ interface TaskTimerProps {
   onTimeRecorded?: (timeSpent: number) => void;
 }
 
-export const TaskTimer: FC<TaskTimerProps> = ({
-  task,
-  onTimeRecorded,
-}) => {
+export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
   const [elapsedTime, setElapsedTime] = useState(0); // en secondes
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -67,7 +64,7 @@ export const TaskTimer: FC<TaskTimerProps> = ({
 
     // Enregistrer le temps de la session
     if (elapsedTime > 0) {
-      setSessionHistory(prev => [...prev, elapsedTime]);
+      setSessionHistory((prev) => [...prev, elapsedTime]);
       onTimeRecorded?.(elapsedTime);
 
       // Confettis pour célébrer
@@ -89,10 +86,15 @@ export const TaskTimer: FC<TaskTimerProps> = ({
   };
 
   // Calculs des statistiques
-  const totalTime = sessionHistory.reduce((sum, time) => sum + time, 0) + elapsedTime;
-  const averageTime = sessionHistory.length > 0
-    ? Math.round(sessionHistory.reduce((sum, time) => sum + time, 0) / sessionHistory.length)
-    : 0;
+  const totalTime =
+    sessionHistory.reduce((sum, time) => sum + time, 0) + elapsedTime;
+  const averageTime =
+    sessionHistory.length > 0
+      ? Math.round(
+          sessionHistory.reduce((sum, time) => sum + time, 0) /
+            sessionHistory.length,
+        )
+      : 0;
 
   return (
     <div className="relative flex flex-col items-center justify-center w-full max-w-2xl mx-auto">
@@ -136,9 +138,7 @@ export const TaskTimer: FC<TaskTimerProps> = ({
             {isRunning && !isPaused && (
               <span className="text-green-400">⏱️ En cours...</span>
             )}
-            {isPaused && (
-              <span className="text-yellow-400">⏸️ En pause</span>
-            )}
+            {isPaused && <span className="text-yellow-400">⏸️ En pause</span>}
             {!isRunning && !isPaused && elapsedTime === 0 && (
               <span className="text-slate-400">▶️ Prêt à commencer</span>
             )}
@@ -209,26 +209,34 @@ export const TaskTimer: FC<TaskTimerProps> = ({
       {/* Statistiques de la session */}
       {(sessionHistory.length > 0 || elapsedTime > 0) && (
         <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700 w-full">
-          <h3 className="text-lg font-bold text-white mb-4 text-center">📊 Statistiques</h3>
+          <h3 className="text-lg font-bold text-white mb-4 text-center">
+            📊 Statistiques
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Temps total */}
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">{formatTime(totalTime)}</div>
+              <div className="text-2xl font-bold text-blue-400">
+                {formatTime(totalTime)}
+              </div>
               <div className="text-sm text-slate-400">Temps total</div>
             </div>
 
             {/* Temps moyen */}
             {averageTime > 0 && (
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-400">{formatTime(averageTime)}</div>
+                <div className="text-2xl font-bold text-green-400">
+                  {formatTime(averageTime)}
+                </div>
                 <div className="text-sm text-slate-400">Temps moyen</div>
               </div>
             )}
 
             {/* Nombre de sessions */}
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-400">{sessionHistory.length}</div>
+              <div className="text-2xl font-bold text-purple-400">
+                {sessionHistory.length}
+              </div>
               <div className="text-sm text-slate-400">Sessions</div>
             </div>
           </div>
@@ -236,7 +244,9 @@ export const TaskTimer: FC<TaskTimerProps> = ({
           {/* Historique des sessions */}
           {sessionHistory.length > 0 && (
             <div className="mt-4">
-              <h4 className="text-sm font-medium text-slate-400 mb-2">Historique des sessions :</h4>
+              <h4 className="text-sm font-medium text-slate-400 mb-2">
+                Historique des sessions :
+              </h4>
               <div className="flex flex-wrap gap-2">
                 {sessionHistory.map((time, index) => (
                   <span

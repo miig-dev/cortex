@@ -9,7 +9,11 @@ export interface CalendarEvent {
   type: 'task' | 'event' | 'meeting' | 'deadline';
   taskId?: number; // Référence vers la tâche si c'est un événement basé sur une tâche
   area?: string;
-  quadrant?: 'urgent_important' | 'noturgent_important' | 'urgent_notimportant' | 'noturgent_notimportant';
+  quadrant?:
+    | 'urgent_important'
+    | 'noturgent_important'
+    | 'urgent_notimportant'
+    | 'noturgent_notimportant';
 }
 
 export interface CalendarDay {

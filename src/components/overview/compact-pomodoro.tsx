@@ -15,7 +15,7 @@ export function CompactPomodoro() {
 
     if (isRunning && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft(time => time - 1);
+        setTimeLeft((time) => time - 1);
       }, 1000);
     } else if (timeLeft === 0) {
       // Session terminée
@@ -23,7 +23,7 @@ export function CompactPomodoro() {
 
       if (!isBreak) {
         // Fin de session de travail
-        setSessionCount(prev => prev + 1);
+        setSessionCount((prev) => prev + 1);
         addExperience(50); // +50 XP par session
 
         // Badge pour 10 sessions (deep-worker)
@@ -69,7 +69,10 @@ export function CompactPomodoro() {
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+        <h3
+          className="text-lg font-bold flex items-center gap-2"
+          style={{ color: '#E0E0E0' }}
+        >
           <span className="text-2xl">🍅</span>
           Focus
         </h3>
@@ -85,7 +88,7 @@ export function CompactPomodoro() {
           style={{
             color: isBreak ? '#4CAF50' : '#FF7733',
             textShadow: `0 0 20px ${isBreak ? 'rgba(76, 175, 80, 0.5)' : 'rgba(255, 119, 51, 0.5)'}`,
-            letterSpacing: '0.1em'
+            letterSpacing: '0.1em',
           }}
         >
           {formatTime(timeLeft)}
@@ -107,7 +110,7 @@ export function CompactPomodoro() {
             className="h-2 rounded-full transition-all duration-1000"
             style={{
               width: `${getProgress()}%`,
-              backgroundColor: isBreak ? '#4CAF50' : '#FF7733'
+              backgroundColor: isBreak ? '#4CAF50' : '#FF7733',
             }}
           />
         </div>
@@ -121,7 +124,7 @@ export function CompactPomodoro() {
           className="flex-1 px-3 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-sm"
           style={{
             backgroundColor: isRunning ? '#EF476F' : '#FF7733',
-            color: 'white'
+            color: 'white',
           }}
         >
           {isRunning ? 'Pause' : 'Start'}
@@ -132,7 +135,7 @@ export function CompactPomodoro() {
           className="px-3 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-sm"
           style={{
             backgroundColor: '#6B7280',
-            color: 'white'
+            color: 'white',
           }}
         >
           Reset

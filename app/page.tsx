@@ -15,11 +15,7 @@ import { useCortexStore } from '@/stores/cortex-store';
 import { useCallback, useState } from 'react';
 
 export default function HomePage() {
-  const {
-    addTask,
-    addProject,
-    addArea,
-  } = useCortexStore();
+  const { addTask, addProject, addArea } = useCortexStore();
 
   const [newTask, setNewTask] = useState('');
   const [newProject, setNewProject] = useState('');
@@ -35,7 +31,7 @@ export default function HomePage() {
         setNewTask('');
         console.log('Tâche ajoutée avec succès');
       } catch (error) {
-        console.error('Erreur lors de l\'ajout de la tâche:', error);
+        console.error("Erreur lors de l'ajout de la tâche:", error);
       }
     }
   }, [newTask, addTask]);
@@ -46,7 +42,7 @@ export default function HomePage() {
         addProject(newProject);
         setNewProject('');
       } catch (error) {
-        console.error('Erreur lors de l\'ajout du projet:', error);
+        console.error("Erreur lors de l'ajout du projet:", error);
       }
     }
   }, [newProject, addProject]);
@@ -57,25 +53,27 @@ export default function HomePage() {
         addArea(newArea);
         setNewArea('');
       } catch (error) {
-        console.error('Erreur lors de l\'ajout de l\'area:', error);
+        console.error("Erreur lors de l'ajout de l'area:", error);
       }
     }
   }, [newArea, addArea]);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent, action: () => void) => {
-    console.log('handleKeyDown appelé avec:', e.key, typeof action);
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      try {
-        console.log('Exécution de l\'action...');
-        action();
-        console.log('Action exécutée avec succès');
-      } catch (error) {
-        console.error('Erreur lors de l\'exécution de l\'action:', error);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, action: () => void) => {
+      console.log('handleKeyDown appelé avec:', e.key, typeof action);
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        try {
+          console.log("Exécution de l'action...");
+          action();
+          console.log('Action exécutée avec succès');
+        } catch (error) {
+          console.error("Erreur lors de l'exécution de l'action:", error);
+        }
       }
-    }
-  }, []);
-
+    },
+    [],
+  );
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#121212' }}>
@@ -92,7 +90,6 @@ export default function HomePage() {
 
       {/* Contenu principal - Vue d'ensemble Notion-like */}
       <div className="container mx-auto px-8 py-8">
-
         {/* Header avec horloge, pomodoro et recherche */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-6 gap-6">
@@ -106,7 +103,6 @@ export default function HomePage() {
 
         {/* Grille principale - Vue Notion */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-
           {/* Colonne 1: Calendrier et Stats */}
           <div className="xl:col-span-1 space-y-6">
             <MiniCalendar />
@@ -129,7 +125,10 @@ export default function HomePage() {
                 <div className="space-y-6">
                   {/* Ajouter une tâche */}
                   <div className="space-y-3">
-                    <label htmlFor="new-task-planner" className="text-sm font-medium text-gray-400">
+                    <label
+                      htmlFor="new-task-planner"
+                      className="text-sm font-medium text-gray-400"
+                    >
                       Que devez-vous faire ?
                     </label>
                     <div className="flex gap-2">
@@ -160,7 +159,10 @@ export default function HomePage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Ajouter un projet */}
                     <div className="space-y-3">
-                      <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
+                      <label
+                        htmlFor="new-project"
+                        className="text-sm font-medium text-gray-400"
+                      >
                         Nouveau projet
                       </label>
                       <div className="flex gap-2">
@@ -186,7 +188,10 @@ export default function HomePage() {
 
                     {/* Ajouter une area */}
                     <div className="space-y-3">
-                      <label htmlFor="new-area" className="text-sm font-medium text-gray-400">
+                      <label
+                        htmlFor="new-area"
+                        className="text-sm font-medium text-gray-400"
+                      >
                         Nouvelle area
                       </label>
                       <div className="flex gap-2">
@@ -221,7 +226,6 @@ export default function HomePage() {
             <QuickAreas />
           </div>
         </div>
-
       </div>
     </div>
   );

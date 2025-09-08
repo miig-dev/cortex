@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
  */
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, (value: T | ((val: T) => T)) => void] {
   // État pour stocker la valeur
   const [storedValue, setStoredValue] = useState<T>(initialValue);
@@ -15,7 +15,8 @@ export function useLocalStorage<T>(
   const setValue = (value: T | ((val: T) => T)) => {
     try {
       // Permettre à value d'être une fonction pour une mise à jour basée sur l'état précédent
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
 
       // Sauvegarder l'état
       setStoredValue(valueToStore);
@@ -25,7 +26,10 @@ export function useLocalStorage<T>(
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      console.error(`Erreur lors de la sauvegarde dans localStorage (${key}):`, error);
+      console.error(
+        `Erreur lors de la sauvegarde dans localStorage (${key}):`,
+        error,
+      );
     }
   };
 
@@ -39,7 +43,10 @@ export function useLocalStorage<T>(
         }
       }
     } catch (error) {
-      console.error(`Erreur lors du chargement depuis localStorage (${key}):`, error);
+      console.error(
+        `Erreur lors du chargement depuis localStorage (${key}):`,
+        error,
+      );
       // En cas d'erreur, utiliser la valeur initiale
       setStoredValue(initialValue);
     }

@@ -8,7 +8,7 @@ export function DigitalClock() {
   useEffect(() => {
     // Initialiser le temps côté client pour éviter l'hydratation mismatch
     setTime(new Date());
-    
+
     const timer = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -21,7 +21,7 @@ export function DigitalClock() {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: false
+      hour12: false,
     });
   };
 
@@ -30,7 +30,7 @@ export function DigitalClock() {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
     });
   };
 
@@ -42,7 +42,10 @@ export function DigitalClock() {
           <span className="text-2xl">⏰</span>
         </div>
         <div>
-          <div className="text-4xl font-mono font-bold mb-2" style={{ color: '#E0E0E0' }}>
+          <div
+            className="text-4xl font-mono font-bold mb-2"
+            style={{ color: '#E0E0E0' }}
+          >
             --:--:--
           </div>
           <div className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
@@ -69,7 +72,7 @@ export function DigitalClock() {
           style={{
             color: '#E0E0E0',
             textShadow: '0 0 20px rgba(67, 97, 238, 0.5)',
-            letterSpacing: '0.1em'
+            letterSpacing: '0.1em',
           }}
         >
           {formatTime(time)}

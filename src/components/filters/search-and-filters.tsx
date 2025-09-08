@@ -50,7 +50,12 @@ export function SearchAndFilters() {
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
         </svg>
         {searchQuery && (
           <button
@@ -59,8 +64,19 @@ export function SearchAndFilters() {
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200"
             aria-label="Effacer la recherche"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         )}
@@ -89,7 +105,9 @@ export function SearchAndFilters() {
         {/* Filtre par quadrant */}
         <select
           value={selectedQuadrant || ''}
-          onChange={(e) => setSelectedQuadrant((e.target.value as TaskQuadrant) || null)}
+          onChange={(e) =>
+            setSelectedQuadrant((e.target.value as TaskQuadrant) || null)
+          }
           className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
           style={{
             borderColor: 'rgba(255,255,255,0.1)',
@@ -105,8 +123,10 @@ export function SearchAndFilters() {
         </select>
 
         {/* Toggle tâches terminées */}
-        <label className="flex items-center gap-2 px-3 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:bg-white hover:bg-opacity-5"
-          style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+        <label
+          className="flex items-center gap-2 px-3 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:bg-white hover:bg-opacity-5"
+          style={{ borderColor: 'rgba(255,255,255,0.1)' }}
+        >
           <input
             type="checkbox"
             checked={showCompleted}
@@ -119,7 +139,10 @@ export function SearchAndFilters() {
         </label>
 
         {/* Bouton clear */}
-        {(searchQuery || selectedArea || selectedQuadrant || !showCompleted) && (
+        {(searchQuery ||
+          selectedArea ||
+          selectedQuadrant ||
+          !showCompleted) && (
           <button
             type="button"
             onClick={clearFilters}

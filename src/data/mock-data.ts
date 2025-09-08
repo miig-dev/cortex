@@ -72,7 +72,7 @@ export const mockProjects: Project[] = [
   {
     id: 1,
     name: 'Site E-commerce',
-    description: 'Développement d\'une plateforme de vente en ligne',
+    description: "Développement d'une plateforme de vente en ligne",
     completed: false,
     color: '#4CAF50',
     createdAt: new Date('2024-01-10T09:00:00'),
@@ -90,7 +90,7 @@ export const mockProjects: Project[] = [
   {
     id: 3,
     name: 'Refonte UI/UX',
-    description: 'Amélioration de l\'interface utilisateur',
+    description: "Amélioration de l'interface utilisateur",
     completed: true,
     color: '#9C27B0',
     createdAt: new Date('2024-01-05T10:15:00'),

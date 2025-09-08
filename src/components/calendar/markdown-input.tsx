@@ -2,7 +2,10 @@
 
 import { useCortexStore } from '@/stores/cortex-store';
 import { CalendarEvent } from '@/types/calendar';
-import { markdownTaskToEvent, parseMarkdownTasks } from '@/utils/markdown-parser';
+import {
+  markdownTaskToEvent,
+  parseMarkdownTasks,
+} from '@/utils/markdown-parser';
 import { useRef, useState } from 'react';
 
 interface MarkdownInputProps {
@@ -13,8 +16,8 @@ interface MarkdownInputProps {
 
 export function MarkdownInput({
   onTasksCreated,
-  placeholder = "Tapez vos tâches en markdown...\nEx: - [ ] urgent important fix bug @monday @14:30 #bug @area:Freelance Work",
-  className = ""
+  placeholder = 'Tapez vos tâches en markdown...\nEx: - [ ] urgent important fix bug @monday @14:30 #bug @area:Freelance Work',
+  className = '',
 }: MarkdownInputProps) {
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -78,7 +81,12 @@ export function MarkdownInput({
     const pastedText = e.clipboardData.getData('text');
 
     // Détecter si c'est du markdown
-    if (pastedText.includes('```') || pastedText.includes('- [') || pastedText.includes('* ') || pastedText.includes('1. ')) {
+    if (
+      pastedText.includes('```') ||
+      pastedText.includes('- [') ||
+      pastedText.includes('* ') ||
+      pastedText.includes('1. ')
+    ) {
       e.preventDefault();
       setInput(pastedText);
 
@@ -102,7 +110,7 @@ export function MarkdownInput({
           className="w-full h-32 px-4 py-3 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 resize-none"
           style={{
             borderColor: 'rgba(255,255,255,0.1)',
-            color: '#E0E0E0'
+            color: '#E0E0E0',
           }}
         />
 
@@ -118,15 +126,30 @@ export function MarkdownInput({
       <div className="text-xs" style={{ color: '#6B7280' }}>
         <div className="mb-2 font-medium">💡 Syntaxe markdown supportée :</div>
         <div className="grid grid-cols-2 gap-2 text-xs">
-          <div>• <code>- [ ] Tâche</code> - Liste de tâches</div>
-          <div>• <code>@monday</code> - Date (lundi, today, tomorrow)</div>
-          <div>• <code>@14:30</code> - Heure (14:30, 2:30pm, 14h30)</div>
-          <div>• <code>!urgent</code> - Priorité (urgent, high, medium, low)</div>
-          <div>• <code>#bug</code> - Tags</div>
-          <div>• <code>@area:Freelance</code> - Area</div>
+          <div>
+            • <code>- [ ] Tâche</code> - Liste de tâches
+          </div>
+          <div>
+            • <code>@monday</code> - Date (lundi, today, tomorrow)
+          </div>
+          <div>
+            • <code>@14:30</code> - Heure (14:30, 2:30pm, 14h30)
+          </div>
+          <div>
+            • <code>!urgent</code> - Priorité (urgent, high, medium, low)
+          </div>
+          <div>
+            • <code>#bug</code> - Tags
+          </div>
+          <div>
+            • <code>@area:Freelance</code> - Area
+          </div>
         </div>
         <div className="mt-2">
-          <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">Ctrl+Enter</kbd> pour traiter
+          <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">
+            Ctrl+Enter
+          </kbd>{' '}
+          pour traiter
         </div>
       </div>
 
@@ -139,7 +162,7 @@ export function MarkdownInput({
           className="px-6 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             backgroundColor: input.trim() ? '#4361EE' : '#6B7280',
-            color: 'white'
+            color: 'white',
           }}
         >
           {isProcessing ? 'Traitement...' : 'Créer les tâches'}

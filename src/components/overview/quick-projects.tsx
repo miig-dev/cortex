@@ -10,7 +10,10 @@ export function QuickProjects() {
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+        <h3
+          className="text-lg font-bold flex items-center gap-2"
+          style={{ color: '#E0E0E0' }}
+        >
           <span className="text-2xl">🚀</span>
           Projets
         </h3>
@@ -37,11 +40,17 @@ export function QuickProjects() {
                 style={{ backgroundColor: project.color }}
               />
               <div className="flex-1 min-w-0">
-                <div className="font-medium truncate" style={{ color: '#E0E0E0' }}>
+                <div
+                  className="font-medium truncate"
+                  style={{ color: '#E0E0E0' }}
+                >
                   {project.name}
                 </div>
                 {project.description && (
-                  <div className="text-xs truncate" style={{ color: '#9CA3AF' }}>
+                  <div
+                    className="text-xs truncate"
+                    style={{ color: '#9CA3AF' }}
+                  >
                     {project.description}
                   </div>
                 )}
@@ -57,7 +66,8 @@ export function QuickProjects() {
       {/* Actions rapides */}
       <div className="mt-4 pt-3 border-t border-gray-600">
         <div className="text-xs" style={{ color: '#9CA3AF' }}>
-          {projects.filter(p => !p.completed).length} actifs • {projects.filter(p => p.completed).length} terminés
+          {projects.filter((p) => !p.completed).length} actifs •{' '}
+          {projects.filter((p) => p.completed).length} terminés
         </div>
       </div>
     </div>

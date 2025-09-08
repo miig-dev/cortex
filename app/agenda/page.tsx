@@ -9,16 +9,19 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 export default function AgendaPage() {
-  const { tasks, events, addTask, addEvent, updateEvent, deleteEvent } = useCortexStore();
+  const { tasks, events, addTask, addEvent, updateEvent, deleteEvent } =
+    useCortexStore();
   const [showMarkdownInput, setShowMarkdownInput] = useState(false);
   const [showEventModal, setShowEventModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
+    null,
+  );
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string | undefined>();
 
   // Convertir les tâches en événements calendrier
   const calendarEvents = useMemo(() => {
-    const taskEvents: CalendarEvent[] = tasks.map(task => ({
+    const taskEvents: CalendarEvent[] = tasks.map((task) => ({
       id: `task-${task.id}`,
       title: task.content,
       description: task.area,
@@ -95,7 +98,7 @@ export default function AgendaPage() {
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
                 style={{
                   backgroundColor: showMarkdownInput ? '#4CAF50' : '#4361EE',
-                  color: 'white'
+                  color: 'white',
                 }}
               >
                 {showMarkdownInput ? 'Masquer' : 'Ajouter'} Markdown
@@ -106,7 +109,7 @@ export default function AgendaPage() {
                 className="px-4 py-2 rounded-lg font-medium transition-colors"
                 style={{
                   backgroundColor: '#6B7280',
-                  color: 'white'
+                  color: 'white',
                 }}
               >
                 Retour
@@ -139,7 +142,10 @@ export default function AgendaPage() {
         {/* Stats rapides */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+            <h3
+              className="text-lg font-semibold mb-4 flex items-center gap-2"
+              style={{ color: '#E0E0E0' }}
+            >
               <span className="text-2xl">📊</span>
               Statistiques
             </h3>
@@ -150,17 +156,24 @@ export default function AgendaPage() {
               </div>
               <div className="flex justify-between items-center">
                 <span style={{ color: '#9CA3AF' }}>Événements:</span>
-                <span className="font-bold text-purple-400">{events.length}</span>
+                <span className="font-bold text-purple-400">
+                  {events.length}
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span style={{ color: '#9CA3AF' }}>Cette semaine:</span>
-                <span className="font-bold text-green-400">{calendarEvents.length}</span>
+                <span className="font-bold text-green-400">
+                  {calendarEvents.length}
+                </span>
               </div>
             </div>
           </div>
 
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+            <h3
+              className="text-lg font-semibold mb-4 flex items-center gap-2"
+              style={{ color: '#E0E0E0' }}
+            >
               <span className="text-2xl">🎯</span>
               Actions rapides
             </h3>
@@ -185,7 +198,10 @@ export default function AgendaPage() {
           </div>
 
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#E0E0E0' }}>
+            <h3
+              className="text-lg font-semibold mb-4 flex items-center gap-2"
+              style={{ color: '#E0E0E0' }}
+            >
               <span className="text-2xl">🔗</span>
               Navigation
             </h3>

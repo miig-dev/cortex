@@ -18,7 +18,7 @@ export function TaskItem({
   onDelete,
   onMove,
   showActions = true,
-  compact = false
+  compact = false,
 }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(task.content);
@@ -57,10 +57,14 @@ export function TaskItem({
 
   const getPriorityIcon = (priority: number) => {
     switch (priority) {
-      case 1: return '🔴';
-      case 2: return '🟡';
-      case 3: return '🟢';
-      default: return '⚪';
+      case 1:
+        return '🔴';
+      case 2:
+        return '🟡';
+      case 3:
+        return '🟢';
+      default:
+        return '⚪';
     }
   };
 
@@ -84,11 +88,23 @@ export function TaskItem({
             : 'border-gray-400 hover:border-gray-300'
         }`}
         style={{ marginTop: '2px' }}
-        aria-label={task.completed ? 'Marquer comme non terminée' : 'Marquer comme terminée'}
+        aria-label={
+          task.completed
+            ? 'Marquer comme non terminée'
+            : 'Marquer comme terminée'
+        }
       >
         {task.completed && (
-          <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+          <svg
+            className="w-3 h-3 text-white"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
           </svg>
         )}
       </button>
@@ -128,7 +144,7 @@ export function TaskItem({
               className="text-xs px-2 py-1 rounded"
               style={{
                 backgroundColor: `${task.color}20`,
-                color: task.color || '#E0E0E0'
+                color: task.color || '#E0E0E0',
               }}
             >
               {task.area}
@@ -137,7 +153,7 @@ export function TaskItem({
               className="text-xs px-2 py-1 rounded"
               style={{
                 backgroundColor: `${task.color}20`,
-                color: task.color || '#E0E0E0'
+                color: task.color || '#E0E0E0',
               }}
             >
               {task.title}
@@ -156,8 +172,18 @@ export function TaskItem({
             title="Modifier"
             aria-label="Modifier la tâche"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
             </svg>
           </button>
 
@@ -168,8 +194,18 @@ export function TaskItem({
             title="Supprimer"
             aria-label="Supprimer la tâche"
           >
-            <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            <svg
+              className="w-4 h-4 text-red-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
             </svg>
           </button>
         </div>
