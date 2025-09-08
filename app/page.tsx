@@ -116,7 +116,7 @@ export default function HomePage() {
           {/* Colonne 2: Planificateur */}
           <div className="xl:col-span-2 space-y-6">
             <QuickTasks />
-            
+
             {/* Ajout de tâches dans le planificateur */}
             <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
               <CardHeader>
@@ -152,6 +152,71 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Ajout rapide dans le planificateur */}
+            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
+                  <span className="text-2xl">⚡</span>
+                  Ajout rapide
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Ajouter un projet */}
+                  <div className="space-y-3">
+                    <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
+                      Nouveau projet
+                    </label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="new-project"
+                        type="text"
+                        value={newProject}
+                        onChange={(e) => setNewProject(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
+                        placeholder="Nom du nouveau projet..."
+                        className="flex-1"
+                        suppressHydrationWarning={true}
+                      />
+                      <Button
+                        type="button"
+                        onClick={handleAddProject}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        ➕
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Ajouter une area */}
+                  <div className="space-y-3">
+                    <label htmlFor="new-area" className="text-sm font-medium text-gray-400">
+                      Nouvelle area
+                    </label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="new-area"
+                        type="text"
+                        value={newArea}
+                        onChange={(e) => setNewArea(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
+                        placeholder="Nom de la nouvelle area..."
+                        className="flex-1"
+                        suppressHydrationWarning={true}
+                      />
+                      <Button
+                        type="button"
+                        onClick={handleAddArea}
+                        className="bg-red-600 hover:bg-red-700"
+                      >
+                        ➕
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Colonne 3: Projets et Areas */}
@@ -161,72 +226,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Section d'ajout rapide */}
-        <section className="mt-8">
-          <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
-            <CardHeader>
-              <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
-                <span className="text-2xl">⚡</span>
-                Ajout rapide
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Ajouter un projet */}
-                <div className="space-y-3">
-                  <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
-                    Nouveau projet
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="new-project"
-                      type="text"
-                      value={newProject}
-                      onChange={(e) => setNewProject(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
-                      placeholder="Nom du nouveau projet..."
-                      className="flex-1"
-                      suppressHydrationWarning={true}
-                    />
-                    <Button
-                      type="button"
-                      onClick={handleAddProject}
-                      className="bg-green-600 hover:bg-green-700"
-                    >
-                      ➕
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Ajouter une area */}
-                <div className="space-y-3">
-                  <label htmlFor="new-area" className="text-sm font-medium text-gray-400">
-                    Nouvelle area
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="new-area"
-                      type="text"
-                      value={newArea}
-                      onChange={(e) => setNewArea(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
-                      placeholder="Nom de la nouvelle area..."
-                      className="flex-1"
-                      suppressHydrationWarning={true}
-                    />
-                    <Button
-                      type="button"
-                      onClick={handleAddArea}
-                      className="bg-red-600 hover:bg-red-700"
-                    >
-                      ➕
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
       </div>
     </div>
   );

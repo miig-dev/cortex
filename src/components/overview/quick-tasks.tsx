@@ -15,7 +15,7 @@ export function QuickTasks() {
           <span className="text-2xl">📋</span>
           Planificateur
         </h3>
-        <div className="text-sm" style={{ color: '#9CA3AF' }}>
+        <div className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
           {tasks.length} tâche{tasks.length > 1 ? 's' : ''}
         </div>
       </div>

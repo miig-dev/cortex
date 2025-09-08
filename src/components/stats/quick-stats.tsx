@@ -1,7 +1,6 @@
 'use client';
 
 import { useCortexStore } from '@/stores/cortex-store';
-import Link from 'next/link';
 
 export function QuickStats() {
   const { getStats } = useCortexStore();
@@ -69,33 +68,6 @@ export function QuickStats() {
         </div>
       </div>
 
-      {/* Liens rapides */}
-      <div className="grid grid-cols-2 gap-2">
-        <Link
-          href="/agenda"
-          className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-lg text-center font-medium hover:from-purple-600 hover:to-purple-700 transition-all duration-200"
-        >
-          📅 Agenda
-        </Link>
-        <Link
-          href="/eisenhower"
-          className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-lg text-center font-medium hover:from-green-600 hover:to-green-700 transition-all duration-200"
-        >
-          📊 Eisenhower
-        </Link>
-        <Link
-          href="/focus"
-          className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-lg text-center font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
-        >
-          🍅 Focus Timer
-        </Link>
-        <Link
-          href="/stats"
-          className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-lg text-center font-medium hover:from-pink-600 hover:to-pink-700 transition-all duration-200"
-        >
-          🏆 Statistiques
-        </Link>
-      </div>
     </div>
   );
 }
