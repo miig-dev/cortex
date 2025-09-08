@@ -13,25 +13,25 @@ export function QuickStats() {
   return (
     <div className="space-y-6">
       {/* Stats principales */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-white">{stats.totalTasks}</div>
-          <div className="text-sm text-blue-100">Tâches totales</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-lg text-center">
+          <div className="text-xl font-bold text-white mb-1">{stats.totalTasks}</div>
+          <div className="text-xs text-blue-100 leading-tight">Tâches totales</div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-500 to-green-600 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-white">{stats.completedTasks}</div>
-          <div className="text-sm text-green-100">Terminées</div>
+        <div className="bg-gradient-to-br from-green-500 to-green-600 p-3 rounded-lg text-center">
+          <div className="text-xl font-bold text-white mb-1">{stats.completedTasks}</div>
+          <div className="text-xs text-green-100 leading-tight">Terminées</div>
         </div>
 
-        <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-white">{stats.pendingTasks}</div>
-          <div className="text-sm text-orange-100">En cours</div>
+        <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-lg text-center">
+          <div className="text-xl font-bold text-white mb-1">{stats.pendingTasks}</div>
+          <div className="text-xs text-orange-100 leading-tight">En cours</div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-white">{completionRate}%</div>
-          <div className="text-sm text-purple-100">Complétion</div>
+        <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-3 rounded-lg text-center">
+          <div className="text-xl font-bold text-white mb-1">{completionRate}%</div>
+          <div className="text-xs text-purple-100 leading-tight">Complétion</div>
         </div>
       </div>
 
