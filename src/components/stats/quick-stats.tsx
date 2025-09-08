@@ -1,10 +1,49 @@
 'use client';
 
 import { useCortexStore } from '@/stores/cortex-store';
+import { useState, useEffect } from 'react';
 
 export function QuickStats() {
   const { getStats } = useCortexStore();
-  const stats = getStats();
+  const [stats, setStats] = useState<any>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setStats(getStats());
+  }, [getStats]);
+
+  // Éviter l'hydratation mismatch en attendant que les stats soient chargées côté client
+  if (!isClient || !stats) {
+    return (
+      <div className="space-y-6">
+        {/* Stats principales - état de chargement */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="bg-gradient-to-br from-gray-600 to-gray-700 p-3 rounded-lg text-center animate-pulse">
+              <div className="text-xl font-bold text-white mb-1">--</div>
+              <div className="text-xs text-gray-300 leading-tight">Chargement...</div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Répartition Eisenhower - état de chargement */}
+        <div className="bg-gray-800 p-4 rounded-lg">
+          <h3 className="text-lg font-semibold mb-3" style={{ color: '#E0E0E0' }}>
+            📊 Répartition Eisenhower
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex items-center justify-between p-2 rounded bg-gray-700 animate-pulse">
+                <span className="text-sm text-gray-400">--</span>
+                <span className="text-sm font-bold text-gray-400">--</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const completionRate = stats.totalTasks > 0
     ? Math.round((stats.completedTasks / stats.totalTasks) * 100)
