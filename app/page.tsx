@@ -128,6 +128,7 @@ export default function HomePage() {
                       onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
                       placeholder="Que devez-vous faire ?"
                       className="flex-1"
+                      suppressHydrationWarning={true}
                     />
                     <Button
                       type="button"
@@ -153,6 +154,7 @@ export default function HomePage() {
                       onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
                       placeholder="Nom du nouveau projet..."
                       className="flex-1"
+                      suppressHydrationWarning={true}
                     />
                     <Button
                       type="button"
@@ -178,6 +180,7 @@ export default function HomePage() {
                       onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
                       placeholder="Nom de la nouvelle area..."
                       className="flex-1"
+                      suppressHydrationWarning={true}
                     />
                     <Button
                       type="button"

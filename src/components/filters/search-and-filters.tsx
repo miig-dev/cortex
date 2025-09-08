@@ -41,6 +41,7 @@ export function SearchAndFilters() {
             borderColor: 'rgba(255,255,255,0.1)',
             color: '#E0E0E0',
           }}
+          suppressHydrationWarning={true}
         />
         <svg
           className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
