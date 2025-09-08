@@ -117,43 +117,7 @@ export default function HomePage() {
           <div className="xl:col-span-2 space-y-6">
             <QuickTasks />
 
-            {/* Ajout de tâches dans le planificateur */}
-            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
-              <CardHeader>
-                <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
-                  <span className="text-xl">➕</span>
-                  Ajouter une tâche
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <label htmlFor="new-task-planner" className="text-sm font-medium text-gray-400">
-                    Que devez-vous faire ?
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="new-task-planner"
-                      type="text"
-                      value={newTask}
-                      onChange={(e) => setNewTask(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
-                      placeholder="Tapez votre tâche ici..."
-                      className="flex-1"
-                      suppressHydrationWarning={true}
-                    />
-                    <Button
-                      type="button"
-                      onClick={handleAddTask}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      Ajouter
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Ajout rapide dans le planificateur */}
+            {/* Ajout unifié dans le planificateur */}
             <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
@@ -162,56 +126,88 @@ export default function HomePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Ajouter un projet */}
+                <div className="space-y-6">
+                  {/* Ajouter une tâche */}
                   <div className="space-y-3">
-                    <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
-                      Nouveau projet
+                    <label htmlFor="new-task-planner" className="text-sm font-medium text-gray-400">
+                      Que devez-vous faire ?
                     </label>
                     <div className="flex gap-2">
                       <Input
-                        id="new-project"
+                        id="new-task-planner"
                         type="text"
-                        value={newProject}
-                        onChange={(e) => setNewProject(e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
-                        placeholder="Nom du nouveau projet..."
+                        value={newTask}
+                        onChange={(e) => setNewTask(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
+                        placeholder="Tapez votre tâche ici..."
                         className="flex-1"
                         suppressHydrationWarning={true}
                       />
                       <Button
                         type="button"
-                        onClick={handleAddProject}
-                        className="bg-green-600 hover:bg-green-700"
+                        onClick={handleAddTask}
+                        className="bg-blue-600 hover:bg-blue-700"
                       >
-                        ➕
+                        Ajouter
                       </Button>
                     </div>
                   </div>
 
-                  {/* Ajouter une area */}
-                  <div className="space-y-3">
-                    <label htmlFor="new-area" className="text-sm font-medium text-gray-400">
-                      Nouvelle area
-                    </label>
-                    <div className="flex gap-2">
-                      <Input
-                        id="new-area"
-                        type="text"
-                        value={newArea}
-                        onChange={(e) => setNewArea(e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
-                        placeholder="Nom de la nouvelle area..."
-                        className="flex-1"
-                        suppressHydrationWarning={true}
-                      />
-                      <Button
-                        type="button"
-                        onClick={handleAddArea}
-                        className="bg-red-600 hover:bg-red-700"
-                      >
-                        ➕
-                      </Button>
+                  {/* Séparateur */}
+                  <div className="border-t border-gray-600"></div>
+
+                  {/* Ajouter projet et area */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Ajouter un projet */}
+                    <div className="space-y-3">
+                      <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
+                        Nouveau projet
+                      </label>
+                      <div className="flex gap-2">
+                        <Input
+                          id="new-project"
+                          type="text"
+                          value={newProject}
+                          onChange={(e) => setNewProject(e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, handleAddProject)}
+                          placeholder="Nom du nouveau projet..."
+                          className="flex-1"
+                          suppressHydrationWarning={true}
+                        />
+                        <Button
+                          type="button"
+                          onClick={handleAddProject}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          ➕
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Ajouter une area */}
+                    <div className="space-y-3">
+                      <label htmlFor="new-area" className="text-sm font-medium text-gray-400">
+                        Nouvelle area
+                      </label>
+                      <div className="flex gap-2">
+                        <Input
+                          id="new-area"
+                          type="text"
+                          value={newArea}
+                          onChange={(e) => setNewArea(e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, handleAddArea)}
+                          placeholder="Nom de la nouvelle area..."
+                          className="flex-1"
+                          suppressHydrationWarning={true}
+                        />
+                        <Button
+                          type="button"
+                          onClick={handleAddArea}
+                          className="bg-red-600 hover:bg-red-700"
+                        >
+                          ➕
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>

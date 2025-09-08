@@ -1,7 +1,7 @@
 'use client';
 
-import { useCortexStore } from '@/stores/cortex-store';
 import { TaskItem } from '@/components/task/task-item';
+import { useCortexStore } from '@/stores/cortex-store';
 
 export function QuickTasks() {
   const { tasks, getFilteredTasks } = useCortexStore();
