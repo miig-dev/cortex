@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useCortexStore } from '@/stores/cortex-store';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export default function HomePage() {
   const {
@@ -26,18 +26,21 @@ export default function HomePage() {
   const [newArea, setNewArea] = useState('');
 
   // Fonctions pour ajouter des éléments
-  const handleAddTask = () => {
+  const handleAddTask = useCallback(() => {
+    console.log('handleAddTask appelé avec:', newTask);
     if (newTask.trim()) {
       try {
+        console.log('Ajout de la tâche...');
         addTask(newTask, 'Freelance Work');
         setNewTask('');
+        console.log('Tâche ajoutée avec succès');
       } catch (error) {
         console.error('Erreur lors de l\'ajout de la tâche:', error);
       }
     }
-  };
+  }, [newTask, addTask]);
 
-  const handleAddProject = () => {
+  const handleAddProject = useCallback(() => {
     if (newProject.trim()) {
       try {
         addProject(newProject);
@@ -46,9 +49,9 @@ export default function HomePage() {
         console.error('Erreur lors de l\'ajout du projet:', error);
       }
     }
-  };
+  }, [newProject, addProject]);
 
-  const handleAddArea = () => {
+  const handleAddArea = useCallback(() => {
     if (newArea.trim()) {
       try {
         addArea(newArea);
@@ -57,18 +60,21 @@ export default function HomePage() {
         console.error('Erreur lors de l\'ajout de l\'area:', error);
       }
     }
-  };
+  }, [newArea, addArea]);
 
-  const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, action: () => void) => {
+    console.log('handleKeyDown appelé avec:', e.key, typeof action);
     if (e.key === 'Enter') {
       e.preventDefault();
       try {
+        console.log('Exécution de l\'action...');
         action();
+        console.log('Action exécutée avec succès');
       } catch (error) {
         console.error('Erreur lors de l\'exécution de l\'action:', error);
       }
     }
-  };
+  }, []);
 
 
   return (
