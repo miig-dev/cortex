@@ -1,7 +1,8 @@
 {
   "version": 4,
   "routes": {
-    "/focus": {
+    "/_not-found": {
+      "initialStatus": 404,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -14,8 +15,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/focus",
-      "dataRoute": "/focus.rsc",
+      "srcRoute": "/_not-found",
+      "dataRoute": "/_not-found.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/dashboard": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/dashboard",
+      "dataRoute": "/dashboard.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -73,7 +98,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/dashboard": {
+    "/stats": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -86,8 +111,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/dashboard",
-      "dataRoute": "/dashboard.rsc",
+      "srcRoute": "/stats",
+      "dataRoute": "/stats.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -121,7 +146,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/stats": {
+    "/focus": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -134,33 +159,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/stats",
-      "dataRoute": "/stats.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/_not-found": {
-      "initialStatus": 404,
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/_not-found",
-      "dataRoute": "/_not-found.rsc",
+      "srcRoute": "/focus",
+      "dataRoute": "/focus.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
