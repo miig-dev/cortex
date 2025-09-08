@@ -28,7 +28,7 @@ export function SearchAndFilters() {
       <h3 className="text-lg font-semibold" style={{ color: '#E0E0E0' }}>
         🔍 Recherche & Filtres
       </h3>
-      
+
       {/* Barre de recherche */}
       <div className="relative">
         <input

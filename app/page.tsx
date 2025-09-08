@@ -28,29 +28,45 @@ export default function HomePage() {
   // Fonctions pour ajouter des éléments
   const handleAddTask = () => {
     if (newTask.trim()) {
-      addTask(newTask, 'Freelance Work');
-      setNewTask('');
+      try {
+        addTask(newTask, 'Freelance Work');
+        setNewTask('');
+      } catch (error) {
+        console.error('Erreur lors de l\'ajout de la tâche:', error);
+      }
     }
   };
 
   const handleAddProject = () => {
     if (newProject.trim()) {
-      addProject(newProject);
-      setNewProject('');
+      try {
+        addProject(newProject);
+        setNewProject('');
+      } catch (error) {
+        console.error('Erreur lors de l\'ajout du projet:', error);
+      }
     }
   };
 
   const handleAddArea = () => {
     if (newArea.trim()) {
-      addArea(newArea);
-      setNewArea('');
+      try {
+        addArea(newArea);
+        setNewArea('');
+      } catch (error) {
+        console.error('Erreur lors de l\'ajout de l\'area:', error);
+      }
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      action();
+      try {
+        action();
+      } catch (error) {
+        console.error('Erreur lors de l\'exécution de l\'action:', error);
+      }
     }
   };
 
