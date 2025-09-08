@@ -1,7 +1,7 @@
 'use client';
 
 import { useCortexStore } from '@/stores/cortex-store';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function QuickStats() {
   const { getStats } = useCortexStore();
@@ -26,7 +26,7 @@ export function QuickStats() {
             </div>
           ))}
         </div>
-        
+
         {/* Répartition Eisenhower - état de chargement */}
         <div className="bg-gray-800 p-4 rounded-lg">
           <h3 className="text-lg font-semibold mb-3" style={{ color: '#E0E0E0' }}>
