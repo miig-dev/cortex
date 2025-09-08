@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useCortexStore } from '@/stores/cortex-store';
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export default function HomePage() {
   const {
@@ -114,8 +114,44 @@ export default function HomePage() {
           </div>
 
           {/* Colonne 2: Planificateur */}
-          <div className="xl:col-span-2">
+          <div className="xl:col-span-2 space-y-6">
             <QuickTasks />
+            
+            {/* Ajout de tâches dans le planificateur */}
+            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
+                  <span className="text-xl">➕</span>
+                  Ajouter une tâche
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <label htmlFor="new-task-planner" className="text-sm font-medium text-gray-400">
+                    Que devez-vous faire ?
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="new-task-planner"
+                      type="text"
+                      value={newTask}
+                      onChange={(e) => setNewTask(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
+                      placeholder="Tapez votre tâche ici..."
+                      className="flex-1"
+                      suppressHydrationWarning={true}
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleAddTask}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      Ajouter
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Colonne 3: Projets et Areas */}
@@ -135,33 +171,7 @@ export default function HomePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Ajouter une tâche */}
-                <div className="space-y-3">
-                  <label htmlFor="new-task" className="text-sm font-medium text-gray-400">
-                    Nouvelle tâche
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="new-task"
-                      type="text"
-                      value={newTask}
-                      onChange={(e) => setNewTask(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleAddTask)}
-                      placeholder="Que devez-vous faire ?"
-                      className="flex-1"
-                      suppressHydrationWarning={true}
-                    />
-                    <Button
-                      type="button"
-                      onClick={handleAddTask}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      ➕
-                    </Button>
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Ajouter un projet */}
                 <div className="space-y-3">
                   <label htmlFor="new-project" className="text-sm font-medium text-gray-400">
