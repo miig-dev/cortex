@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useCortexStore } from '@/stores/cortex-store';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export default function HomePage() {
   const { addTask, addProject, addArea } = useCortexStore();
@@ -22,7 +22,7 @@ export default function HomePage() {
   const [newArea, setNewArea] = useState('');
 
   // Fonctions pour ajouter des éléments
-  const handleAddTask = useCallback(() => {
+  const handleAddTask = () => {
     console.log('handleAddTask appelé avec:', newTask);
     if (newTask.trim()) {
       try {
@@ -33,47 +33,56 @@ export default function HomePage() {
       } catch (error) {
         console.error("Erreur lors de l'ajout de la tâche:", error);
       }
+    } else {
+      console.log('Tâche vide, rien à ajouter');
     }
-  }, [newTask, addTask]);
+  };
 
-  const handleAddProject = useCallback(() => {
+  const handleAddProject = () => {
+    console.log('handleAddProject appelé avec:', newProject);
     if (newProject.trim()) {
       try {
+        console.log('Ajout du projet...');
         addProject(newProject);
         setNewProject('');
+        console.log('Projet ajouté avec succès');
       } catch (error) {
         console.error("Erreur lors de l'ajout du projet:", error);
       }
+    } else {
+      console.log('Projet vide, rien à ajouter');
     }
-  }, [newProject, addProject]);
+  };
 
-  const handleAddArea = useCallback(() => {
+  const handleAddArea = () => {
+    console.log('handleAddArea appelé avec:', newArea);
     if (newArea.trim()) {
       try {
+        console.log('Ajout de l\'area...');
         addArea(newArea);
         setNewArea('');
+        console.log('Area ajoutée avec succès');
       } catch (error) {
         console.error("Erreur lors de l'ajout de l'area:", error);
       }
+    } else {
+      console.log('Area vide, rien à ajouter');
     }
-  }, [newArea, addArea]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, action: () => void) => {
-      console.log('handleKeyDown appelé avec:', e.key, typeof action);
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        try {
-          console.log("Exécution de l'action...");
-          action();
-          console.log('Action exécutée avec succès');
-        } catch (error) {
-          console.error("Erreur lors de l'exécution de l'action:", error);
-        }
+  const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
+    console.log('handleKeyDown appelé avec:', e.key, typeof action);
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      try {
+        console.log("Exécution de l'action...");
+        action();
+        console.log('Action exécutée avec succès');
+      } catch (error) {
+        console.error("Erreur lors de l'exécution de l'action:", error);
       }
-    },
-    [],
-  );
+    }
+  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#121212' }}>
