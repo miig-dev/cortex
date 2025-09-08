@@ -14,7 +14,7 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [sessionHistory, setSessionHistory] = useState<number[]>([]);
+  const [sessionHistory, setSessionHistory] = useState<Array<{id: string, time: number}>>([]);
 
   // Chronomètre logic
   useEffect(() => {
@@ -64,7 +64,11 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
 
     // Enregistrer le temps de la session
     if (elapsedTime > 0) {
-      setSessionHistory((prev) => [...prev, elapsedTime]);
+      const newSession = {
+        id: `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        time: elapsedTime
+      };
+      setSessionHistory((prev) => [...prev, newSession]);
       onTimeRecorded?.(elapsedTime);
 
       // Confettis pour célébrer
@@ -87,11 +91,11 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
 
   // Calculs des statistiques
   const totalTime =
-    sessionHistory.reduce((sum, time) => sum + time, 0) + elapsedTime;
+    sessionHistory.reduce((sum, session) => sum + session.time, 0) + elapsedTime;
   const averageTime =
     sessionHistory.length > 0
       ? Math.round(
-          sessionHistory.reduce((sum, time) => sum + time, 0) /
+          sessionHistory.reduce((sum, session) => sum + session.time, 0) /
             sessionHistory.length,
         )
       : 0;
@@ -248,12 +252,12 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
                 Historique des sessions :
               </h4>
               <div className="flex flex-wrap gap-2">
-                {sessionHistory.map((time, idx) => (
+                {sessionHistory.map((session) => (
                   <span
-                    key={`session-${time}-${idx}`}
+                    key={session.id}
                     className="px-2 py-1 bg-gray-700 text-slate-300 text-xs rounded font-mono"
                   >
-                    {formatTime(time)}
+                    {formatTime(session.time)}
                   </span>
                 ))}
               </div>
