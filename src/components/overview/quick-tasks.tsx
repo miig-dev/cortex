@@ -2,10 +2,17 @@
 
 import { TaskItem } from '@/components/task/task-item';
 import { useCortexStore } from '@/stores/cortex-store';
+import { useEffect, useState } from 'react';
 
 export function QuickTasks() {
   const { tasks, getFilteredTasks } = useCortexStore();
-  const recentTasks = getFilteredTasks().slice(0, 5);
+  const [isClient, setIsClient] = useState(false);
+  const [recentTasks, setRecentTasks] = useState<any[]>([]);
+
+  useEffect(() => {
+    setIsClient(true);
+    setRecentTasks(getFilteredTasks().slice(0, 5));
+  }, [getFilteredTasks]);
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
@@ -22,7 +29,12 @@ export function QuickTasks() {
 
       {/* Tâches récentes */}
       <div className="space-y-2">
-        {recentTasks.length === 0 ? (
+        {!isClient ? (
+          <div className="text-center py-6" style={{ color: '#6B7280' }}>
+            <div className="text-4xl mb-2 animate-pulse">⏳</div>
+            <div className="text-sm">Chargement...</div>
+          </div>
+        ) : recentTasks.length === 0 ? (
           <div className="text-center py-6" style={{ color: '#6B7280' }}>
             <div className="text-4xl mb-2">📝</div>
             <div className="text-sm">Aucune tâche</div>

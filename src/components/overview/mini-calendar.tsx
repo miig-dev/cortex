@@ -115,7 +115,7 @@ export function MiniCalendar() {
 
       {/* Jours de la semaine */}
       <div className="grid grid-cols-7 gap-1 mb-2">
-        {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, index) => (
+        {['L', 'M', 'W', 'J', 'V', 'S', 'D'].map((day, index) => (
           <div key={`day-${index}`} className="text-center text-xs font-bold" style={{ color: '#9CA3AF' }}>
             {day}
           </div>
