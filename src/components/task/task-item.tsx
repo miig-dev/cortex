@@ -14,9 +14,7 @@ interface TaskItemProps {
 
 export function TaskItem({
   task,
-  onEdit,
   onDelete,
-  onMove,
   showActions = true,
   compact = false,
 }: TaskItemProps) {
@@ -100,6 +98,7 @@ export function TaskItem({
             fill="currentColor"
             viewBox="0 0 20 20"
           >
+            <title>Coché</title>
             <path
               fillRule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -120,7 +119,6 @@ export function TaskItem({
             onBlur={handleEdit}
             className="w-full bg-transparent border-none outline-none text-sm"
             style={{ color: task.color || '#E0E0E0' }}
-            autoFocus={true}
           />
         ) : (
           <div className="flex items-center gap-2">
@@ -178,6 +176,7 @@ export function TaskItem({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Modifier</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -200,6 +199,7 @@ export function TaskItem({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Supprimer</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

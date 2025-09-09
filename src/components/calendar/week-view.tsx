@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import type { CalendarDay, CalendarEvent } from '@/types/calendar';
+import { useMemo, useState } from 'react';
 
 interface WeekViewProps {
   events: CalendarEvent[];
@@ -61,7 +61,6 @@ export function WeekView({
   const goToToday = () => {
     setCurrentDate(new Date());
   };
-
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('fr-FR', {

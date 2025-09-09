@@ -97,6 +97,7 @@ export function MiniCalendar() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Mois précédent</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -128,6 +129,7 @@ export function MiniCalendar() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Mois suivant</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -148,9 +150,9 @@ export function MiniCalendar() {
 
       {/* Jours de la semaine */}
       <div className="grid grid-cols-7 gap-1 mb-2">
-        {['L', 'M', 'W', 'J', 'V', 'S', 'D'].map((day, index) => (
+        {['L', 'M', 'W', 'J', 'V', 'S', 'D'].map((day) => (
           <div
-            key={`day-${index}`}
+            key={day}
             className="text-center text-xs font-bold"
             style={{ color: '#9CA3AF' }}
           >
@@ -161,11 +163,11 @@ export function MiniCalendar() {
 
       {/* Grille des jours */}
       <div className="grid grid-cols-7 gap-1">
-        {days.map((day, index) => {
+        {days.map((day) => {
           const dayEvents = getEventsForDate(day.date);
           return (
             <div
-              key={index}
+              key={day.date.toISOString()}
               className={`aspect-square flex flex-col items-center justify-center text-xs rounded-lg transition-colors ${
                 day.isToday
                   ? 'bg-purple-500 text-white font-bold'
@@ -177,9 +179,9 @@ export function MiniCalendar() {
               <span className="font-medium">{day.date.getDate()}</span>
               {dayEvents.length > 0 && (
                 <div className="flex gap-0.5 mt-1">
-                  {dayEvents.slice(0, 2).map((event, i) => (
+                  {dayEvents.slice(0, 2).map((event) => (
                     <div
-                      key={i}
+                      key={event.id}
                       className="w-1 h-1 rounded-full"
                       style={{ backgroundColor: event.color }}
                     />

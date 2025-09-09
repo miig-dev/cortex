@@ -117,6 +117,7 @@ export const FocusTimer: FC<FocusTimerProps> = ({
 
       {/* Cercle de fond */}
       <svg className="transform -rotate-90 w-full h-full">
+        <title>Timer circulaire</title>
         <circle
           cx="50%"
           cy="50%"

@@ -5,7 +5,18 @@ import { useCortexStore } from '@/stores/cortex-store';
 
 export function QuickStats() {
   const { getStats } = useCortexStore();
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<{
+    totalTasks: number;
+    completedTasks: number;
+    inProgressTasks: number;
+    completionRate: number;
+    eisenhowerBreakdown: {
+      urgentImportant: number;
+      notUrgentImportant: number;
+      urgentNotImportant: number;
+      notUrgentNotImportant: number;
+    };
+  } | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

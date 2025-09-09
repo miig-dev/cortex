@@ -49,10 +49,6 @@ export default function AgendaPage() {
     setShowEventModal(true);
   };
 
-  const handleTaskDrop = (taskId: number, date: Date, time?: string) => {
-    console.log('Tâche déplacée:', taskId, date, time);
-    // Ici on pourrait mettre à jour la date de la tâche
-  };
 
   const handleEventSave = (eventData: Omit<CalendarEvent, 'id'>) => {
     if (selectedEvent) {
@@ -135,7 +131,6 @@ export default function AgendaPage() {
           events={calendarEvents}
           onEventClick={handleEventClick}
           onEventCreate={handleEventCreate}
-          onTaskDrop={handleTaskDrop}
         />
 
         {/* Stats rapides */}
