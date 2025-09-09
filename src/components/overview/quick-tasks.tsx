@@ -1,18 +1,23 @@
 'use client';
 
 import { TaskItem } from '@/components/task/task-item';
-import { useCortexStore } from '@/stores/cortex-store';
+import { useCortexStore, type Task } from '@/stores/cortex-store';
 import { useEffect, useState } from 'react';
 
 export function QuickTasks() {
   const { tasks, getFilteredTasks } = useCortexStore();
   const [isClient, setIsClient] = useState(false);
-  const [recentTasks, setRecentTasks] = useState<any[]>([]);
+  const [recentTasks, setRecentTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     setIsClient(true);
-    setRecentTasks(getFilteredTasks().slice(0, 5));
-  }, [getFilteredTasks]);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      setRecentTasks(getFilteredTasks().slice(0, 5));
+    }
+  }, [isClient, getFilteredTasks]);
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
