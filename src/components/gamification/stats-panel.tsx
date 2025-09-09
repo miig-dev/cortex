@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
+
 import { cn } from '@/lib/utils';
 import { useGamificationStore } from '@/stores/gamification-store';
 import { BadgeComponent } from './badge';
@@ -35,7 +36,8 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
     .filter((badge) => badge.unlockedAt)
     .sort(
       (a, b) =>
-        new Date(b.unlockedAt || 0).getTime() - new Date(a.unlockedAt || 0).getTime(),
+        new Date(b.unlockedAt || 0).getTime() -
+        new Date(a.unlockedAt || 0).getTime(),
     )
     .slice(0, 3);
 
