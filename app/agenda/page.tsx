@@ -49,7 +49,6 @@ export default function AgendaPage() {
     setShowEventModal(true);
   };
 
-
   const handleEventSave = (eventData: Omit<CalendarEvent, 'id'>) => {
     if (selectedEvent) {
       updateEvent(selectedEvent.id, eventData);

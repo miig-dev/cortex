@@ -1,7 +1,8 @@
 'use client';
 
-import type { CalendarDay, CalendarEvent } from '@/types/calendar';
 import { useMemo, useState } from 'react';
+
+import type { CalendarDay, CalendarEvent } from '@/types/calendar';
 
 interface WeekViewProps {
   events: CalendarEvent[];
