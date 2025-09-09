@@ -4,6 +4,7 @@ import { useGamificationStore } from '@/stores/gamification-store';
 import { useEffect, useState } from 'react';
 
 export function CompactPomodoro() {
+  const [isClient, setIsClient] = useState(false);
   const { addExperience, unlockBadge } = useGamificationStore();
   const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 minutes en secondes
   const [isRunning, setIsRunning] = useState(false);
@@ -11,6 +12,12 @@ export function CompactPomodoro() {
   const [sessionCount, setSessionCount] = useState(0);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     let interval: NodeJS.Timeout;
 
     if (isRunning && timeLeft > 0) {
@@ -42,7 +49,7 @@ export function CompactPomodoro() {
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, timeLeft, isBreak, sessionCount, addExperience, unlockBadge]);
+  }, [isClient, isRunning, timeLeft, isBreak, sessionCount, addExperience, unlockBadge]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -64,6 +71,19 @@ export function CompactPomodoro() {
     const total = isBreak ? 5 * 60 : 25 * 60;
     return ((total - timeLeft) / total) * 100;
   };
+
+  if (!isClient) {
+    return (
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
+        <div className="flex items-center justify-center py-8">
+          <div className="text-center">
+            <div className="text-4xl mb-2 animate-pulse">🍅</div>
+            <div className="text-sm text-gray-400">Chargement...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
