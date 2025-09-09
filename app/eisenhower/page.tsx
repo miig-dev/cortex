@@ -1,5 +1,6 @@
 'use client';
 
+// biome-ignore assist/source/organizeImports: <explanation>
 import { EisenhowerMatrix } from '@/features/eisenhower/components/eisenhower-matrix';
 import type { EisenhowerQuadrant, EisenhowerTask } from '@/types/eisenhower';
 import { useState } from 'react';
@@ -41,9 +42,14 @@ const sampleTasks: EisenhowerTask[] = [
 ];
 
 export default function EisenhowerPage() {
-  const [tasks, setTasks] = useState<EisenhowerTask[]>(sampleTasks);
+  const [tasks] = useState<EisenhowerTask[]>(sampleTasks);
 
   const handleTaskMove = (taskId: string, newQuadrant: EisenhowerQuadrant) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, quadrant: newQuadrant } : task,
+      ),
+    );
     console.log(`Tâche ${taskId} déplacée vers ${newQuadrant}`);
     // Ici on pourrait sauvegarder en base de données
   };

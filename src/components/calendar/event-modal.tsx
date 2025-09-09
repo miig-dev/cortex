@@ -129,12 +129,14 @@ export function EventModal({
           {/* Titre */}
           <div>
             <label
+              htmlFor="event-title"
               className="block text-sm font-medium mb-2"
-              style={{ color: '#E0E0E0' }}
+              style={{ color: '#E0E0E0', fontFamily: "'Poppins', sans-serif" }}
             >
               Titre *
             </label>
             <input
+              id="event-title"
               type="text"
               value={formData.title}
               onChange={(e) =>
@@ -144,6 +146,7 @@ export function EventModal({
               style={{
                 borderColor: 'rgba(255,255,255,0.1)',
                 color: '#E0E0E0',
+                fontFamily: "'Lato', sans-serif",
               }}
               required
             />
@@ -152,12 +155,14 @@ export function EventModal({
           {/* Description */}
           <div>
             <label
+              htmlFor="event-description"
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
               Description
             </label>
             <textarea
+              id="event-description"
               value={formData.description}
               onChange={(e) =>
                 setFormData((prev) => ({
@@ -177,17 +182,19 @@ export function EventModal({
           {/* Type */}
           <div>
             <label
+              htmlFor="event-type"
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
               Type
             </label>
             <select
+              id="event-type"
               value={formData.type}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  type: e.target.value as any,
+                  type: e.target.value as 'task' | 'event' | 'meeting' | 'deadline',
                 }))
               }
               className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -206,12 +213,14 @@ export function EventModal({
           {/* Area */}
           <div>
             <label
+              htmlFor="event-area"
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
               Area
             </label>
             <select
+              id="event-area"
               value={formData.area}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, area: e.target.value }))
@@ -252,12 +261,14 @@ export function EventModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label
+                htmlFor="event-start-date"
                 className="block text-sm font-medium mb-2"
                 style={{ color: '#E0E0E0' }}
               >
                 Date de début *
               </label>
               <input
+                id="event-start-date"
                 type="date"
                 value={formData.startDate}
                 onChange={(e) =>
@@ -278,12 +289,14 @@ export function EventModal({
             {!formData.allDay && (
               <div>
                 <label
+                  htmlFor="event-start-time"
                   className="block text-sm font-medium mb-2"
                   style={{ color: '#E0E0E0' }}
                 >
                   Heure de début
                 </label>
                 <input
+                  id="event-start-time"
                   type="time"
                   value={formData.startTime}
                   onChange={(e) =>
@@ -305,12 +318,14 @@ export function EventModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label
+                htmlFor="event-end-date"
                 className="block text-sm font-medium mb-2"
                 style={{ color: '#E0E0E0' }}
               >
                 Date de fin *
               </label>
               <input
+                id="event-end-date"
                 type="date"
                 value={formData.endDate}
                 onChange={(e) =>
@@ -328,12 +343,14 @@ export function EventModal({
             {!formData.allDay && (
               <div>
                 <label
+                  htmlFor="event-end-time"
                   className="block text-sm font-medium mb-2"
                   style={{ color: '#E0E0E0' }}
                 >
                   Heure de fin
                 </label>
                 <input
+                  id="event-end-time"
                   type="time"
                   value={formData.endTime}
                   onChange={(e) =>
@@ -355,6 +372,7 @@ export function EventModal({
           {/* Couleur */}
           <div>
             <label
+              htmlFor="event-color"
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
