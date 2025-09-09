@@ -1,149 +1,132 @@
-# 🧠 Cortex App - Plateforme de Gestion Intelligente
+# 🧠 Cortex Dashboard
 
-> **Application de gestion de tâches moderne inspirée de la méthode P.A.R.A. et Notion**
+Une application de productivité moderne et minimaliste conçue pour les développeurs et freelances. Cortex Dashboard vous aide à organiser vos tâches, projets et areas de vie selon la méthode P.A.R.A. (Projects, Areas, Resources, Archive).
 
-## 🚀 Fonctionnalités Principales
+## ✨ Fonctionnalités
 
-### 📥 **Inbox - Capture Sans Friction**
-- Interface ultra-minimaliste pour capturer rapidement les idées
-- Auto-tagging avec syntaxe Markdown (`!urgent`, `#projet`, `@personne`)
-- Sauvegarde instantanée avec Enter ou Cmd+Enter
-- Design dark mode optimisé pour les développeurs
+### 🎯 **Dashboard Principal**
+- **Horloge numérique 24h** - Affichage du temps en temps réel
+- **Pomodoro intégré** - Timer de focus avec cycles travail/pause
+- **Recherche et filtres** - Trouvez rapidement vos tâches
+- **Statistiques visuelles** - Suivi de votre productivité
 
-### 🎯 **Quartier Général - Matrice Eisenhower**
-- Tri intelligent des tâches par urgence et importance
-- Drag & drop fluide entre les quadrants
-- Visualisation claire des priorités
-- Catégorisation automatique des nouvelles tâches
+### 📋 **Gestion des Tâches**
+- **Ajout rapide** - Capture instantanée de vos idées
+- **Matrice Eisenhower** - Tri automatique par urgence/importance
+- **Cases à cocher** - Suivi visuel de vos progrès
+- **Catégorisation intelligente** - Tags automatiques (!urgent, !important)
 
-### ⏱️ **Focus - Chronomètre de Tâches**
-- Chronomètre pour évaluer le temps réel des tâches
-- Timer avec pause/reprise/arrêt
-- Statistiques détaillées (temps total, moyen, sessions)
-- Historique des tâches chronométrées
-- Parfait pour évaluer le temps de correction de bugs
+### 🚀 **Gestion des Projets**
+- **Création rapide** - Ajoutez des projets en un clic
+- **Suivi des progrès** - Visualisation de l'avancement
+- **Couleurs dynamiques** - Organisation visuelle
 
-### 📊 **Dashboard - Vue d'Ensemble**
-- Interface Notion-like avec widgets compacts
-- Calendrier mini avec événements
-- Statistiques en temps réel
-- Ajout rapide de tâches, projets et areas
-- Horloge numérique et pomodoro compact
+### 🏢 **Areas de Vie**
+- **Organisation P.A.R.A.** - Structurez vos responsabilités
+- **Répartition des tâches** - Équilibre entre les différents domaines
+- **Suivi des objectifs** - Mesurez vos progrès
 
-### 📅 **Agenda - Planification**
-- Vue calendrier hebdomadaire
-- Intégration des tâches et événements
-- Création d'événements avec syntaxe Markdown
-- Gestion des plages horaires
+### 📅 **Agenda et Planning**
+- **Vue calendrier** - Planification hebdomadaire
+- **Événements** - Gestion de votre emploi du temps
+- **Intégration Markdown** - Import/export de vos données
 
-### 📈 **Statistiques - Suivi des Performances**
-- Métriques de productivité
-- Répartition Eisenhower
-- Historique des sessions
-- Graphiques de progression
+## 🛠️ Technologies
 
-## 🛠️ Stack Technique
+- **Next.js 15** - Framework React avec App Router
+- **TypeScript** - Typage statique pour plus de robustesse
+- **Tailwind CSS** - Styling moderne et responsive
+- **Zustand** - Gestion d'état légère et performante
+- **Framer Motion** - Animations fluides
+- **Shadcn/ui** - Composants UI professionnels
+- **Prisma** - ORM pour la base de données
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Animations**: Framer Motion
-- **State Management**: Zustand
-- **UI Components**: Shadcn/ui
-- **Linting**: Biome
-- **Package Manager**: pnpm
-
-## 🚀 Installation et Démarrage
+## 🚀 Installation
 
 ### Prérequis
 - Node.js 18+ 
-- pnpm
+- pnpm (recommandé)
 
 ### Installation
 ```bash
-# Cloner le projet
-git clone <repository-url>
-cd cortex-app
+# Cloner le repository
+git clone https://github.com/votre-username/cortex-dashboard.git
+cd cortex-dashboard
 
 # Installer les dépendances
 pnpm install
 
-# Démarrer en développement
+# Configurer l'environnement
+cp .env.example .env
+
+# Lancer l'application
 pnpm dev
 ```
 
-### Build de Production
-```bash
-# Build optimisé
-pnpm build
-
-# Démarrer en production
-pnpm start
-```
+L'application sera disponible sur [http://localhost:3000](http://localhost:3000)
 
 ## 📁 Structure du Projet
 
 ```
-cortex-app/
+cortex-dashboard/
 ├── app/                    # Pages Next.js (App Router)
 │   ├── page.tsx           # Dashboard principal
-│   ├── inbox/             # Capture de tâches
+│   ├── agenda/            # Page agenda
 │   ├── eisenhower/        # Matrice Eisenhower
-│   ├── focus/             # Chronomètre de tâches
-│   ├── agenda/            # Planification
-│   └── stats/             # Statistiques
+│   └── focus/             # Mode focus
 ├── src/
-│   ├── components/        # Composants réutilisables
-│   ├── features/          # Fonctionnalités métier
-│   ├── stores/            # Gestion d'état (Zustand)
-│   ├── types/             # Types TypeScript
-│   └── utils/             # Utilitaires
+│   ├── components/        # Composants React
+│   │   ├── overview/      # Composants du dashboard
+│   │   ├── task/          # Composants de tâches
+│   │   └── ui/            # Composants UI de base
+│   ├── stores/            # Stores Zustand
+│   ├── data/              # Données mockées
+│   └── lib/               # Utilitaires
+├── prisma/                # Schéma de base de données
 └── public/                # Assets statiques
 ```
 
-## 🎨 Design System
+## 🎨 Design
 
-### Palette de Couleurs
-- **Background**: `#121212` (Dark Charcoal)
-- **Text**: `#E0E0E0` (Light Gray)
-- **Urgent & Important**: `#EF476F` (Pulse Red)
-- **Important**: `#4CAF50` (Success Green)
-- **Urgent**: `#FF7733` (Warning Orange)
-- **Eliminate**: `#6B7280` (Neutral Gray)
+Cortex Dashboard utilise un design moderne et minimaliste :
 
-### Typographie
-- **Titres**: Poppins (H1, H2)
-- **Corps**: Lato (paragraphes)
-- **Code**: JetBrains Mono
+- **Thème sombre** - Réduit la fatigue oculaire
+- **Typographie monospace** - Inspirée du code
+- **Couleurs harmonisées** - Chaque fonction a sa couleur
+- **Glassmorphism** - Effets de transparence modernes
+- **Animations subtiles** - Interactions fluides
 
 ## 🔧 Scripts Disponibles
 
 ```bash
-pnpm dev          # Développement
-pnpm build        # Build de production
-pnpm start        # Serveur de production
-pnpm lint         # Linting
-pnpm type-check   # Vérification TypeScript
+pnpm dev          # Démarre le serveur de développement
+pnpm build        # Construit l'application pour la production
+pnpm start        # Démarre l'application en production
+pnpm lint         # Vérifie le code avec ESLint
+pnpm type-check   # Vérifie les types TypeScript
 ```
 
-## 📱 Responsive Design
+## 🤝 Contribution
 
-- **Mobile**: Interface adaptée pour smartphones
-- **Tablet**: Layout optimisé pour tablettes
-- **Desktop**: Expérience complète sur ordinateur
+Les contributions sont les bienvenues ! Pour contribuer :
 
-## 🚀 Déploiement
+1. Fork le projet
+2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
 
-L'application est prête pour le déploiement sur :
-- Vercel (recommandé)
-- Netlify
-- AWS Amplify
-- Tout hébergeur supportant Next.js
+## 📝 Licence
 
-## 📄 Licence
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-Propriétaire - Tous droits réservés
+## 🙏 Remerciements
+
+- [Next.js](https://nextjs.org/) - Framework React
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
+- [Zustand](https://zustand-demo.pmnd.rs/) - Gestion d'état
+- [Shadcn/ui](https://ui.shadcn.com/) - Composants UI
 
 ---
 
-**Développé avec ❤️ pour optimiser la productivité des développeurs**
+**Développé avec ❤️ pour la productivité des développeurs**

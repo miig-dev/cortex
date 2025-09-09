@@ -28,6 +28,10 @@ export default function HomePage() {
 
   // Fonctions pour ajouter des éléments
   const handleAddTask = () => {
+    console.log('🔍 handleAddTask appelé');
+    console.log('🔍 newTask:', newTask);
+    console.log('🔍 addTask function:', addTask);
+
     const trimmedTask = newTask.trim();
     if (!trimmedTask) {
       console.log('Tâche vide, rien à ajouter');
@@ -45,6 +49,10 @@ export default function HomePage() {
   };
 
   const handleAddProject = () => {
+    console.log('🔍 handleAddProject appelé');
+    console.log('🔍 newProject:', newProject);
+    console.log('🔍 addProject function:', addProject);
+
     const trimmedProject = newProject.trim();
     if (!trimmedProject) {
       console.log('Projet vide, rien à ajouter');
@@ -62,6 +70,10 @@ export default function HomePage() {
   };
 
   const handleAddArea = () => {
+    console.log('🔍 handleAddArea appelé');
+    console.log('🔍 newArea:', newArea);
+    console.log('🔍 addArea function:', addArea);
+
     const trimmedArea = newArea.trim();
     if (!trimmedArea) {
       console.log('Area vide, rien à ajouter');
