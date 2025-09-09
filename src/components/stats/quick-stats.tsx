@@ -1,7 +1,8 @@
 'use client';
 
-import { useCortexStore } from '@/stores/cortex-store';
 import { useEffect, useState } from 'react';
+
+import { useCortexStore } from '@/stores/cortex-store';
 
 export function QuickStats() {
   const { getStats } = useCortexStore();
