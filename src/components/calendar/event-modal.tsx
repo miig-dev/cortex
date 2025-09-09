@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
 import type { CalendarEvent } from '@/types/calendar';
+import { useEffect, useId, useState } from 'react';
 
 interface EventModalProps {
   isOpen: boolean;
@@ -22,6 +22,17 @@ export function EventModal({
   event,
 }: EventModalProps) {
   const { areas } = useCortexStore();
+
+  // Génération d'IDs uniques pour l'accessibilité
+  const titleId = useId();
+  const descriptionId = useId();
+  const typeId = useId();
+  const areaId = useId();
+  const allDayId = useId();
+  const startDateId = useId();
+  const startTimeId = useId();
+  const endDateId = useId();
+  const endTimeId = useId();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -129,14 +140,14 @@ export function EventModal({
           {/* Titre */}
           <div>
             <label
-              htmlFor="event-title"
+              htmlFor={titleId}
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0', fontFamily: "'Poppins', sans-serif" }}
             >
               Titre *
             </label>
             <input
-              id="event-title"
+              id={titleId}
               type="text"
               value={formData.title}
               onChange={(e) =>
@@ -155,14 +166,14 @@ export function EventModal({
           {/* Description */}
           <div>
             <label
-              htmlFor="event-description"
+              htmlFor={descriptionId}
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
               Description
             </label>
             <textarea
-              id="event-description"
+              id={descriptionId}
               value={formData.description}
               onChange={(e) =>
                 setFormData((prev) => ({
@@ -182,14 +193,14 @@ export function EventModal({
           {/* Type */}
           <div>
             <label
-              htmlFor="event-type"
+              htmlFor={typeId}
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
               Type
             </label>
             <select
-              id="event-type"
+              id={typeId}
               value={formData.type}
               onChange={(e) =>
                 setFormData((prev) => ({
@@ -217,14 +228,14 @@ export function EventModal({
           {/* Area */}
           <div>
             <label
-              htmlFor="event-area"
+              htmlFor={areaId}
               className="block text-sm font-medium mb-2"
               style={{ color: '#E0E0E0' }}
             >
               Area
             </label>
             <select
-              id="event-area"
+              id={areaId}
               value={formData.area}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, area: e.target.value }))
@@ -247,13 +258,13 @@ export function EventModal({
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              id="allDay"
+              id={allDayId}
               checked={formData.allDay}
               onChange={(e) => handleAllDayChange(e.target.checked)}
               className="w-4 h-4 rounded border-2 border-gray-400 bg-transparent focus:ring-2 focus:ring-blue-500"
             />
             <label
-              htmlFor="allDay"
+              htmlFor={allDayId}
               className="text-sm"
               style={{ color: '#E0E0E0' }}
             >
@@ -265,14 +276,14 @@ export function EventModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label
-                htmlFor="event-start-date"
+                htmlFor={startDateId}
                 className="block text-sm font-medium mb-2"
                 style={{ color: '#E0E0E0' }}
               >
                 Date de début *
               </label>
               <input
-                id="event-start-date"
+                id={startDateId}
                 type="date"
                 value={formData.startDate}
                 onChange={(e) =>
@@ -293,14 +304,14 @@ export function EventModal({
             {!formData.allDay && (
               <div>
                 <label
-                  htmlFor="event-start-time"
+                  htmlFor={startTimeId}
                   className="block text-sm font-medium mb-2"
                   style={{ color: '#E0E0E0' }}
                 >
                   Heure de début
                 </label>
                 <input
-                  id="event-start-time"
+                  id={startTimeId}
                   type="time"
                   value={formData.startTime}
                   onChange={(e) =>
@@ -322,14 +333,14 @@ export function EventModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label
-                htmlFor="event-end-date"
+                htmlFor={endDateId}
                 className="block text-sm font-medium mb-2"
                 style={{ color: '#E0E0E0' }}
               >
                 Date de fin *
               </label>
               <input
-                id="event-end-date"
+                id={endDateId}
                 type="date"
                 value={formData.endDate}
                 onChange={(e) =>
@@ -347,14 +358,14 @@ export function EventModal({
             {!formData.allDay && (
               <div>
                 <label
-                  htmlFor="event-end-time"
+                  htmlFor={endTimeId}
                   className="block text-sm font-medium mb-2"
                   style={{ color: '#E0E0E0' }}
                 >
                   Heure de fin
                 </label>
                 <input
-                  id="event-end-time"
+                  id={endTimeId}
                   type="time"
                   value={formData.endTime}
                   onChange={(e) =>
