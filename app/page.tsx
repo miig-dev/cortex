@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useCortexStore } from '@/stores/cortex-store';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 export default function HomePage() {
   const { addTask, addProject, addArea } = useCortexStore();
@@ -21,65 +21,70 @@ export default function HomePage() {
   const [newProject, setNewProject] = useState('');
   const [newArea, setNewArea] = useState('');
 
+  // Génération d'IDs uniques pour les inputs
+  const taskInputId = useId();
+  const projectInputId = useId();
+  const areaInputId = useId();
+
   // Fonctions pour ajouter des éléments
   const handleAddTask = () => {
-    console.log('handleAddTask appelé avec:', newTask);
-    if (newTask.trim()) {
-      try {
-        console.log('Ajout de la tâche...');
-        addTask(newTask, 'Freelance Work');
-        setNewTask('');
-        console.log('Tâche ajoutée avec succès');
-      } catch (error) {
-        console.error("Erreur lors de l'ajout de la tâche:", error);
-      }
-    } else {
+    const trimmedTask = newTask.trim();
+    if (!trimmedTask) {
       console.log('Tâche vide, rien à ajouter');
+      return;
+    }
+
+    try {
+      console.log('Ajout de la tâche:', trimmedTask);
+      addTask(trimmedTask, 'Freelance Work');
+      setNewTask('');
+      console.log('✅ Tâche ajoutée avec succès');
+    } catch (error) {
+      console.error("❌ Erreur lors de l'ajout de la tâche:", error);
     }
   };
 
   const handleAddProject = () => {
-    console.log('handleAddProject appelé avec:', newProject);
-    if (newProject.trim()) {
-      try {
-        console.log('Ajout du projet...');
-        addProject(newProject);
-        setNewProject('');
-        console.log('Projet ajouté avec succès');
-      } catch (error) {
-        console.error("Erreur lors de l'ajout du projet:", error);
-      }
-    } else {
+    const trimmedProject = newProject.trim();
+    if (!trimmedProject) {
       console.log('Projet vide, rien à ajouter');
+      return;
+    }
+
+    try {
+      console.log('Ajout du projet:', trimmedProject);
+      addProject(trimmedProject);
+      setNewProject('');
+      console.log('✅ Projet ajouté avec succès');
+    } catch (error) {
+      console.error("❌ Erreur lors de l'ajout du projet:", error);
     }
   };
 
   const handleAddArea = () => {
-    console.log('handleAddArea appelé avec:', newArea);
-    if (newArea.trim()) {
-      try {
-        console.log('Ajout de l\'area...');
-        addArea(newArea);
-        setNewArea('');
-        console.log('Area ajoutée avec succès');
-      } catch (error) {
-        console.error("Erreur lors de l'ajout de l'area:", error);
-      }
-    } else {
+    const trimmedArea = newArea.trim();
+    if (!trimmedArea) {
       console.log('Area vide, rien à ajouter');
+      return;
+    }
+
+    try {
+      console.log('Ajout de l\'area:', trimmedArea);
+      addArea(trimmedArea);
+      setNewArea('');
+      console.log('✅ Area ajoutée avec succès');
+    } catch (error) {
+      console.error("❌ Erreur lors de l'ajout de l'area:", error);
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
-    console.log('handleKeyDown appelé avec:', e.key, typeof action);
     if (e.key === 'Enter') {
       e.preventDefault();
       try {
-        console.log("Exécution de l'action...");
         action();
-        console.log('Action exécutée avec succès');
       } catch (error) {
-        console.error("Erreur lors de l'exécution de l'action:", error);
+        console.error("❌ Erreur lors de l'exécution de l'action:", error);
       }
     }
   };
@@ -135,14 +140,14 @@ export default function HomePage() {
                   {/* Ajouter une tâche */}
                   <div className="space-y-3">
                     <label
-                      htmlFor="new-task-planner"
+                      htmlFor={taskInputId}
                       className="text-sm font-medium text-gray-400"
                     >
                       Que devez-vous faire ?
                     </label>
                     <div className="flex gap-2">
                       <Input
-                        id="new-task-planner"
+                        id={taskInputId}
                         type="text"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
@@ -169,14 +174,14 @@ export default function HomePage() {
                     {/* Ajouter un projet */}
                     <div className="space-y-3">
                       <label
-                        htmlFor="new-project"
+                        htmlFor={projectInputId}
                         className="text-sm font-medium text-gray-400"
                       >
                         Nouveau projet
                       </label>
                       <div className="flex gap-2">
                         <Input
-                          id="new-project"
+                          id={projectInputId}
                           type="text"
                           value={newProject}
                           onChange={(e) => setNewProject(e.target.value)}
@@ -198,14 +203,14 @@ export default function HomePage() {
                     {/* Ajouter une area */}
                     <div className="space-y-3">
                       <label
-                        htmlFor="new-area"
+                        htmlFor={areaInputId}
                         className="text-sm font-medium text-gray-400"
                       >
                         Nouvelle area
                       </label>
                       <div className="flex gap-2">
                         <Input
-                          id="new-area"
+                          id={areaInputId}
                           type="text"
                           value={newArea}
                           onChange={(e) => setNewArea(e.target.value)}
