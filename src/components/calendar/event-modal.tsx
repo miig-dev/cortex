@@ -1,8 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
 import type { CalendarEvent } from '@/types/calendar';
-import { useEffect, useState } from 'react';
 
 interface EventModalProps {
   isOpen: boolean;

@@ -1,6 +1,6 @@
 'use client';
 
-// biome-ignore assist/source/organizeImports: <explanation>
+// biome-ignore assist/source/organizeImports: false positive
 import { EisenhowerMatrix } from '@/features/eisenhower/components/eisenhower-matrix';
 import type { EisenhowerQuadrant, EisenhowerTask } from '@/types/eisenhower';
 import { useState } from 'react';

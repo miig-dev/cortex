@@ -1,12 +1,12 @@
 'use client';
 
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
 import { EventModal } from '@/components/calendar/event-modal';
 import { MarkdownInput } from '@/components/calendar/markdown-input';
 import { WeekView } from '@/components/calendar/week-view';
 import { useCortexStore } from '@/stores/cortex-store';
 import type { CalendarEvent } from '@/types/calendar';
-import Link from 'next/link';
-import { useMemo, useState } from 'react';
 
 export default function AgendaPage() {
   const { tasks, events, addEvent, updateEvent } = useCortexStore();

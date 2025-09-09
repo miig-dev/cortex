@@ -50,7 +50,7 @@ Une application de productivité moderne et minimaliste conçue pour les dévelo
 ## 🚀 Installation
 
 ### Prérequis
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommandé)
 
 ### Installation
