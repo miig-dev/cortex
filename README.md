@@ -56,8 +56,8 @@ Une application de productivité moderne et minimaliste conçue pour les dévelo
 ### Installation
 ```bash
 # Cloner le repository
-git clone https://github.com/votre-username/cortex-dashboard.git
-cd cortex-dashboard
+git clone https://github.com/miig-dev/cortex.git
+cd cortex
 
 # Installer les dépendances
 pnpm install
@@ -74,7 +74,7 @@ L'application sera disponible sur [http://localhost:3000](http://localhost:3000)
 ## 📁 Structure du Projet
 
 ```
-cortex-dashboard/
+cortex/
 ├── app/                    # Pages Next.js (App Router)
 │   ├── page.tsx           # Dashboard principal
 │   ├── agenda/            # Page agenda
