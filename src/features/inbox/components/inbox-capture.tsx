@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { CortexLogo } from '@/components/ui/cortex-logo';
 import { useGamificationStore } from '@/stores/gamification-store';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 interface InboxItem {
   id: string;

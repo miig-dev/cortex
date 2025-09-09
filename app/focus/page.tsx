@@ -1,7 +1,7 @@
 'use client';
 
-import { TaskTimer } from '@/features/focus/components/task-timer';
 import { useState } from 'react';
+import { TaskTimer } from '@/features/focus/components/task-timer';
 
 export default function FocusPage() {
   const [currentTask, setCurrentTask] = useState(
@@ -32,7 +32,7 @@ export default function FocusPage() {
       'Quelle tâche voulez-vous chronométrer ?',
       currentTask,
     );
-      if (newTask?.trim()) {
+    if (newTask?.trim()) {
       setCurrentTask(newTask.trim());
     }
   };

@@ -1,7 +1,7 @@
 'use client';
 
-import { type Task, useCortexStore } from '@/stores/cortex-store';
 import { useState } from 'react';
+import { type Task, useCortexStore } from '@/stores/cortex-store';
 
 interface TaskItemProps {
   task: Task;

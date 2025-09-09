@@ -8,6 +8,8 @@ import {
   type DragStartEvent,
 } from '@dnd-kit/core';
 import { motion } from 'framer-motion';
+import { ArrowRight, Clock } from 'lucide-react';
+import Link from 'next/link';
 import { type FC, useState } from 'react';
 import { CortexLogo } from '@/components/ui/cortex-logo';
 import type {
@@ -17,8 +19,6 @@ import type {
 } from '@/types/eisenhower';
 import { EisenhowerQuadrantComponent } from './eisenhower-quadrant';
 import { TaskCard } from './task-card';
-import Link from 'next/link';
-import { ArrowRight, Clock } from 'lucide-react';
 
 interface EisenhowerMatrixProps {
   initialTasks?: EisenhowerTask[];

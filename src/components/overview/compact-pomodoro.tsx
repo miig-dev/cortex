@@ -1,7 +1,7 @@
 'use client';
 
-import { useGamificationStore } from '@/stores/gamification-store';
 import { useEffect, useState } from 'react';
+import { useGamificationStore } from '@/stores/gamification-store';
 
 export function CompactPomodoro() {
   const [isClient, setIsClient] = useState(false);
@@ -49,7 +49,15 @@ export function CompactPomodoro() {
     }
 
     return () => clearInterval(interval);
-  }, [isClient, isRunning, timeLeft, isBreak, sessionCount, addExperience, unlockBadge]);
+  }, [
+    isClient,
+    isRunning,
+    timeLeft,
+    isBreak,
+    sessionCount,
+    addExperience,
+    unlockBadge,
+  ]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);

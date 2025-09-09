@@ -1,7 +1,7 @@
 'use client';
 
-import { useCortexStore } from '@/stores/cortex-store';
 import Link from 'next/link';
+import { useCortexStore } from '@/stores/cortex-store';
 
 export function QuickAreas() {
   const { areas, tasks } = useCortexStore();

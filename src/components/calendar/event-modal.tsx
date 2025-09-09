@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { CalendarEvent } from '@/types/calendar';
+import { useEffect, useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
+import type { CalendarEvent } from '@/types/calendar';
 
 interface EventModalProps {
   isOpen: boolean;
@@ -114,6 +114,7 @@ export function EventModal({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Fermer</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

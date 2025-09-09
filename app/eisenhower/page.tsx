@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { EisenhowerMatrix } from '@/features/eisenhower/components/eisenhower-matrix';
 import type { EisenhowerQuadrant, EisenhowerTask } from '@/types/eisenhower';
+import { useState } from 'react';
 
 // Tâches d'exemple pour la démonstration
 const sampleTasks: EisenhowerTask[] = [

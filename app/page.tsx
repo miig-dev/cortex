@@ -1,5 +1,6 @@
 'use client';
 
+import { useId, useState } from 'react';
 import { SearchAndFilters } from '@/components/filters/search-and-filters';
 import { CompactPomodoro } from '@/components/overview/compact-pomodoro';
 import { DigitalClock } from '@/components/overview/digital-clock';
@@ -12,7 +13,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useCortexStore } from '@/stores/cortex-store';
-import { useId, useState } from 'react';
 
 export default function HomePage() {
   const { addTask, addProject, addArea } = useCortexStore();
@@ -81,7 +81,7 @@ export default function HomePage() {
     }
 
     try {
-      console.log('Ajout de l\'area:', trimmedArea);
+      console.log("Ajout de l'area:", trimmedArea);
       addArea(trimmedArea);
       setNewArea('');
       console.log('✅ Area ajoutée avec succès');
@@ -151,8 +151,12 @@ export default function HomePage() {
             <Card className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 border-gray-700/50 backdrop-blur-sm shadow-2xl hover:shadow-blue-500/10 transition-all duration-300">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg font-bold flex items-center gap-2 text-white">
-                  <span className="text-2xl bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">⚡</span>
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Ajout rapide</span>
+                  <span className="text-2xl bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                    ⚡
+                  </span>
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    Ajout rapide
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>

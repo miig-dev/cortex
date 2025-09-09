@@ -14,7 +14,9 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [sessionHistory, setSessionHistory] = useState<Array<{id: string, time: number}>>([]);
+  const [sessionHistory, setSessionHistory] = useState<
+    Array<{ id: string; time: number }>
+  >([]);
 
   // Chronomètre logic
   useEffect(() => {
@@ -66,7 +68,7 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
     if (elapsedTime > 0) {
       const newSession = {
         id: `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        time: elapsedTime
+        time: elapsedTime,
       };
       setSessionHistory((prev) => [...prev, newSession]);
       onTimeRecorded?.(elapsedTime);
@@ -91,7 +93,8 @@ export const TaskTimer: FC<TaskTimerProps> = ({ task, onTimeRecorded }) => {
 
   // Calculs des statistiques
   const totalTime =
-    sessionHistory.reduce((sum, session) => sum + session.time, 0) + elapsedTime;
+    sessionHistory.reduce((sum, session) => sum + session.time, 0) +
+    elapsedTime;
   const averageTime =
     sessionHistory.length > 0
       ? Math.round(

@@ -1,7 +1,7 @@
 'use client';
 
-import { useCortexStore } from '@/stores/cortex-store';
 import { useState } from 'react';
+import { useCortexStore } from '@/stores/cortex-store';
 
 export function MiniCalendar() {
   const { events } = useCortexStore();

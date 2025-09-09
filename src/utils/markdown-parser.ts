@@ -1,4 +1,4 @@
-import { CalendarEvent, MarkdownTask } from '@/types/calendar';
+import type { CalendarEvent, MarkdownTask } from '@/types/calendar';
 
 /**
  * Parse une chaîne markdown et extrait les tâches avec leurs métadonnées
@@ -129,10 +129,11 @@ function parseDate(dateStr: string): Date {
       return getNextWeekday(today, 6);
     case 'sunday':
       return getNextWeekday(today, 0);
-    default:
+    default: {
       // Format YYYY-MM-DD
       const date = new Date(dateStr);
       return isNaN(date.getTime()) ? today : date;
+    }
   }
 }
 
@@ -159,12 +160,12 @@ export function markdownTaskToEvent(
   const startDate = task.date || new Date();
   const startTime = task.time ? parseTime(task.time) : null;
 
-  let start = new Date(startDate);
+  const start = new Date(startDate);
   if (startTime) {
     start.setHours(startTime.hours, startTime.minutes, 0, 0);
   }
 
-  let end = new Date(start);
+  const end = new Date(start);
   if (startTime) {
     end.setHours(start.getHours() + 1); // Durée par défaut d'1 heure
   } else {
@@ -192,7 +193,7 @@ function parseTime(timeStr: string): { hours: number; minutes: number } {
   // Format 24h: 14:30, 14:30:00
   let match = timeStr.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
   if (match) {
-    let hours = parseInt(match[1], 10);
+    const hours = parseInt(match[1], 10);
     const minutes = parseInt(match[2], 10);
     return { hours, minutes };
   }

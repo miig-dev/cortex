@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { useGamificationStore } from '@/stores/gamification-store';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
+import { cn } from '@/lib/utils';
+import { useGamificationStore } from '@/stores/gamification-store';
 import { BadgeComponent } from './badge';
 import { ProgressBar } from './progress-bar';
 

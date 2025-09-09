@@ -1,12 +1,12 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
-import { CalendarEvent } from '@/types/calendar';
+import type { CalendarEvent } from '@/types/calendar';
 import {
   markdownTaskToEvent,
   parseMarkdownTasks,
 } from '@/utils/markdown-parser';
-import { useRef, useState } from 'react';
 
 interface MarkdownInputProps {
   onTasksCreated?: (events: CalendarEvent[]) => void;

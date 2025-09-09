@@ -1,11 +1,11 @@
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import {
   mockAreas,
   mockEvents,
   mockProjects,
   mockTasks,
 } from '@/data/mock-data';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export type TaskQuadrant =
   | 'urgent_important'
