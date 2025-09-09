@@ -106,13 +106,13 @@ temp/
 ehthumbs.db
 Thumbs.db
 
-# Screenshots and captures
+# Screenshots and captures (except documentation)
 screencapture-*.png
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.webp
+# Allow documentation screenshots
+!docs/screenshots/
+!screenshots/
+!*.demo.png
+!*.preview.png
 
 # Test files
 test-results/

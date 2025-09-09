@@ -2,6 +2,12 @@
 
 Une application de productivité moderne et minimaliste conçue pour les développeurs et freelances. Cortex Dashboard vous aide à organiser vos tâches, projets et areas de vie selon la méthode P.A.R.A. (Projects, Areas, Resources, Archive).
 
+## 🖼️ Aperçu
+
+![Cortex Dashboard](docs/screenshots/dashboard-preview.png)
+
+*Interface moderne et minimaliste du dashboard principal*
+
 ## ✨ Fonctionnalités
 
 ### 🎯 **Dashboard Principal**
