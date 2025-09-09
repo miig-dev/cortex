@@ -132,7 +132,7 @@ function parseDate(dateStr: string): Date {
     default: {
       // Format YYYY-MM-DD
       const date = new Date(dateStr);
-      return isNaN(date.getTime()) ? today : date;
+      return Number.isNaN(date.getTime()) ? today : date;
     }
   }
 }

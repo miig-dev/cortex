@@ -42,7 +42,7 @@ const sampleTasks: EisenhowerTask[] = [
 ];
 
 export default function EisenhowerPage() {
-  const [tasks] = useState<EisenhowerTask[]>(sampleTasks);
+  const [tasks, setTasks] = useState<EisenhowerTask[]>(sampleTasks);
 
   const handleTaskMove = (taskId: string, newQuadrant: EisenhowerQuadrant) => {
     setTasks((prevTasks) =>

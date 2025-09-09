@@ -19,6 +19,7 @@ export const CortexLogo: FC<CortexLogoProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
+      <title>Cortex Logo</title>
       {/* Cercle (Cortex) */}
       <circle
         cx="60"

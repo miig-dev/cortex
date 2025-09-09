@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
 import type { CalendarEvent } from '@/types/calendar';
+import { useEffect, useState } from 'react';
 
 interface EventModalProps {
   isOpen: boolean;
@@ -194,7 +194,11 @@ export function EventModal({
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  type: e.target.value as 'task' | 'event' | 'meeting' | 'deadline',
+                  type: e.target.value as
+                    | 'task'
+                    | 'event'
+                    | 'meeting'
+                    | 'deadline',
                 }))
               }
               className="w-full px-3 py-2 rounded-lg border-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"

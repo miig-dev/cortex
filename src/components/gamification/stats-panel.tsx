@@ -35,7 +35,7 @@ export const StatsPanel: FC<StatsPanelProps> = ({ className }) => {
     .filter((badge) => badge.unlockedAt)
     .sort(
       (a, b) =>
-        new Date(b.unlockedAt!).getTime() - new Date(a.unlockedAt!).getTime(),
+        new Date(b.unlockedAt || 0).getTime() - new Date(a.unlockedAt || 0).getTime(),
     )
     .slice(0, 3);
 

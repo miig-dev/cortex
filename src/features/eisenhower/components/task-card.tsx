@@ -84,6 +84,7 @@ export const TaskCard: FC<TaskCardProps> = ({
         <div className="flex gap-1">
           {onComplete && (
             <button
+              type="button"
               onClick={() => onComplete(task.id)}
               className="p-1 rounded bg-cortex-soft-green/20 text-cortex-soft-green hover:bg-cortex-soft-green/30 transition-colors"
               title="Marquer comme terminé"
@@ -93,6 +94,7 @@ export const TaskCard: FC<TaskCardProps> = ({
           )}
           {onDelete && (
             <button
+              type="button"
               onClick={() => onDelete(task.id)}
               className="p-1 rounded bg-cortex-pulse-red/20 text-cortex-pulse-red hover:bg-cortex-pulse-red/30 transition-colors"
               title="Supprimer"
