@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useCortexStore } from '@/stores/cortex-store';
+import { useEffect, useState } from 'react';
 
 export function QuickStats() {
   const { getStats } = useCortexStore();
@@ -94,7 +94,7 @@ export function QuickStats() {
 
         <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-lg text-center">
           <div className="text-xl font-bold text-white mb-1">
-            {stats.pendingTasks}
+            {stats.inProgressTasks}
           </div>
           <div className="text-xs text-orange-100 leading-tight">En cours</div>
         </div>
@@ -123,7 +123,7 @@ export function QuickStats() {
               🔥 Urgent & Important
             </span>
             <span className="text-sm font-bold" style={{ color: '#EF476F' }}>
-              {stats.tasksByQuadrant.urgent_important || 0}
+              {stats.eisenhowerBreakdown.urgentImportant || 0}
             </span>
           </div>
           <div
@@ -134,7 +134,7 @@ export function QuickStats() {
               📋 Important
             </span>
             <span className="text-sm font-bold" style={{ color: '#4CAF50' }}>
-              {stats.tasksByQuadrant.noturgent_important || 0}
+              {stats.eisenhowerBreakdown.notUrgentImportant || 0}
             </span>
           </div>
           <div
@@ -145,7 +145,7 @@ export function QuickStats() {
               ⚡ Urgent
             </span>
             <span className="text-sm font-bold" style={{ color: '#FF7733' }}>
-              {stats.tasksByQuadrant.urgent_notimportant || 0}
+              {stats.eisenhowerBreakdown.urgentNotImportant || 0}
             </span>
           </div>
           <div
@@ -156,7 +156,7 @@ export function QuickStats() {
               🗑️ Éliminer
             </span>
             <span className="text-sm font-bold" style={{ color: '#6B7280' }}>
-              {stats.tasksByQuadrant.noturgent_notimportant || 0}
+              {stats.eisenhowerBreakdown.notUrgentNotImportant || 0}
             </span>
           </div>
         </div>

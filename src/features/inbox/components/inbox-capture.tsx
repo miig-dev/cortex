@@ -31,9 +31,9 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.style.height = 'auto';
-      inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
     }
-  }, [inputValue]);
+  });
 
   // Auto-tagging intelligent
   const extractTags = (text: string): string[] => {
@@ -122,10 +122,11 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
   const renderTags = (text: string) => {
     const words = text.split(' ');
     return words.map((word, index) => {
+      const uniqueKey = `${word}-${index}`;
       if (word.startsWith('!urgent') || word.startsWith('!important')) {
         return (
           <span
-            key={index}
+            key={uniqueKey}
             className="inline-block bg-cortex-pulse-red/20 text-cortex-pulse-red px-2 py-1 rounded text-sm font-mono font-bold mr-1"
           >
             {word}
@@ -135,7 +136,7 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
       if (word.startsWith('#')) {
         return (
           <span
-            key={index}
+            key={uniqueKey}
             className="inline-block bg-cortex-electric-blue/20 text-cortex-electric-blue px-2 py-1 rounded text-sm font-mono font-bold mr-1"
           >
             {word}
@@ -145,14 +146,14 @@ export function InboxCapture({ onItemAdded, pendingCount }: InboxCaptureProps) {
       if (word.startsWith('@')) {
         return (
           <span
-            key={index}
+            key={uniqueKey}
             className="inline-block bg-cortex-vibrant-orange/20 text-cortex-vibrant-orange px-2 py-1 rounded text-sm font-mono font-bold mr-1"
           >
             {word}
           </span>
         );
       }
-      return <span key={index}>{word} </span>;
+      return <span key={uniqueKey}>{word} </span>;
     });
   };
 
