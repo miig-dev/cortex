@@ -7,17 +7,14 @@ interface WeekViewProps {
   events: CalendarEvent[];
   onEventClick?: (event: CalendarEvent) => void;
   onEventCreate?: (date: Date, time?: string) => void;
-  onTaskDrop?: (taskId: number, date: Date, time?: string) => void;
 }
 
 export function WeekView({
   events,
   onEventClick,
   onEventCreate,
-  onTaskDrop,
 }: WeekViewProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [draggedTask, setDraggedTask] = useState<number | null>(null);
 
   // Générer les jours de la semaine
   const weekDays = useMemo(() => {
@@ -65,25 +62,6 @@ export function WeekView({
     setCurrentDate(new Date());
   };
 
-  const handleDragOver = (e: React.DragEvent, date: Date) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: React.DragEvent, date: Date) => {
-    e.preventDefault();
-    const taskId = e.dataTransfer.getData('text/plain');
-    if (taskId && onTaskDrop) {
-      onTaskDrop(parseInt(taskId, 10), date);
-    }
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('fr-FR', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-    });
-  };
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('fr-FR', {
@@ -129,6 +107,7 @@ export function WeekView({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Précédent</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -162,6 +141,7 @@ export function WeekView({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Suivant</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -176,7 +156,7 @@ export function WeekView({
       {/* Grille de la semaine */}
       <div className="grid grid-cols-7 gap-2">
         {/* En-têtes des jours */}
-        {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day, index) => (
+        {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day) => (
           <div
             key={day}
             className="p-4 text-center font-bold text-sm uppercase tracking-wider"
@@ -187,16 +167,14 @@ export function WeekView({
         ))}
 
         {/* Jours de la semaine */}
-        {weekDays.map((day, index) => (
+        {weekDays.map((day) => (
           <div
-            key={index}
+            key={`day-${day.date.toISOString()}`}
             className={`min-h-[140px] p-3 border-2 rounded-xl transition-all duration-200 hover:shadow-lg ${
               day.isToday
                 ? 'border-purple-500 bg-gradient-to-br from-purple-500/20 to-purple-600/10 shadow-purple-500/20'
                 : 'border-gray-600 hover:border-gray-500 bg-gray-800/50 hover:bg-gray-800/70'
             }`}
-            onDragOver={(e) => handleDragOver(e, day.date)}
-            onDrop={(e) => handleDrop(e, day.date)}
           >
             {/* Numéro du jour */}
             <div className="flex items-center justify-between mb-3">
@@ -225,6 +203,7 @@ export function WeekView({
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
+                  <title>Ajouter un événement</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -238,16 +217,17 @@ export function WeekView({
             {/* Événements du jour */}
             <div className="space-y-2">
               {day.events.map((event) => (
-                <div
+                <button
                   key={event.id}
                   onClick={() => onEventClick?.(event)}
-                  className="p-2 rounded-lg text-xs cursor-pointer hover:opacity-90 transition-all duration-200 hover:scale-105 shadow-sm"
+                  className="w-full p-2 rounded-lg text-xs cursor-pointer hover:opacity-90 transition-all duration-200 hover:scale-105 shadow-sm text-left"
                   style={{
-                    backgroundColor: event.color + '25',
+                    backgroundColor: `${event.color}25`,
                     borderLeft: `4px solid ${event.color}`,
                     color: '#E0E0E0',
                     boxShadow: `0 2px 8px ${event.color}20`,
                   }}
+                  type="button"
                 >
                   <div className="font-semibold truncate mb-1">
                     {event.title}
@@ -262,7 +242,7 @@ export function WeekView({
                       {event.area}
                     </div>
                   )}
-                </div>
+                </button>
               ))}
             </div>
           </div>
