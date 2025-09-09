@@ -1,7 +1,7 @@
 'use client';
 
 import { TaskItem } from '@/components/task/task-item';
-import { useCortexStore, type Task } from '@/stores/cortex-store';
+import { type Task, useCortexStore } from '@/stores/cortex-store';
 import { useEffect, useState } from 'react';
 
 export function QuickTasks() {
@@ -17,7 +17,7 @@ export function QuickTasks() {
     if (isClient) {
       setRecentTasks(getFilteredTasks().slice(0, 5));
     }
-  }, [isClient, getFilteredTasks]);
+  }, [isClient, tasks, getFilteredTasks]);
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
